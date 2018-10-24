@@ -1,0 +1,18 @@
+// TODO: Refactor.
+
+.page-home, .page-post-detail {
+  .post-type-quote {
+    .post-header,
+    .post-tags {
+      display: none;
+
+      a{
+        border-bottom:none;
+      }
+    }
+
+    blockquote {
+      @extend .blockquote-center
+    }
+  }
+}
