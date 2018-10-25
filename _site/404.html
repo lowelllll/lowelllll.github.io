@@ -24,11 +24,11 @@
       height: 200px;
       margin: 0 auto;
       margin-top: 300px;
-      background-color: #8565fc0d;
+      /* background-color: #8565fc0d; */
       border-radius: 20px;
     }
 
-    div > p:first-child{
+    div > p{
       font-size: 80px;
       text-align: center;
       font-weight: bold;
@@ -36,12 +36,23 @@
       padding-top: 30px;
     }
 
-    div > p:last-child{
+    .text{
       font-size: 20px;
-      text-align: center;
+      font-weight: 100;
       margin-top: 10px;
       color: #a5a3a3;
+      padding:0;
       font-family: 'Nanum Gothic', sans-serif;
+    }
+
+    .text > a{
+      font-size:13px;
+      text-decoration: none;
+      color:#a5a3a3;
+    }
+
+    .text > a:hover{
+      text-decoration: underline;
     }
   </style>
 </head>
@@ -49,7 +60,10 @@
  <div class="wrap">
   <div>
     <p>404 Not Found!</p>
-    <p>올바르지 않은 접근입니다.</p>
+    <p class="text">올바르지 않은 접근입니다.</p>
+    <p class="text">
+      <a href="https://lowelllll.github.io">lowell's blog로 돌아가기</a>
+    </p>
   </div>
  </div>
 </body>
