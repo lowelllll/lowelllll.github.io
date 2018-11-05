@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
+<loc>http://localhost:4000/python/2018/08/23/python3-venv-%EA%B0%80%EC%83%81%ED%99%98%EA%B2%BD-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0/</loc>
+<lastmod>2018-08-23T00:00:00+09:00</lastmod>
+</url>
+<url>
 <loc>http://localhost:4000/django/2018/10/24/Django-heroku-deploy/</loc>
 <lastmod>2018-10-24T00:00:00+09:00</lastmod>
 </url>
@@ -46,6 +50,9 @@
 </url>
 <url>
 <loc>http://localhost:4000/assets/lib/jquery_lazyload/</loc>
+</url>
+<url>
+<loc>http://localhost:4000/page2/</loc>
 </url>
 <url>
 <loc>http://localhost:4000/404.html</loc>

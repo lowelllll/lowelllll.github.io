@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.5.2">Jekyll</generator><link href="http://localhost:4000/atom.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-11-05T14:29:23+09:00</updated><id>http://localhost:4000/</id><title type="html">Lowell’s Blog</title><subtitle>lowell의 기술 블로그 </subtitle><author><name>Lowell</name></author><entry><title type="html">레드햇 페도라에서 Nginx 설치하기</title><link href="http://localhost:4000/nginx/2018/11/05/%EB%A0%88%EB%93%9C%ED%96%87-%ED%8E%98%EB%8F%84%EB%9D%BC%EC%97%90%EC%84%9C-Nginx-%EC%84%A4%EC%B9%98%ED%95%98%EA%B8%B0/" rel="alternate" type="text/html" title="레드햇 페도라에서 Nginx 설치하기" /><published>2018-11-05T00:00:00+09:00</published><updated>2018-11-05T00:00:00+09:00</updated><id>http://localhost:4000/nginx/2018/11/05/%EB%A0%88%EB%93%9C%ED%96%87%20%ED%8E%98%EB%8F%84%EB%9D%BC%EC%97%90%EC%84%9C%20Nginx%20%EC%84%A4%EC%B9%98%ED%95%98%EA%B8%B0</id><content type="html" xml:base="http://localhost:4000/nginx/2018/11/05/%EB%A0%88%EB%93%9C%ED%96%87-%ED%8E%98%EB%8F%84%EB%9D%BC%EC%97%90%EC%84%9C-Nginx-%EC%84%A4%EC%B9%98%ED%95%98%EA%B8%B0/">&lt;p&gt;레드햇 페도라에서 Nginx 웹 서버를 설치한다. centos OS에서도 똑같이 설치할 수 있다.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.5.2">Jekyll</generator><link href="http://localhost:4000/atom.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-11-05T14:55:59+09:00</updated><id>http://localhost:4000/</id><title type="html">Lowell’s Blog</title><subtitle>lowell의 기술 블로그 </subtitle><author><name>Lowell</name></author><entry><title type="html">레드햇 페도라에서 Nginx 설치하기</title><link href="http://localhost:4000/nginx/2018/11/05/%EB%A0%88%EB%93%9C%ED%96%87-%ED%8E%98%EB%8F%84%EB%9D%BC%EC%97%90%EC%84%9C-Nginx-%EC%84%A4%EC%B9%98%ED%95%98%EA%B8%B0/" rel="alternate" type="text/html" title="레드햇 페도라에서 Nginx 설치하기" /><published>2018-11-05T00:00:00+09:00</published><updated>2018-11-05T00:00:00+09:00</updated><id>http://localhost:4000/nginx/2018/11/05/%EB%A0%88%EB%93%9C%ED%96%87%20%ED%8E%98%EB%8F%84%EB%9D%BC%EC%97%90%EC%84%9C%20Nginx%20%EC%84%A4%EC%B9%98%ED%95%98%EA%B8%B0</id><content type="html" xml:base="http://localhost:4000/nginx/2018/11/05/%EB%A0%88%EB%93%9C%ED%96%87-%ED%8E%98%EB%8F%84%EB%9D%BC%EC%97%90%EC%84%9C-Nginx-%EC%84%A4%EC%B9%98%ED%95%98%EA%B8%B0/">&lt;p&gt;레드햇 페도라에서 Nginx 웹 서버를 설치한다. centos OS에서도 똑같이 설치할 수 있다.&lt;/p&gt;
 
 &lt;p&gt;먼저 nginx를 받을 repository를 추가한다.&lt;/p&gt;
 
@@ -601,4 +601,61 @@ $ heroku run python manage.py createsuperuser
 
 &lt;p&gt;&lt;a href=&quot;http://ggilrong.tistory.com/entry/heroku%EC%97%90-django-%EC%95%B1%EB%B0%B0%ED%8F%AC%ED%95%98%EA%B8%B0&quot;&gt;http://ggilrong.tistory.com/entry/heroku%EC%97%90-django-%EC%95%B1%EB%B0%B0%ED%8F%AC%ED%95%98%EA%B8%B0&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;http://morningbird.tistory.com/23&quot;&gt;http://morningbird.tistory.com/23&lt;/a&gt;&lt;/p&gt;</content><author><name>Lowell</name></author><category term="django" /><category term="django 배포" /><category term="django heroku" /><category term="heroku" /><summary type="html">heroku로 django project 배포하기 PaaS 서비스 중 하나인 heroku를 통해 django project를 배포하는 법.</summary></entry></feed>
+&lt;p&gt;&lt;a href=&quot;http://morningbird.tistory.com/23&quot;&gt;http://morningbird.tistory.com/23&lt;/a&gt;&lt;/p&gt;</content><author><name>Lowell</name></author><category term="django" /><category term="django 배포" /><category term="django heroku" /><category term="heroku" /><summary type="html">heroku로 django project 배포하기 PaaS 서비스 중 하나인 heroku를 통해 django project를 배포하는 법.</summary></entry><entry><title type="html">python3 venv 가상환경 사용하기</title><link href="http://localhost:4000/python/2018/08/23/python3-venv-%EA%B0%80%EC%83%81%ED%99%98%EA%B2%BD-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0/" rel="alternate" type="text/html" title="python3 venv 가상환경 사용하기" /><published>2018-08-23T00:00:00+09:00</published><updated>2018-08-23T00:00:00+09:00</updated><id>http://localhost:4000/python/2018/08/23/python3-venv-%EA%B0%80%EC%83%81%ED%99%98%EA%B2%BD-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0</id><content type="html" xml:base="http://localhost:4000/python/2018/08/23/python3-venv-%EA%B0%80%EC%83%81%ED%99%98%EA%B2%BD-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0/">&lt;p&gt;venv는 python3에서 기본으로 제공하는 가상환경(virtualenv)을 만들 수 있는 라이브러리이다.&lt;/p&gt;
+
+&lt;p&gt;나는 이 라이브러리를 여태동안 모르고 있었다!&lt;/p&gt;
+
+&lt;p&gt;원래 mac에서는 &lt;code class=&quot;highlighter-rouge&quot;&gt;pyenv&lt;/code&gt;를 사용하여 가상환경을 세팅했는데 윈도우는&lt;code class=&quot;highlighter-rouge&quot;&gt;pyenv&lt;/code&gt;를 사용할 수 없다.&lt;/p&gt;
+
+&lt;p&gt;그래서 그동안 서드파티 라이브러리인 &lt;code class=&quot;highlighter-rouge&quot;&gt;virtualenv&lt;/code&gt;를 사용하고 있었는데 venv로 갈아탈 예정이다.&lt;/p&gt;
+
+&lt;p&gt;기본으로 제공하는데 사용해줘야지!&lt;/p&gt;
+
+&lt;p&gt;만약 &lt;code class=&quot;highlighter-rouge&quot;&gt;virtualenv&lt;/code&gt; 라이브러리를 사용하고 싶다면 &lt;a href=&quot;http://jamanbbo.tistory.com/10&quot;&gt;해당 포스트&lt;/a&gt;에서 사용법을 확인하면 된다.&lt;/p&gt;
+
+&lt;h2 id=&quot;venv-사용하기&quot;&gt;venv 사용하기&lt;/h2&gt;
+
+&lt;p&gt;먼저 venv는 python3에 빌트인 되어있기 때문에 설치를 하지 않아도 사용가능하고 python2.7에서는 사용이 불가능하다.&lt;/p&gt;
+
+&lt;p&gt;python2를 사용한다면 virtualenv/pyenv 라이브러리를 설치해야한다.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;가상환경 생성&lt;/p&gt;
+
+    &lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# window &lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# python -m venv [venv 이름]&lt;/span&gt;
+&lt;span class=&quot;gp&quot;&gt;&amp;gt; &lt;/span&gt;python -m venv ./myenv
+   
+&lt;span class=&quot;c&quot;&gt;# mac&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# python3 -m venv [venv이름]&lt;/span&gt;
+&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;python3 -m venv ./myenv
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;가상환경 활성화&lt;/p&gt;
+
+    &lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# window&lt;/span&gt;
+&lt;span class=&quot;gp&quot;&gt;&amp;gt; &lt;/span&gt;myenv&lt;span class=&quot;se&quot;&gt;\S&lt;/span&gt;cripts&lt;span class=&quot;se&quot;&gt;\a&lt;/span&gt;ctivate
+&lt;span class=&quot;c&quot;&gt;# mac&lt;/span&gt;
+&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;source &lt;/span&gt;myenv&lt;span class=&quot;se&quot;&gt;\b&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\a&lt;/span&gt;ctivate 
+&lt;span class=&quot;c&quot;&gt;# or &lt;/span&gt;
+. myenv&lt;span class=&quot;se&quot;&gt;\b&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\a&lt;/span&gt;ctivate
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+
+    &lt;p&gt;가상환경에 성공적으로 들어간다면 prompt 앞에 현재 가상환경이 표시될 것이다.&lt;/p&gt;
+
+    &lt;p&gt;지금부터는 격리된 환경에서 작업이 가능하다!&lt;/p&gt;
+
+    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;(myenv) $ &amp;gt;&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;가상환경 비활성화&lt;/p&gt;
+
+    &lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;&amp;gt; &lt;/span&gt;deactivate
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;</content><author><name>Lowell</name></author><category term="python virtualenv" /><category term="python venv" /><category term="python pyenv" /><category term="window pyenv" /><category term="python 가상환경" /><summary type="html">venv는 python3에서 기본으로 제공하는 가상환경(virtualenv)을 만들 수 있는 라이브러리이다.</summary></entry></feed>
