@@ -6,9 +6,10 @@
     border-bottom:none;
     margin: 10px;
     border: 1px solid #ddd;
-    width: 100px;
     border-radius: 30px;
-  
+    padding-left:20px;
+    padding-right:20px;
+
     &:hover{
       transition:0.3s;
       color:#8565fc;
