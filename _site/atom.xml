@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.5.2">Jekyll</generator><link href="http://localhost:4000/atom.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-11-05T12:21:48+09:00</updated><id>http://localhost:4000/</id><title type="html">Lowell’s Blog</title><subtitle>lowell의 기술 블로그 </subtitle><author><name>Lowell</name></author><entry><title type="html">레드햇 페도라에서 Nginx 설치하기</title><link href="http://localhost:4000/nginx/2018/11/05/%EB%A0%88%EB%93%9C%ED%96%87-%ED%8E%98%EB%8F%84%EB%9D%BC%EC%97%90%EC%84%9C-Nginx-%EC%84%A4%EC%B9%98%ED%95%98%EA%B8%B0/" rel="alternate" type="text/html" title="레드햇 페도라에서 Nginx 설치하기" /><published>2018-11-05T00:00:00+09:00</published><updated>2018-11-05T00:00:00+09:00</updated><id>http://localhost:4000/nginx/2018/11/05/%EB%A0%88%EB%93%9C%ED%96%87%20%ED%8E%98%EB%8F%84%EB%9D%BC%EC%97%90%EC%84%9C%20Nginx%20%EC%84%A4%EC%B9%98%ED%95%98%EA%B8%B0</id><content type="html" xml:base="http://localhost:4000/nginx/2018/11/05/%EB%A0%88%EB%93%9C%ED%96%87-%ED%8E%98%EB%8F%84%EB%9D%BC%EC%97%90%EC%84%9C-Nginx-%EC%84%A4%EC%B9%98%ED%95%98%EA%B8%B0/">&lt;p&gt;레드햇 페도라에서 Nginx 웹 서버를 설치한다. centos OS에서도 똑같이 설치할 수 있다.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.5.2">Jekyll</generator><link href="http://localhost:4000/atom.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-11-05T14:24:37+09:00</updated><id>http://localhost:4000/</id><title type="html">Lowell’s Blog</title><subtitle>lowell의 기술 블로그 </subtitle><author><name>Lowell</name></author><entry><title type="html">레드햇 페도라에서 Nginx 설치하기</title><link href="http://localhost:4000/nginx/2018/11/05/%EB%A0%88%EB%93%9C%ED%96%87-%ED%8E%98%EB%8F%84%EB%9D%BC%EC%97%90%EC%84%9C-Nginx-%EC%84%A4%EC%B9%98%ED%95%98%EA%B8%B0/" rel="alternate" type="text/html" title="레드햇 페도라에서 Nginx 설치하기" /><published>2018-11-05T00:00:00+09:00</published><updated>2018-11-05T00:00:00+09:00</updated><id>http://localhost:4000/nginx/2018/11/05/%EB%A0%88%EB%93%9C%ED%96%87%20%ED%8E%98%EB%8F%84%EB%9D%BC%EC%97%90%EC%84%9C%20Nginx%20%EC%84%A4%EC%B9%98%ED%95%98%EA%B8%B0</id><content type="html" xml:base="http://localhost:4000/nginx/2018/11/05/%EB%A0%88%EB%93%9C%ED%96%87-%ED%8E%98%EB%8F%84%EB%9D%BC%EC%97%90%EC%84%9C-Nginx-%EC%84%A4%EC%B9%98%ED%95%98%EA%B8%B0/">&lt;p&gt;레드햇 페도라에서 Nginx 웹 서버를 설치한다. centos OS에서도 똑같이 설치할 수 있다.&lt;/p&gt;
 
 &lt;p&gt;먼저 nginx를 받을 repository를 추가한다.&lt;/p&gt;
 
@@ -228,7 +228,107 @@ daemonize       =  [testprj].uwsgi.log
 
 &lt;p&gt;&lt;a href=&quot;https://blog.leop0ld.org/posts/use-python3-django-uwsgi-nginx/&quot;&gt;https://blog.leop0ld.org/posts/use-python3-django-uwsgi-nginx/&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;http://charles.lescampeurs.org/2008/11/14/fix-nginx-increase-server_names_hash_bucket_size&quot;&gt;http://charles.lescampeurs.org/2008/11/14/fix-nginx-increase-server_names_hash_bucket_size&lt;/a&gt;&lt;/p&gt;</content><author><name>Lowell</name></author><category term="django" /><category term="nginx uwsgi django 연동" /><category term="nginx uwsgi django" /><category term="aws nginx django" /><category term="aws django 배포" /><summary type="html">이 포스팅에서는 AWS에서 서버를 셋팅할 것이기 때문에 AWS EC2 설정이 되어있다는 가정하에 진행한다.</summary></entry><entry><title type="html">GIL을 알아보자</title><link href="http://localhost:4000/python/2018/10/24/GIL/" rel="alternate" type="text/html" title="GIL을 알아보자" /><published>2018-10-24T00:00:00+09:00</published><updated>2018-10-24T00:00:00+09:00</updated><id>http://localhost:4000/python/2018/10/24/GIL</id><content type="html" xml:base="http://localhost:4000/python/2018/10/24/GIL/">&lt;p&gt;Global Interpreter Lock&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://charles.lescampeurs.org/2008/11/14/fix-nginx-increase-server_names_hash_bucket_size&quot;&gt;http://charles.lescampeurs.org/2008/11/14/fix-nginx-increase-server_names_hash_bucket_size&lt;/a&gt;&lt;/p&gt;</content><author><name>Lowell</name></author><category term="django" /><category term="nginx uwsgi django 연동" /><category term="nginx uwsgi django" /><category term="aws nginx django" /><category term="aws django 배포" /><summary type="html">이 포스팅에서는 AWS에서 서버를 셋팅할 것이기 때문에 AWS EC2 설정이 되어있다는 가정하에 진행한다.</summary></entry><entry><title type="html">Django-MySQL 연동하기</title><link href="http://localhost:4000/django/2018/11/05/Django-MySQL-%EC%97%B0%EB%8F%99%ED%95%98%EA%B8%B0/" rel="alternate" type="text/html" title="Django-MySQL 연동하기" /><published>2018-11-05T00:00:00+09:00</published><updated>2018-11-05T00:00:00+09:00</updated><id>http://localhost:4000/django/2018/11/05/Django-MySQL-%EC%97%B0%EB%8F%99%ED%95%98%EA%B8%B0</id><content type="html" xml:base="http://localhost:4000/django/2018/11/05/Django-MySQL-%EC%97%B0%EB%8F%99%ED%95%98%EA%B8%B0/">&lt;p&gt;이 포스팅은 mac과 linux 기반의 Django-MySQL 연동 글이다.&lt;/p&gt;
+
+&lt;p&gt;윈도우 환경에서 작업을 진행한다면, &lt;a href=&quot;http://jamanbbo.tistory.com/28&quot;&gt;이 포스팅&lt;/a&gt; 과 함께 보기 추천한다. (별로 다른 건 없지만 윈도우 환경에서 오류 해결 법이 좀 더 추가되어있다)&lt;/p&gt;
+
+&lt;p&gt;MySQL이 설치되어있다는 가정하에 진행하므로 꼭 설치 후 아래 항목들을 차례로 진행하길 바란다. (설치가 되어있지 않으면 오류가 난다)&lt;/p&gt;
+
+&lt;h3 id=&quot;django와-mysql을-연동하기-위한-연동-드라이버를-설치&quot;&gt;Django와 MySQL을 연동하기 위한 연동 드라이버를 설치&lt;/h3&gt;
+
+&lt;p&gt;django에서 제공하는 MySQL 연동 드라이버 모듈은 3가지가 있다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;MySQLdb - 제일 안정된 드라이버, python3은 지원하지 않음&lt;/li&gt;
+  &lt;li&gt;Mysqlclient - MySQLdb를 개선한 패키지, Python3.3 이상의 버전도 지원하고있음, &lt;strong&gt;장고에서 추천함&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;MySQL Connector/Python - MySQL 개발사 오라클에서 제공하는 드라이버&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;위 모듈 중 자신에게 맞는 드라이버를 설치하면 되는데 우리는 mysqlclient를 사용할 것이다.&lt;/p&gt;
+
+&lt;p&gt;mysqlclient를 설치해준다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$ pip sintall mysqlclient&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;centos/rhel fedora OS에서 설치시&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;mysqlclient OSError: mysql_config not found&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;이런 오류가 발생한다면 mysql-devel을 설치해주면 해결된다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$ sudo yum install mysql-devel&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;django에서-mysql-연동-세팅&quot;&gt;Django에서 MySQL 연동 세팅&lt;/h3&gt;
+
+&lt;p&gt;정상적으로 설치가 되었다면 django project의 &lt;code class=&quot;highlighter-rouge&quot;&gt;settings.py&lt;/code&gt; 파일에서 DATABASE 항목을 설정해준다.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# settings.py&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;DATABASES&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;s&quot;&gt;'default'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+		&lt;span class=&quot;s&quot;&gt;'ENGINE'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'django.db.backends.mysql'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# mysql 엔진 설정&lt;/span&gt;
+		&lt;span class=&quot;s&quot;&gt;'NAME'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'mysite'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# 데이터베이스 이름 &lt;/span&gt;
+		&lt;span class=&quot;s&quot;&gt;'USER'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'root'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# 데이터베이스 연결시 사용할 유저 이름&lt;/span&gt;
+		&lt;span class=&quot;s&quot;&gt;'PASSWORD'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'password'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;# 유저 패스워드&lt;/span&gt;
+        &lt;span class=&quot;s&quot;&gt;'HOST'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'l27.0.0.1'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# 데이터베이스 서버 주소&lt;/span&gt;
+        &lt;span class=&quot;s&quot;&gt;'PORT'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'3306'&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# 데이터베이스 서버 포트&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;ENGINE&lt;/code&gt;을 제외한 항목은 자신의 mysql 설정에 맞게 수정해야한다.&lt;/p&gt;
+
+&lt;p&gt;지금까지 설정이 올바르게 되었다면 Django와 MySQL이 연동이 되었을 것이다.&lt;/p&gt;
+
+&lt;h3 id=&quot;mysql의-데이터테이블를-반영&quot;&gt;MySQL의 데이터(테이블)를 반영&lt;/h3&gt;
+
+&lt;p&gt;만약 현재 MySQL의 데이터베이스에 저장되어있는 테이블들을 Django project에 반영하고 싶다면&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$ python manage.py inspectdb &amp;gt; ./app/models.py&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;명령어를 사용하면 된다.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-mysql&quot;&gt;mysql&amp;gt; desc board_tbl;
++---------+--------------+------+-----+---------+----------------+
+| Field   | Type         | Null | Key | Default | Extra          |
++---------+--------------+------+-----+---------+----------------+
+| idx     | int(6)       | NO   | PRI | NULL    | auto_increment |
+| writer  | int(11)      | YES  |     | NULL    |                |
+| subject | varchar(255) | YES  |     | NULL    |                |
+| content | text         | YES  |     | NULL    |                |
+| date    | datetime     | YES  |     | NULL    |                |
++---------+--------------+------+-----+---------+----------------+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;MySQL 테이블이 model로 적용된 모습&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# app/models.py&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;BoardTbl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;models&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Model&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;idx&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;models&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;AutoField&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;primary_key&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;writer&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;models&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;IntegerField&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;blank&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;subject&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;models&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;CharField&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;max_length&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;255&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;blank&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;content&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;models&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;TextField&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;blank&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;date&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;models&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DateTimeField&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;blank&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Meta&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;managed&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;False&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;db_table&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'board_tbl'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;django-migration을-mysql에-반영&quot;&gt;Django migration을 MySQL에 반영&lt;/h3&gt;
+
+&lt;p&gt;Django의 migration을 MySQL에 반영하는 것은 sqllite3에 migration을 반영하는 것과 같다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt; $ python manage.py migrate&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;이 명령어를 실행하게 되면 MySQL 테이블에 auth_user 등 장고의 기본 테이블들이 생성된 것을 확인할 수  있을 것이다.&lt;/p&gt;
+
+&lt;p&gt;이렇게 마지막까지 잘 되었다면 MySQL을 사용할 준비를 마친 것이다.&lt;/p&gt;
+
+&lt;p&gt;이제 ORM, raw SQL 등을 기존 sqlite3 처럼 사용할 수 있다.&lt;/p&gt;</content><author><name>Lowell</name></author><category term="django mysql연동" /><category term="django mysql" /><summary type="html">이 포스팅은 mac과 linux 기반의 Django-MySQL 연동 글이다.</summary></entry><entry><title type="html">GIL을 알아보자</title><link href="http://localhost:4000/python/2018/10/24/GIL/" rel="alternate" type="text/html" title="GIL을 알아보자" /><published>2018-10-24T00:00:00+09:00</published><updated>2018-10-24T00:00:00+09:00</updated><id>http://localhost:4000/python/2018/10/24/GIL</id><content type="html" xml:base="http://localhost:4000/python/2018/10/24/GIL/">&lt;p&gt;Global Interpreter Lock&lt;/p&gt;
 
 &lt;p&gt;한  CPU만 일함.!
 다중 CPU 환경에서 동시에 여러 파이썬 코드를 병렬로 실행할 수 없음.&lt;/p&gt;
