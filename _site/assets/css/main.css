@@ -129,7 +129,7 @@ td, th { padding: 0; }
 body { position: relative; font-family: "Lato", "PingFang SC", "Microsoft YaHei", sans-serif; font-size: 17px; line-height: 2; color: #555; background: white; }
 @media (max-width: 767px) { body { padding-right: 0 !important; } }
 @media (min-width: 768px) and (max-width: 991px) { body { padding-right: 0 !important; } }
-@media (min-width: 1600px) { body { font-size: 16px; } }
+@media (min-width: 1600px) { body { font-size: 17px; } }
 
 h1, h2, h3, h4, h5, h6 { margin: 0; padding: 0; font-weight: bold; line-height: 1.5; font-family: "Lato", "PingFang SC", "Microsoft YaHei", sans-serif; }
 
@@ -629,6 +629,10 @@ pre .k, pre .kd, pre .kn, pre .kp, pre .kr, pre .kt, pre .javascript .function {
 .cc-license .cc-opacity { opacity: 0.7; border-bottom: none; }
 .cc-license .cc-opacity:hover { opacity: 0.9; }
 .cc-license img { display: inline-block; }
+
+p > a{
+  color:#8d69ce;
+}
 
 .theme-next { /*duoshuo UA style begin*/ /*duoshuo UA style end*/ }
 .theme-next #ds-thread #ds-reset { color: #555; }
