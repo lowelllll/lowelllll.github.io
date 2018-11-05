@@ -1,4 +1,64 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.5.2">Jekyll</generator><link href="http://localhost:4000/atom.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-11-05T11:43:55+09:00</updated><id>http://localhost:4000/</id><title type="html">Lowell’s Blog</title><subtitle>lowell의 기술 블로그 </subtitle><author><name>Lowell</name></author><entry><title type="html">AWS(rhel fedora)Nginx-uWSGI-Django 연동하기</title><link href="http://localhost:4000/django/2018/11/05/Nginx-uWSGI-Django/" rel="alternate" type="text/html" title="AWS(rhel fedora)Nginx-uWSGI-Django 연동하기" /><published>2018-11-05T00:00:00+09:00</published><updated>2018-11-05T00:00:00+09:00</updated><id>http://localhost:4000/django/2018/11/05/Nginx-uWSGI-Django</id><content type="html" xml:base="http://localhost:4000/django/2018/11/05/Nginx-uWSGI-Django/">&lt;p&gt;이 포스팅에서는 AWS에서 서버를 셋팅할 것이기 때문에 AWS EC2 설정이 되어있다는 가정하에 진행한다.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.5.2">Jekyll</generator><link href="http://localhost:4000/atom.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-11-05T12:21:48+09:00</updated><id>http://localhost:4000/</id><title type="html">Lowell’s Blog</title><subtitle>lowell의 기술 블로그 </subtitle><author><name>Lowell</name></author><entry><title type="html">레드햇 페도라에서 Nginx 설치하기</title><link href="http://localhost:4000/nginx/2018/11/05/%EB%A0%88%EB%93%9C%ED%96%87-%ED%8E%98%EB%8F%84%EB%9D%BC%EC%97%90%EC%84%9C-Nginx-%EC%84%A4%EC%B9%98%ED%95%98%EA%B8%B0/" rel="alternate" type="text/html" title="레드햇 페도라에서 Nginx 설치하기" /><published>2018-11-05T00:00:00+09:00</published><updated>2018-11-05T00:00:00+09:00</updated><id>http://localhost:4000/nginx/2018/11/05/%EB%A0%88%EB%93%9C%ED%96%87%20%ED%8E%98%EB%8F%84%EB%9D%BC%EC%97%90%EC%84%9C%20Nginx%20%EC%84%A4%EC%B9%98%ED%95%98%EA%B8%B0</id><content type="html" xml:base="http://localhost:4000/nginx/2018/11/05/%EB%A0%88%EB%93%9C%ED%96%87-%ED%8E%98%EB%8F%84%EB%9D%BC%EC%97%90%EC%84%9C-Nginx-%EC%84%A4%EC%B9%98%ED%95%98%EA%B8%B0/">&lt;p&gt;레드햇 페도라에서 Nginx 웹 서버를 설치한다. centos OS에서도 똑같이 설치할 수 있다.&lt;/p&gt;
+
+&lt;p&gt;먼저 nginx를 받을 repository를 추가한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$ vi /etc/yum.repos.d/nginx.repo&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;[nginx]
+name=nginx repo
+baseurl=http://nginx.org/packages/[OS]/[OSRELEASE]/$basearch/
+gpgcheck=0
+enabled=1
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;여기서 대괄호로 감싸진 OS와 OSRELEASE를 자신의 OS와 버전에 따라 변경을 해줘야 한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://nginx.org/packages/&quot;&gt;http://nginx.org/packages/&lt;/a&gt; 여기에 있는 자신의 OS와 OS 버전에 맞는 것이 있는지 확인 후 변경을 해준다. (없으면 패키지 설치가 안 되기 때문에 꼭 확인하고 변경해주자)&lt;/p&gt;
+
+&lt;p&gt;설정 후 저장을 하고 Nginx를 설치한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$ yum install nginx&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;nginx-명령어&quot;&gt;Nginx 명령어&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Nginx 시작&lt;/p&gt;
+
+    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$ sudo service nginx start&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Nginx 중지&lt;/p&gt;
+
+    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$ sudo service nginx stop&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Nginx 재시작&lt;/p&gt;
+
+    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$ sudo service nginx restart&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Nginx 상태&lt;/p&gt;
+
+    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$ sudo service nginx status&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Nginx 설정 후 다시 로드&lt;/p&gt;
+
+    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$ sudo service nginx reload&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Nginx 설정이 성공 적인지 확인&lt;/p&gt;
+
+    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$ sudo nginx -t&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;refer&quot;&gt;refer&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://blog.tjsrms.me/centos-7-nginx-%EC%84%A4%EC%B9%98%ED%95%98%EA%B8%B0/&quot;&gt;CentOS 7 Nginx 설치하기&lt;/a&gt;&lt;/p&gt;</content><author><name>Lowell</name></author><category term="nginx 설치" /><category term="fedora nginx 설치" /><category term="레드햇 페도라 nginx 설치" /><summary type="html">레드햇 페도라에서 Nginx 웹 서버를 설치한다. centos OS에서도 똑같이 설치할 수 있다.</summary></entry><entry><title type="html">AWS(rhel fedora)Nginx-uWSGI-Django 연동하기</title><link href="http://localhost:4000/django/2018/11/05/Nginx-uWSGI-Django/" rel="alternate" type="text/html" title="AWS(rhel fedora)Nginx-uWSGI-Django 연동하기" /><published>2018-11-05T00:00:00+09:00</published><updated>2018-11-05T00:00:00+09:00</updated><id>http://localhost:4000/django/2018/11/05/Nginx-uWSGI-Django</id><content type="html" xml:base="http://localhost:4000/django/2018/11/05/Nginx-uWSGI-Django/">&lt;p&gt;이 포스팅에서는 AWS에서 서버를 셋팅할 것이기 때문에 AWS EC2 설정이 되어있다는 가정하에 진행한다.&lt;/p&gt;
 
 &lt;p&gt;또한 글쓴이의 OS 환경은 레드햇 페도라 환경에서 진행했다.&lt;/p&gt;
 
