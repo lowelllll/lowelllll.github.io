@@ -126,7 +126,7 @@ td, th { padding: 0; }
 
 ::selection { background: #262a30; color: white; }
 
-body { position: relative; font-family: "Lato", "PingFang SC", "Microsoft YaHei", sans-serif; font-size: 14px; line-height: 2; color: #555; background: white; }
+body { position: relative; font-family: "Lato", "PingFang SC", "Microsoft YaHei", sans-serif; font-size: 17px; line-height: 2; color: #555; background: white; }
 @media (max-width: 767px) { body { padding-right: 0 !important; } }
 @media (min-width: 768px) and (max-width: 991px) { body { padding-right: 0 !important; } }
 @media (min-width: 1600px) { body { font-size: 16px; } }
@@ -238,7 +238,7 @@ pre, .highlight { overflow: auto; margin: 20px 0; padding: 0; font-size: 13px; c
 
 pre, code { font-family: consolas, Menlo, "PingFang SC", "Microsoft YaHei", monospace; }
 
-code { padding: 2px 4px; word-wrap: break-word; color: #555; background: #eee; border-radius: 3px; font-size: 13px; }
+code { padding: 2px 4px; word-wrap: break-word; color: #8d69ce; background: #3921ff17; border-radius: 3px; font-size: 16px; }
 
 pre code { padding: 0; color: #4d4d4c; background: none; text-shadow: none; }
 
@@ -562,7 +562,7 @@ pre .k, pre .kd, pre .kn, pre .kp, pre .kr, pre .kt, pre .javascript .function {
 .links-of-author { margin-top: 20px; }
 
 .links-of-author a { display: inline-block; vertical-align: middle; margin-right: 10px; margin-bottom: 10px; border-bottom-color: #555; font-size: 13px; }
-.links-of-author a:before { display: inline-block; vertical-align: middle; margin-right: 3px; content: " "; width: 4px; height: 4px; border-radius: 50%; background: red; }
+.links-of-author a:before { display: inline-block; vertical-align: middle; margin-right: 3px; content: " "; width: 4px; height: 4px; border-radius: 50%; background: yellow; }
 
 .links-of-blogroll { font-size: 13px; }
 
