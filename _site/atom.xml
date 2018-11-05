@@ -1,4 +1,174 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.5.2">Jekyll</generator><link href="http://localhost:4000/atom.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-10-24T17:58:48+09:00</updated><id>http://localhost:4000/</id><title type="html">Lowell’s Blog</title><subtitle>lowell의 기술 블로그 </subtitle><author><name>Lowell</name></author><entry><title type="html">GIL을 알아보자</title><link href="http://localhost:4000/python/2018/10/24/GIL/" rel="alternate" type="text/html" title="GIL을 알아보자" /><published>2018-10-24T00:00:00+09:00</published><updated>2018-10-24T00:00:00+09:00</updated><id>http://localhost:4000/python/2018/10/24/GIL</id><content type="html" xml:base="http://localhost:4000/python/2018/10/24/GIL/">&lt;p&gt;Global Interpreter Lock&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.5.2">Jekyll</generator><link href="http://localhost:4000/atom.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-11-05T11:14:00+09:00</updated><id>http://localhost:4000/</id><title type="html">Lowell’s Blog</title><subtitle>lowell의 기술 블로그 </subtitle><author><name>Lowell</name></author><entry><title type="html">AWS(rhel fedora)Nginx-uWSGI-Django 연동하기</title><link href="http://localhost:4000/django/2018/11/05/Nginx-uWSGI-Django/" rel="alternate" type="text/html" title="AWS(rhel fedora)Nginx-uWSGI-Django 연동하기" /><published>2018-11-05T00:00:00+09:00</published><updated>2018-11-05T00:00:00+09:00</updated><id>http://localhost:4000/django/2018/11/05/Nginx-uWSGI-Django</id><content type="html" xml:base="http://localhost:4000/django/2018/11/05/Nginx-uWSGI-Django/">&lt;p&gt;이 포스팅에서는 AWS에서 서버를 셋팅할 것이기 때문에 AWS EC2 설정이 되어있다는 가정하에 진행한다.&lt;/p&gt;
+
+&lt;p&gt;또한 글쓴이의 OS 환경은 레드햇 페도라 환경에서 진행했다.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;먼저 간단하게 서버 구조를 말하면  Nginx 80번 포트로 접속하면 uWSGI 8000번 포트로 요청을 보내 우리가 만든 Django 프로젝트에 접속하게 될 것이다.&lt;/p&gt;
+
+&lt;p&gt;우리가 사용자에게 listen할 포트(80)는 열어놔야하기 때문에 AWS 사용자 지정 포트에서 80번 포트를 열어줘야한다.&lt;/p&gt;
+
+&lt;p&gt;포트를 변경하고 싶으면 변경해도 되지만 설정한 포트에따라 사용자 지정 포트를 열어줘야 하는 것도 명심하자.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://pic3.zhimg.com/v2-9bc6cfcdb7b946a728ccfe26f4eb5c01_1200x500.jpg&quot; alt=&quot;nginx_wsgi_django&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;1-django&quot;&gt;1. Django&lt;/h3&gt;
+
+&lt;p&gt;django 프로젝트는 배포될 준비가 다 되어있다는 가정 하에 진행한다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;가상환경 셋팅&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;static root 설정&lt;/li&gt;
+  &lt;li&gt;media root 설정&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$ python manage.py collectstatic&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;2nginx&quot;&gt;2.Nginx&lt;/h3&gt;
+
+&lt;p&gt;글쓴이는 Nginx 설정에 정말 삽질을 했다.&lt;/p&gt;
+
+&lt;p&gt;블로그를 보며 배포를 하려고 하는데 블로그에서는 sites-available 폴더에 conf 파일을 넣으면 된다고하는데.. 해당 폴더가없어서 삽질을 엄청했다.&lt;/p&gt;
+
+&lt;p&gt;이 포스팅은 &lt;code class=&quot;highlighter-rouge&quot;&gt;sites-available&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;sites-enabled&lt;/code&gt; 폴더가 없는 개발자들에게 유용한 포스트가 될 것이다.(그러길 바란다..)&lt;/p&gt;
+
+&lt;p&gt;먼저 uWSGI와 nginx 서버 등을 설정하기 위해 conf 파일을 생성한다.&lt;/p&gt;
+
+&lt;p&gt;etc/nginx/conf.d/testprj.conf 생성 (nginx의 경로는 OS 별로 다를 수  있기 때문에 꼭 확인해보자.)&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;[..] 대괄호 안에있는 것은 자신의 프로젝트의 이름이나 경로에 따라 알맞게 변경한다.&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# etc/nginx/conf.d/testprj.conf 
+
+server {
+    listen                   80; # nginx가 listen할 포트
+    server_name              [www.your.domain.com 123.23.56.5] #서버 도메인이나 아이피 입력
+    client_max_body_size     10M;
+    access_log               /var/log/testprj.access.log; # 성공 로그를 기록할 파일
+    error_log                /var/log/testprj.error.log; # 에러 로그를 기록할 파일 
+
+    # -------------
+    # Handle Django
+    # -------------
+
+    location / {
+    	# 외부에서 특정 포트로 Nginx를 통해 http 요청을 받았을 때 요청을 uWSGI를 통해 Django로 넘김
+        proxy_pass       http://localhost:8000; # uWSGI가 nginx 요청을 받을 주소와 포트
+        proxy_set_header Upgrade            $http_upgrade;
+        proxy_set_header Connection         &quot;upgrade&quot;;
+        proxy_set_header Host               $host;
+        proxy_set_header X-Real-IP          $remote_addr;
+        proxy_set_header X-Forwarded-For    $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto  $scheme;
+    }
+
+    # ------------------
+    # serve static files
+    # ------------------
+
+
+    # here we assume the STATIC_ROOT inside your django project is
+    # set to /static/
+    location /static/ {
+    	# /static/ 으로 들어 올 때 경로 설정.
+        alias   [/home/user/testprj/static/]; # django project settings.py에 설정되어있는 STATIC_ROOT 주소
+    }
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;여기서&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ sudo nginx -t
+nginx: [emerg] could not build server_names_hash, you should increase server_names_hash_bucket_size: 64
+nginx: configuration file /etc/nginx/nginx.conf test failed
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;nginx 서버 확인 시 이런 오류가 난다면&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;nginx.conf&lt;/code&gt; 파일 수정을 해줘야 한다.&lt;/p&gt;
+
+&lt;p&gt;아래 설정을 &lt;code class=&quot;highlighter-rouge&quot;&gt;http {} block&lt;/code&gt;에 설정 안에 넣는다.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# etc/nginx/nginx.conf
+
+htttp{
+    server_names_hash_bucket_size 512;
+	server_names_hash_max_size 512;
+	...
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;오류에는 64라고 되어있어 64로 했더니 오류가 사라지지 않아  512로하니까 되었다.&lt;/p&gt;
+
+&lt;p&gt;이렇게 하고&lt;code class=&quot;highlighter-rouge&quot;&gt; $ sudo nginx -t &lt;/code&gt;수행 -&amp;gt; 성공하면 nginx 설정 끝!&lt;/p&gt;
+
+&lt;h3 id=&quot;3-uwsgi&quot;&gt;3. uWSGI&lt;/h3&gt;
+
+&lt;p&gt;가상환경이 활성화된 상태에서 uWSGI 설치&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$ pip install uwsgi&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;잘 깔렸는지 확인해보자&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$ wsgi --http :8000 --module [your-project-name].wsgi&lt;/code&gt; (manage.py 디렉토리에서)&lt;/p&gt;
+
+&lt;p&gt;잘 되면 ini파일 생성&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$ sudo vi [testprj].ini&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# home/user/testprj/[testprj].ini
+
+[uwsgi] # 이건 변경 Xß
+module          =  [testprj].wsgi:application
+master          =  true
+pidfile         =  [testprj].uwsgi.pid
+enable-threads  = true
+http            =  127.0.0.1:8000 # uWSGI 포트 설정 
+processes       =  5
+harakiri        =  50
+max-requests    =  5000
+# clear environment on exit
+vacuum          =  true
+# optional path to a virtualenv
+home            =  [/home/user/.pyenv/versions/3.6.5/envs/devenv] # 가상환경 경로 설정
+# background the process
+daemonize       =  [testprj].uwsgi.log
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;이렇게 하구 저장!&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;실행 &lt;code class=&quot;highlighter-rouge&quot;&gt;$ uwsgi testprj.ini (가상환경 안에서 )&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;uWSGI 로그확인 &lt;code class=&quot;highlighter-rouge&quot;&gt;$ vi testprj.uwsgi.log&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;uWSGI 중지 &lt;code class=&quot;highlighter-rouge&quot;&gt;$ uwsgi --stop [testprj].uwsgi.pid&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;uWSGI 가 실행된 상태에서 nginx 서버를 시작한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$ sudo service nginx start&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;이후 맨 처음 nginx에서 생성한 conf 파일의 server_name에 설정한 주소(AWS 주소)로 들어가보면 Django project가 띄어져 있을 것이다! 그러면 연동 끝!&lt;/p&gt;
+
+&lt;p&gt;설정 중 오류가 있으면 댓글 남겨주세요 💁‍&lt;/p&gt;
+
+&lt;h2 id=&quot;refer&quot;&gt;refer&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://medium.com/@charlesthk/deploy-nginx-django-uwsgi-on-aws-ec2-amazon-linux-517a683163c6&quot;&gt;https://medium.com/@charlesthk/deploy-nginx-django-uwsgi-on-aws-ec2-amazon-linux-517a683163c6&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.savour-it.com/posts/2018-02-06-nginx-uwsgi-django-setting/&quot;&gt;https://www.savour-it.com/posts/2018-02-06-nginx-uwsgi-django-setting/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.digitalocean.com/community/tutorials/how-to-serve-django-applications-with-uwsgi-and-nginx-on-ubuntu-14-04&quot;&gt;https://www.digitalocean.com/community/tutorials/how-to-serve-django-applications-with-uwsgi-and-nginx-on-ubuntu-14-04&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://blog.leop0ld.org/posts/use-python3-django-uwsgi-nginx/&quot;&gt;https://blog.leop0ld.org/posts/use-python3-django-uwsgi-nginx/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://charles.lescampeurs.org/2008/11/14/fix-nginx-increase-server_names_hash_bucket_size&quot;&gt;http://charles.lescampeurs.org/2008/11/14/fix-nginx-increase-server_names_hash_bucket_size&lt;/a&gt;&lt;/p&gt;</content><author><name>Lowell</name></author><category term="django" /><category term="nginx uwsgi django 연동" /><category term="nginx uwsgi django" /><category term="aws nginx django" /><category term="aws django 배포" /><summary type="html">이 포스팅에서는 AWS에서 서버를 셋팅할 것이기 때문에 AWS EC2 설정이 되어있다는 가정하에 진행한다.</summary></entry><entry><title type="html">GIL을 알아보자</title><link href="http://localhost:4000/python/2018/10/24/GIL/" rel="alternate" type="text/html" title="GIL을 알아보자" /><published>2018-10-24T00:00:00+09:00</published><updated>2018-10-24T00:00:00+09:00</updated><id>http://localhost:4000/python/2018/10/24/GIL</id><content type="html" xml:base="http://localhost:4000/python/2018/10/24/GIL/">&lt;p&gt;Global Interpreter Lock&lt;/p&gt;
 
 &lt;p&gt;한  CPU만 일함.!
 다중 CPU 환경에서 동시에 여러 파이썬 코드를 병렬로 실행할 수 없음.&lt;/p&gt;

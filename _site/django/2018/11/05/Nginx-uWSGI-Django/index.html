@@ -82,7 +82,7 @@
 <link href="/assets/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Jekyll, NexT" />
+  <meta name="keywords" content="django,nginx uwsgi django 연동,nginx uwsgi django,aws nginx django,aws django 배포," />
 
 
 
@@ -110,17 +110,19 @@
 
 
 
-<meta name="description" content="lowell의 기술 블로그">
-<meta name="keywords" content="Jekyll, NexT">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Lowell's Blog">
-<meta property="og:url" content="http://localhost:4000/archives/">
+<meta name="description" content="AWS EC2 환경에서 Nginx-uWSGI-Django를 연동해 배포해보자.">
+<meta name="keywords" content="django, nginx uwsgi django 연동, nginx uwsgi django, aws nginx django, aws django 배포">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AWS(rhel fedora)Nginx-uWSGI-Django 연동하기">
+<meta property="og:url" content="http://localhost:4000/django/2018/11/05/Nginx-uWSGI-Django/">
 <meta property="og:site_name" content="Lowell's Blog">
-<meta property="og:description" content="lowell의 기술 블로그">
+<meta property="og:description" content="AWS EC2 환경에서 Nginx-uWSGI-Django를 연동해 배포해보자.">
 <meta property="og:locale" content="ko">
+<meta property="og:image" content="https://pic3.zhimg.com/v2-9bc6cfcdb7b946a728ccfe26f4eb5c01_1200x500.jpg">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Lowell's Blog">
-<meta name="twitter:description" content="lowell의 기술 블로그">
+<meta name="twitter:title" content="AWS(rhel fedora)Nginx-uWSGI-Django 연동하기">
+<meta name="twitter:description" content="AWS EC2 환경에서 Nginx-uWSGI-Django를 연동해 배포해보자.">
+<meta name="twitter:image" content="https://pic3.zhimg.com/v2-9bc6cfcdb7b946a728ccfe26f4eb5c01_1200x500.jpg">
 
 
 <script type="text/javascript" id="hexo.configurations">
@@ -153,7 +155,7 @@
 
 
 
-  <title>아카이브 | Lowell's Blog</title>
+  <title>AWS(rhel fedora)Nginx-uWSGI-Django 연동하기 | Lowell's Blog</title>
   
 
 
@@ -178,7 +180,7 @@
   
 
 
-  <div class="container  page-archive ">
+  <div class="container  page-post-detail ">
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"> <div class="site-brand-wrapper">
@@ -279,134 +281,377 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-<section id="posts" class="posts-collapse" hidden>
-  <span class="archive-move-on"></span>
 
-  <span class="archive-page-counter">
-    
-    
-    !
-    
-      총 3개의 포스트
-    
-    
-  </span>
-
+<div id="posts" class="posts-expand">
   
   
 
   
-    
 
-    
+  
+  
+  
+
+  <article class="post post-type- " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://localhost:4000/django/2018/11/05/Nginx-uWSGI-Django/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Lowell">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="assets/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lowell's Blog">
+    </span>
+
     
     
       
-      <div class="collection-title" route="/">
-        <h2 class="archive-year motion-element" id="archive-year-2018">2018</h2>
-      </div>
-    
-    
-
-    
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article" route="/">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/django/2018/11/05/Nginx-uWSGI-Django/" itemprop="url">
+            <span class="post-category">
+               
+              <!-- 카테고리 -->
+                
+                  <a href="/category/#/django" itemprop="url" rel="index">
+                    <h3 itemprop="name">django</h3>
+                  </a>
+                
+                
               
-                <span itemprop="name">AWS(rhel fedora)Nginx-uWSGI-Django 연동하기</span>
-              
-            </a>
+            </span>
         
-      </h3>
+      <header class="post-header">
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-11-05T00:00:00+09:00"
-              content="2018-11-05" >
-          11-05
-        </time>
-      </div>
+        
+        
+          <h2 class="post-title post-title-custom" itemprop="name headline">
+          
+          
+            AWS(rhel fedora)Nginx-uWSGI-Django 연동하기
+          
+        </h2>
+        
 
-    </header>
-  </article>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              
+                <span class="post-meta-item-text">작성일</span>
+              
+              <time title="" itemprop="dateCreated datePublished" datetime="2018-11-05T00:00:00+09:00">
+                2018-11-05
+              </time>
+            
 
+            
 
+            
+          </span>
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/django/2018/11/05/Nginx-uWSGI-Django/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count fb-comments-count" data-href="http://localhost:4000/django/2018/11/05/Nginx-uWSGI-Django/" itemprop="commentCount">0</span> comments
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+            
+                <div class="post-description">
+                    AWS EC2 환경에서 Nginx-uWSGI-Django를 연동해 배포해보자.
+                </div>
+            
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+        
   
-    
-
-    
-    
-    
-    
-
-    
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article" route="/">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/python/2018/10/24/GIL/" itemprop="url">
-              
-                <span itemprop="name">GIL을 알아보자</span>
-              
-            </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-10-24T00:00:00+09:00"
-              content="2018-10-24" >
-          10-24
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-  
-    
-
-    
-    
-    
-    
-
-    
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article" route="/">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/django/2018/10/24/Django-heroku-deploy/" itemprop="url">
-              
-                <span itemprop="name">heroku를 사용해 django 프로젝트 배포하기</span>
-              
-            </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-10-24T00:00:00+09:00"
-              content="2018-10-24" >
-          10-24
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
   
 
-</section>
 
-<nav class="pagination"></nav>
+
+
+
+
+
+
+
+
+
+
+  <p>이 포스팅에서는 AWS에서 서버를 셋팅할 것이기 때문에 AWS EC2 설정이 되어있다는 가정하에 진행한다.</p>
+
+<p>또한 글쓴이의 OS 환경은 레드햇 페도라 환경에서 진행했다.</p>
+
+<hr />
+
+<p>먼저 간단하게 서버 구조를 말하면  Nginx 80번 포트로 접속하면 uWSGI 8000번 포트로 요청을 보내 우리가 만든 Django 프로젝트에 접속하게 될 것이다.</p>
+
+<p>우리가 사용자에게 listen할 포트(80)는 열어놔야하기 때문에 AWS 사용자 지정 포트에서 80번 포트를 열어줘야한다.</p>
+
+<p>포트를 변경하고 싶으면 변경해도 되지만 설정한 포트에따라 사용자 지정 포트를 열어줘야 하는 것도 명심하자.</p>
+
+<p><img src="https://pic3.zhimg.com/v2-9bc6cfcdb7b946a728ccfe26f4eb5c01_1200x500.jpg" alt="nginx_wsgi_django" /></p>
+
+<h3 id="1-django">1. Django</h3>
+
+<p>django 프로젝트는 배포될 준비가 다 되어있다는 가정 하에 진행한다.</p>
+
+<ul>
+  <li>
+    <p>가상환경 셋팅</p>
+  </li>
+  <li>static root 설정</li>
+  <li>media root 설정</li>
+  <li><code class="highlighter-rouge">$ python manage.py collectstatic</code></li>
+</ul>
+
+<h3 id="2nginx">2.Nginx</h3>
+
+<p>글쓴이는 Nginx 설정에 정말 삽질을 했다.</p>
+
+<p>블로그를 보며 배포를 하려고 하는데 블로그에서는 sites-available 폴더에 conf 파일을 넣으면 된다고하는데.. 해당 폴더가없어서 삽질을 엄청했다.</p>
+
+<p>이 포스팅은 <code class="highlighter-rouge">sites-available</code>, <code class="highlighter-rouge">sites-enabled</code> 폴더가 없는 개발자들에게 유용한 포스트가 될 것이다.(그러길 바란다..)</p>
+
+<p>먼저 uWSGI와 nginx 서버 등을 설정하기 위해 conf 파일을 생성한다.</p>
+
+<p>etc/nginx/conf.d/testprj.conf 생성 (nginx의 경로는 OS 별로 다를 수  있기 때문에 꼭 확인해보자.)</p>
+
+<p><code class="highlighter-rouge">[..] 대괄호 안에있는 것은 자신의 프로젝트의 이름이나 경로에 따라 알맞게 변경한다.</code></p>
+
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12<br/>13<br/>14<br/>15<br/>16<br/>17<br/>18<br/>19<br/>20<br/>21<br/>22<br/>23<br/>24<br/>25<br/>26<br/>27<br/>28<br/>29<br/>30<br/>31<br/>32<br/>33<br/>34<br/>35<br/>36<br/>37</pre></td><td class="code"><pre class="highlight"><code># etc/nginx/conf.d/testprj.conf 
+
+server {
+    listen                   80; # nginx가 listen할 포트
+    server_name              [www.your.domain.com 123.23.56.5] #서버 도메인이나 아이피 입력
+    client_max_body_size     10M;
+    access_log               /var/log/testprj.access.log; # 성공 로그를 기록할 파일
+    error_log                /var/log/testprj.error.log; # 에러 로그를 기록할 파일 
+
+    # -------------
+    # Handle Django
+    # -------------
+
+    location / {
+    	# 외부에서 특정 포트로 Nginx를 통해 http 요청을 받았을 때 요청을 uWSGI를 통해 Django로 넘김
+        proxy_pass       http://localhost:8000; # uWSGI가 nginx 요청을 받을 주소와 포트
+        proxy_set_header Upgrade            $http_upgrade;
+        proxy_set_header Connection         "upgrade";
+        proxy_set_header Host               $host;
+        proxy_set_header X-Real-IP          $remote_addr;
+        proxy_set_header X-Forwarded-For    $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto  $scheme;
+    }
+
+    # ------------------
+    # serve static files
+    # ------------------
+
+
+    # here we assume the STATIC_ROOT inside your django project is
+    # set to /static/
+    location /static/ {
+    	# /static/ 으로 들어 올 때 경로 설정.
+        alias   [/home/user/testprj/static/]; # django project settings.py에 설정되어있는 STATIC_ROOT 주소
+    }
+}
+
+</code></pre></td></tr></tbody></table></div>
+</div>
+
+<p>여기서</p>
+
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3</pre></td><td class="code"><pre class="highlight"><code>$ sudo nginx -t
+nginx: [emerg] could not build server_names_hash, you should increase server_names_hash_bucket_size: 64
+nginx: configuration file /etc/nginx/nginx.conf test failed
+</code></pre></td></tr></tbody></table></div>
+</div>
+
+<p>nginx 서버 확인 시 이런 오류가 난다면</p>
+
+<p><code class="highlighter-rouge">nginx.conf</code> 파일 수정을 해줘야 한다.</p>
+
+<p>아래 설정을 <code class="highlighter-rouge">http {} block</code>에 설정 안에 넣는다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8</pre></td><td class="code"><pre class="highlight"><code># etc/nginx/nginx.conf
+
+htttp{
+    server_names_hash_bucket_size 512;
+	server_names_hash_max_size 512;
+	...
+}
+
+</code></pre></td></tr></tbody></table></div>
+</div>
+
+<p>오류에는 64라고 되어있어 64로 했더니 오류가 사라지지 않아  512로하니까 되었다.</p>
+
+<p>이렇게 하고<code class="highlighter-rouge"> $ sudo nginx -t </code>수행 -&gt; 성공하면 nginx 설정 끝!</p>
+
+<h3 id="3-uwsgi">3. uWSGI</h3>
+
+<p>가상환경이 활성화된 상태에서 uWSGI 설치</p>
+
+<p><code class="highlighter-rouge">$ pip install uwsgi</code></p>
+
+<p>잘 깔렸는지 확인해보자</p>
+
+<p><code class="highlighter-rouge">$ wsgi --http :8000 --module [your-project-name].wsgi</code> (manage.py 디렉토리에서)</p>
+
+<p>잘 되면 ini파일 생성</p>
+
+<p><code class="highlighter-rouge">$ sudo vi [testprj].ini</code></p>
+
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12<br/>13<br/>14<br/>15<br/>16<br/>17</pre></td><td class="code"><pre class="highlight"><code># home/user/testprj/[testprj].ini
+
+[uwsgi] # 이건 변경 Xß
+module          =  [testprj].wsgi:application
+master          =  true
+pidfile         =  [testprj].uwsgi.pid
+enable-threads  = true
+http            =  127.0.0.1:8000 # uWSGI 포트 설정 
+processes       =  5
+harakiri        =  50
+max-requests    =  5000
+# clear environment on exit
+vacuum          =  true
+# optional path to a virtualenv
+home            =  [/home/user/.pyenv/versions/3.6.5/envs/devenv] # 가상환경 경로 설정
+# background the process
+daemonize       =  [testprj].uwsgi.log
+</code></pre></td></tr></tbody></table></div>
+</div>
+
+<p>이렇게 하구 저장!</p>
+
+<ul>
+  <li>실행 <code class="highlighter-rouge">$ uwsgi testprj.ini (가상환경 안에서 )</code></li>
+  <li>uWSGI 로그확인 <code class="highlighter-rouge">$ vi testprj.uwsgi.log</code></li>
+  <li>uWSGI 중지 <code class="highlighter-rouge">$ uwsgi --stop [testprj].uwsgi.pid</code></li>
+</ul>
+
+<p>uWSGI 가 실행된 상태에서 nginx 서버를 시작한다.</p>
+
+<p><code class="highlighter-rouge">$ sudo service nginx start</code></p>
+
+<p>이후 맨 처음 nginx에서 생성한 conf 파일의 server_name에 설정한 주소(AWS 주소)로 들어가보면 Django project가 띄어져 있을 것이다! 그러면 연동 끝!</p>
+
+<p>설정 중 오류가 있으면 댓글 남겨주세요 💁‍</p>
+
+<h2 id="refer">refer</h2>
+
+<p><a href="https://medium.com/@charlesthk/deploy-nginx-django-uwsgi-on-aws-ec2-amazon-linux-517a683163c6">https://medium.com/@charlesthk/deploy-nginx-django-uwsgi-on-aws-ec2-amazon-linux-517a683163c6</a></p>
+
+<p><a href="https://www.savour-it.com/posts/2018-02-06-nginx-uwsgi-django-setting/">https://www.savour-it.com/posts/2018-02-06-nginx-uwsgi-django-setting/</a></p>
+
+<p><a href="https://www.digitalocean.com/community/tutorials/how-to-serve-django-applications-with-uwsgi-and-nginx-on-ubuntu-14-04">https://www.digitalocean.com/community/tutorials/how-to-serve-django-applications-with-uwsgi-and-nginx-on-ubuntu-14-04</a></p>
+
+<p><a href="https://blog.leop0ld.org/posts/use-python3-django-uwsgi-nginx/">https://blog.leop0ld.org/posts/use-python3-django-uwsgi-nginx/</a></p>
+
+<p><a href="http://charles.lescampeurs.org/2008/11/14/fix-nginx-increase-server_names_hash_bucket_size">http://charles.lescampeurs.org/2008/11/14/fix-nginx-increase-server_names_hash_bucket_size</a></p>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            
+            <a href="/tag/#/django" rel="tag"># django</a>
+          
+            
+            <a href="/tag/#/nginx%20uwsgi%20django%20%EC%97%B0%EB%8F%99" rel="tag"># nginx uwsgi django 연동</a>
+          
+            
+            <a href="/tag/#/nginx%20uwsgi%20django" rel="tag"># nginx uwsgi django</a>
+          
+            
+            <a href="/tag/#/aws%20nginx%20django" rel="tag"># aws nginx django</a>
+          
+            
+            <a href="/tag/#/aws%20django%20%EB%B0%B0%ED%8F%AC" rel="tag"># aws django 배포</a>
+          
+        </div>
+      
+
+      
+      
+      
+      
+      
+
+      
+      
+        <div class="post-nav" id="post-nav-id">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/python/2018/10/24/GIL/" rel="prev" title="GIL을 알아보자">
+                GIL을 알아보자 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+      
+
+      
+    </footer>
+  </article>
+
+  <div class="post-spread">
+    
+  </div>
+</div>
 
 
           </div>
@@ -414,6 +659,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -542,82 +791,9 @@
   
   
 
-  
-    
-      <script type="text/javascript" id="motion.page.archive">
-        $('.archive-year').velocity('transition.slideLeftIn');
-      </script>
-    
-    
+  <script type="text/javascript" src="/assets/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/assets/js/src/post-details.js?v=5.1.1"></script>
 
-
-
-  <script type="text/javascript" src="/assets/js/src/paginator.js"></script>
-  <script>
-    (function() {
-      // Url route
-      var hash = window.location.hash.substring(1);
-      $(window).on('hashchange', function() {
-        location.reload();
-        $(this).scrollTop(0);
-      });
-
-      if (!hash)
-        hash = "/";
-      $('[route][route!="' + hash + '"]').remove();
-      $('#posts').show();
-
-      // Pagination
-      
-
-      
-
-      
-        var sizes = 3
-        var base = "#";
-      
-
-      var current = 0;
-
-      if (hash != '/') {
-        
-
-        var reg = /(?:\/page(\d+))/;
-        var res = reg.exec(hash);
-
-        if (res && res[1])
-          current = parseInt(res[1]);
-      }
-      else {
-        current = 1;
-      }
-
-      var total = Math.floor(sizes / 5);
-      if (sizes % 5 > 0) {
-        total = total + 1;
-      }
-
-      if (total <= 1) {
-        $('nav.pagination').remove();
-      }
-      else {
-        var content = paginator({
-                          prev_text: '<i class="fa fa-angle-left"></i>',
-                          next_text: '<i class="fa fa-angle-right"></i>',
-                          current: current,
-                          total: total,
-                          base: base,
-                          format: "/page%d",
-                          mid_size: 1,
-                          end_size: 1
-                        });
-          $('nav.pagination').html(content);
-      }
-    })();
-  </script>
-
-
-  
 
   
 
