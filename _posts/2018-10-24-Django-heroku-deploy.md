@@ -17,7 +17,7 @@ git이 설치되어있다고 가정한다.
 $ pip install dj-database-url gunicorn whitenoise
 ```
 
-### 3. requirements.txt` 파일 생성
+### 3. `requirements.txt` 파일 생성
 
 ```
 $ pip freeze > requirements.txt
@@ -29,7 +29,7 @@ $ pip freeze > requirements.txt
 $ psycopg2==2.7.1
 ```
 
-### 4. Procfile 파일 생성
+### 4.` Procfile `파일 생성
 헤로쿠에게 웹 사이트를 시작시키기 위해 실행되어야할 명령어의 순서를 알려주기 위해 procfile 파일 생성 (확장자 x, cmd에서 vi나 nano로 생성)
 
 ```

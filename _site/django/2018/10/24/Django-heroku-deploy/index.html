@@ -409,7 +409,7 @@
 </code></pre></td></tr></tbody></table></div>
 </div>
 
-<h3 id="3-requirementstxt-파일-생성">3. requirements.txt` 파일 생성</h3>
+<h3 id="3-requirementstxt-파일-생성">3. <code class="highlighter-rouge">requirements.txt</code> 파일 생성</h3>
 
 <div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1</pre></td><td class="code"><pre class="highlight"><code>$ pip freeze &gt; requirements.txt
 </code></pre></td></tr></tbody></table></div>
@@ -421,7 +421,7 @@
 </code></pre></td></tr></tbody></table></div>
 </div>
 
-<h3 id="4-procfile-파일-생성">4. Procfile 파일 생성</h3>
+<h3 id="4-procfile-파일-생성">4.<code class="highlighter-rouge"> Procfile </code>파일 생성</h3>
 <p>헤로쿠에게 웹 사이트를 시작시키기 위해 실행되어야할 명령어의 순서를 알려주기 위해 procfile 파일 생성 (확장자 x, cmd에서 vi나 nano로 생성)</p>
 
 <div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1</pre></td><td class="code"><pre class="highlight"><code>web: gunicorn &lt;mysite&gt;.wsgi --log-file -
