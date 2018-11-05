@@ -6,7 +6,7 @@ categories:
 tags: [django mysql연동, django mysql]
 ---
 
-이 포스팅은 mac과 linux 기반의 Django-MySQL 연동 글이다.
+이 포스팅은 mac과 linux 환경에서의 Django-MySQL 연동 글이다.
 
 윈도우 환경에서 작업을 진행한다면, [이 포스팅](http://jamanbbo.tistory.com/28) 과 함께 보기 추천한다. (별로 다른 건 없지만 윈도우 환경에서 오류 해결 법이 좀 더 추가되어있다)
 
