@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.5.2">Jekyll</generator><link href="http://localhost:4000/atom.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-11-06T17:35:32+09:00</updated><id>http://localhost:4000/</id><title type="html">Lowell’s Blog</title><subtitle>lowell의 기술 블로그 </subtitle><author><name>Lowell</name></author><entry><title type="html">Docker</title><link href="http://localhost:4000/til/2018/11/06/TIL-Docker/" rel="alternate" type="text/html" title="Docker" /><published>2018-11-06T00:00:00+09:00</published><updated>2018-11-06T00:00:00+09:00</updated><id>http://localhost:4000/til/2018/11/06/TIL-Docker</id><content type="html" xml:base="http://localhost:4000/til/2018/11/06/TIL-Docker/">&lt;p&gt;&lt;img src=&quot;https://www.docker.com/sites/default/files/Whale%20Logo332_5.png&quot; alt=&quot;https://www.docker.com/sites/default/files/Whale%20Logo332_5.png&quot; /&gt;&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.5.2">Jekyll</generator><link href="http://localhost:4000/atom.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-11-06T17:40:34+09:00</updated><id>http://localhost:4000/</id><title type="html">Lowell’s Blog</title><subtitle>lowell의 기술 블로그 </subtitle><author><name>Lowell</name></author><entry><title type="html">Docker</title><link href="http://localhost:4000/til/2018/11/06/TIL-Docker/" rel="alternate" type="text/html" title="Docker" /><published>2018-11-06T00:00:00+09:00</published><updated>2018-11-06T00:00:00+09:00</updated><id>http://localhost:4000/til/2018/11/06/TIL-Docker</id><content type="html" xml:base="http://localhost:4000/til/2018/11/06/TIL-Docker/">&lt;p&gt;&lt;img src=&quot;https://www.docker.com/sites/default/files/Whale%20Logo332_5.png&quot; alt=&quot;https://www.docker.com/sites/default/files/Whale%20Logo332_5.png&quot; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;도커란&quot;&gt;도커란?&lt;/h2&gt;
 
@@ -102,25 +102,25 @@ Client:
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;**실행 중인 컨테이너 중지 **&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;실행 중인 컨테이너 중지&lt;/strong&gt;&lt;/p&gt;
 
 &lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;docker stop &lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;container_id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt; or container_name&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;**컨테이너 완전 삭제 **&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;컨테이너 완전 삭제&lt;/strong&gt;&lt;/p&gt;
 
 &lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;docker stop &lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;container_id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt; or container_name&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;**이미지 목록 확인 **&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;이미지 목록 확인&lt;/strong&gt;&lt;/p&gt;
 
 &lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;docker images
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;**이미지 업데이트 **&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;이미지 업데이트&lt;/strong&gt;&lt;/p&gt;
 
 &lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;docker pull ubuntu:14.04
 &lt;/code&gt;&lt;/pre&gt;
@@ -128,7 +128,7 @@ Client:
 
 &lt;p&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;pull&lt;/code&gt;  이미지를 최신 버전으로 다시 다운 받을 수 있음.&lt;/p&gt;
 
-&lt;p&gt;**이미지 삭제 **&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;이미지 삭제&lt;/strong&gt;&lt;/p&gt;
 
 &lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;docker rmi &lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;image_id&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
@@ -136,7 +136,7 @@ Client:
 
 &lt;p&gt;컨테이너가 실행 중인 이미지는 삭제되지 않음!&lt;/p&gt;
 
-&lt;p&gt;**컨테이너 실행 로그 확인 **&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;컨테이너 실행 로그 확인&lt;/strong&gt;&lt;/p&gt;
 
 &lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;docker logs &lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;container_id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt; or container_name&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
