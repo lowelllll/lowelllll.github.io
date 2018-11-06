@@ -111,25 +111,25 @@ $ docker ps # 실행 중인 컨테이너 목록
 $ docker ps -a # 전체 컨테이너 목록
 ```
 
-**실행 중인 컨테이너 중지 **
+**실행 중인 컨테이너 중지**
 
 ```shell
 $ docker stop ${container_id or container_name}
 ```
 
-**컨테이너 완전 삭제 **
+**컨테이너 완전 삭제**
 
 ```shell
 $ docker stop ${container_id or container_name}
 ```
 
-**이미지 목록 확인 **
+**이미지 목록 확인**
 
 ```shell
 $ docker images
 ```
 
-**이미지 업데이트 **
+**이미지 업데이트**
 
 ```shell
 $ docker pull ubuntu:14.04
@@ -137,7 +137,7 @@ $ docker pull ubuntu:14.04
 
  `pull`  이미지를 최신 버전으로 다시 다운 받을 수 있음.
 
-**이미지 삭제 **
+**이미지 삭제**
 
 ```shell
 $ docker rmi ${image_id}
@@ -145,7 +145,7 @@ $ docker rmi ${image_id}
 
 컨테이너가 실행 중인 이미지는 삭제되지 않음!
 
-**컨테이너 실행 로그 확인 **
+**컨테이너 실행 로그 확인**
 
 ```shell
 $ docker logs ${container_id or container_name}
