@@ -155,6 +155,24 @@
 
   <title>              카테고리 | Lowell's Blog      </title>
   
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '',
+      xfbml      : true,
+      version    : 'v2.6'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/ko/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
+
 
 
 
@@ -299,7 +317,7 @@
     <div class="category-all-page">
       <div class="category-all-title">
           
-            총 3개의 카테고리
+            총 4개의 카테고리
           
       </div>
       <div class="category-all">
@@ -330,6 +348,14 @@
       
       
       <a class="category-list-link" href="/category/#/Nginx">Nginx</a>
+      <span class="category-list-count">1</span>
+    </i>
+    
+    <li class="category-list-item">
+      
+      
+      
+      <a class="category-list-link" href="/category/#/TIL">TIL</a>
       <span class="category-list-count">1</span>
     </i>
     

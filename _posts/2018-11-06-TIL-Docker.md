@@ -1,12 +1,13 @@
 ---
-title: [TIL-181106] Docker
+title: Docker
 description: 181106 Today I learned Docker 
 categories:
  - TIL
 tags: [docker, docker 사용법,docker 명령어]
 ---
 
-![https://www.docker.com/sites/default/files/Whale%20Logo332_5.png]()
+
+![https://www.docker.com/sites/default/files/Whale%20Logo332_5.png](https://www.docker.com/sites/default/files/Whale%20Logo332_5.png)
 
 ## 도커란?
 
