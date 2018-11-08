@@ -1,4 +1,112 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.5.2">Jekyll</generator><link href="http://localhost:4000/atom.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-11-06T17:40:34+09:00</updated><id>http://localhost:4000/</id><title type="html">Lowell’s Blog</title><subtitle>lowell의 기술 블로그 </subtitle><author><name>Lowell</name></author><entry><title type="html">Docker</title><link href="http://localhost:4000/til/2018/11/06/TIL-Docker/" rel="alternate" type="text/html" title="Docker" /><published>2018-11-06T00:00:00+09:00</published><updated>2018-11-06T00:00:00+09:00</updated><id>http://localhost:4000/til/2018/11/06/TIL-Docker</id><content type="html" xml:base="http://localhost:4000/til/2018/11/06/TIL-Docker/">&lt;p&gt;&lt;img src=&quot;https://www.docker.com/sites/default/files/Whale%20Logo332_5.png&quot; alt=&quot;https://www.docker.com/sites/default/files/Whale%20Logo332_5.png&quot; /&gt;&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.5.2">Jekyll</generator><link href="http://localhost:4000/atom.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-11-08T15:27:27+09:00</updated><id>http://localhost:4000/</id><title type="html">Lowell’s Blog</title><subtitle>lowell의 기술 블로그 </subtitle><author><name>Lowell</name></author><entry><title type="html">git commit 합치기 (rebase -i)</title><link href="http://localhost:4000/git/2018/11/08/git-commit-%ED%95%A9%EC%B9%98%EA%B8%B0/" rel="alternate" type="text/html" title="git commit 합치기 (rebase -i)" /><published>2018-11-08T00:00:00+09:00</published><updated>2018-11-08T00:00:00+09:00</updated><id>http://localhost:4000/git/2018/11/08/git-commit-%ED%95%A9%EC%B9%98%EA%B8%B0</id><content type="html" xml:base="http://localhost:4000/git/2018/11/08/git-commit-%ED%95%A9%EC%B9%98%EA%B8%B0/">&lt;h3 id=&quot;상황&quot;&gt;상황&lt;/h3&gt;
+
+&lt;p&gt;회사에서 기능을 구현하고 풀리퀘까지 보낸 상황에서 로직에 수정해야하는 부분을 발견했다.&lt;/p&gt;
+
+&lt;p&gt;로직을 수정하고 커밋하려고 하니 지저분한 커밋이 늘어나는 것 같아 굉장히 찝찝해졌다. ‘이건 커밋 메세지를 또 뭐라하지..’&lt;/p&gt;
+
+&lt;p&gt;어떻게 하면 좋을 까 생각해보니 예전에 사수님께서 커밋을 합칠 수 있다고 말씀해주신 것이 생각나 바로 검색을 해보았다.&lt;/p&gt;
+
+&lt;h3 id=&quot;커밋-합치기&quot;&gt;커밋 합치기&lt;/h3&gt;
+
+&lt;p&gt;깃을 사용하는 사람이라면 &lt;strong&gt;같은 기능 구현에 대한 여러 번의 커밋&lt;/strong&gt;을 한적이 있을 것이다.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;웹 디자인 css를 완성하고 '웹 디자인 구현'이라고 커밋을 했는데 웹 페이지를 다시 보니 폰트 사이즈가 맘에 안들어서 수정한 후 '폰트 사이즈 수정' 이라고 커밋을 했다.
+커밋 후 다시 보니 이번에는 폰트 색깔이 맘에 안들어 바꾸고 '폰트 색깔 수정' 이라고 커밋을 했다.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;디자인을 구현한건 똑같은데 여러 번의 커밋이 이루어졌다.&lt;/p&gt;
+
+&lt;p&gt;이렇게 되면 협업을 할 때 다른사람이 커밋의 내용에 대해 의문이 들 수도 있고 이런 커밋들이 많아지면 커밋 이력은 매우 지저분해진다.&lt;/p&gt;
+
+&lt;p&gt;이럴 때 커밋을 합치면 이런 문제를 해결할 수 있다.&lt;/p&gt;
+
+&lt;p&gt;커밋을 합치는 것은 &lt;code class=&quot;highlighter-rouge&quot;&gt;rebase -i&lt;/code&gt; 명령어로 합칠 수 있다.&lt;/p&gt;
+
+&lt;p&gt;먼저 &lt;code class=&quot;highlighter-rouge&quot;&gt;git log&lt;/code&gt;를 통해 내가 어디서부터 어디까지 커밋을 합칠 것인지 살펴보자.&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;commit e1f09108a51c09919c3488f06e3160c8f57
+Author: 
+Date:   Thu Nov 8 15:06:01 2018 +0900
+
+    Message 4
+
+commit 405715479d9e97bbe714820dda88e04dbc
+Author: 
+Date:   Thu Oct 25 12:14:21 2018 +0900
+
+    Message 3
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Message 3&lt;/code&gt; 커밋에  &lt;code class=&quot;highlighter-rouge&quot;&gt;Message 4&lt;/code&gt; 커밋을 합쳐보도록 하겠다.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git rebase -i HEAD~2 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;위 명령어는 최근 커밋 2개를 합치라는 명령어이다.&lt;/p&gt;
+
+&lt;p&gt;head는 현재 브랜치에서 마지막 커밋을 가르킨다.&lt;/p&gt;
+
+&lt;p&gt;즉 마지막 커밋과 그 전 커밋을 합치는 것이다.&lt;/p&gt;
+
+&lt;p&gt;만약 2개 커밋이 아닌 3개 커밋을 합치고 싶다면 &lt;code class=&quot;highlighter-rouge&quot;&gt;HEAD~3&lt;/code&gt; 이라고 숫자만 바꿔주면 된다.&lt;/p&gt;
+
+&lt;p&gt;위 명령어를 실행하면 vi 편집기가 뜰 것이다.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;pick 4057154 Message 3
+pick e1f0910 Message 4
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;vi 상단에는 내가 합치고 싶은 커밋들이 나와있을 건데 여기서 합치고 싶은 커밋의 &lt;code class=&quot;highlighter-rouge&quot;&gt;pick&lt;/code&gt;을 &lt;code class=&quot;highlighter-rouge&quot;&gt;squash&lt;/code&gt;로 바꿔준다.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;pick 4057154 Message 3
+squash e1f0910 Message 4
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;message 4 커밋을 message 3 커밋으로 합칠 거기 때문에 Message 4의 &lt;code class=&quot;highlighter-rouge&quot;&gt;pick&lt;/code&gt;을 &lt;code class=&quot;highlighter-rouge&quot;&gt;squash&lt;/code&gt;로 바꿔준다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;:wq&lt;/code&gt; 저장을 하면&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# This is a combination of 2 commits.
+# This is the 1st commit message:
+
+Message 3
+
+# This is the commit message #2:
+
+# Message 4
+
+# Please enter the commit message for your changes. Lines starting
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;이렇게 다시 vi 편집기가 뜨는데 &lt;strong&gt;여기서는 어떤 커밋 메세지를 사용할 것이냐&lt;/strong&gt;를 묻는 것이므로&lt;/p&gt;
+
+&lt;p&gt;Message 4 커밋 메세지를 지우면 message 3의 커밋 메세지만 남게 된다.&lt;/p&gt;
+
+&lt;p&gt;지우지 않고 위와 같이 주석 처리를 할 수 있다.&lt;/p&gt;
+
+&lt;p&gt;위 설정까지 다 했다면 커밋이 합쳐졌을 것이다.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;commit 405715479d9e97bbe714820dda88e04dbc493282
+Author: 
+Date:   Thu Oct 25 12:14:21 2018 +0900
+
+    Message 3
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;커밋 합친 것을 원격 저장소에도 반영하고 싶으면 &lt;code class=&quot;highlighter-rouge&quot;&gt;push&lt;/code&gt;를 하면 된다.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git push -f origin [branch]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;커밋 합치기 참 쉽죵? 🤗&lt;/p&gt;</content><author><name>Lowell</name></author><category term="git rebase" /><category term="git commit 합치기" /><summary type="html">상황</summary></entry><entry><title type="html">Docker</title><link href="http://localhost:4000/til/2018/11/06/TIL-Docker/" rel="alternate" type="text/html" title="Docker" /><published>2018-11-06T00:00:00+09:00</published><updated>2018-11-06T00:00:00+09:00</updated><id>http://localhost:4000/til/2018/11/06/TIL-Docker</id><content type="html" xml:base="http://localhost:4000/til/2018/11/06/TIL-Docker/">&lt;p&gt;&lt;img src=&quot;https://www.docker.com/sites/default/files/Whale%20Logo332_5.png&quot; alt=&quot;https://www.docker.com/sites/default/files/Whale%20Logo332_5.png&quot; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;도커란&quot;&gt;도커란?&lt;/h2&gt;
 
