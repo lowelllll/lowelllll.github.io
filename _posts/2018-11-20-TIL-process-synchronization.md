@@ -1,5 +1,5 @@
 ---
- title: 프로세스 동기화 
+title: 프로세스 동기화 
 description: 181120 Today I learned Process synchronization 
 categories:
  - TIL
