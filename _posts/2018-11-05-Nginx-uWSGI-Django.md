@@ -132,19 +132,20 @@ htttp{
 ```
 # home/user/testprj/[testprj].ini
 
-[uwsgi] # 이건 변경 Xß
+[uwsgi] 
 module          =  [testprj].wsgi:application
 master          =  true
 pidfile         =  [testprj].uwsgi.pid
 enable-threads  = true
-http            =  127.0.0.1:8000 # uWSGI 포트 설정 
+# uWSGI 포트 설정 
+http            =  127.0.0.1:8000 
 processes       =  5
 harakiri        =  50
 max-requests    =  5000
 # clear environment on exit
 vacuum          =  true
-# optional path to a virtualenv
-home            =  [/home/user/.pyenv/versions/3.6.5/envs/devenv] # 가상환경 경로 설정
+# 가상환경 설정
+home            =  [/home/user/.pyenv/versions/3.6.5/envs/devenv]
 # background the process
 daemonize       =  [testprj].uwsgi.log
 ```
