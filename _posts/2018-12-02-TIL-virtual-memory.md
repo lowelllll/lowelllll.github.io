@@ -1,5 +1,5 @@
 ---
-title: Main Momery 
+title: Virtual Momery 
 description: 181202 Today I learned Virtual Memory
 categories:
  - TIL
