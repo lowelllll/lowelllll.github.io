@@ -114,12 +114,9 @@ tags: [교착상태, deadlock]
 > 교착상태를 해결하기 위해 존재하는 프로세스 하나를 임의로 종료하여 교착 상태를 해결하는 방법
 
 1. 교착 상태  프로세스를 모두 중지
-
-   교착상태에 가기까지 프로세스들이 진행한 많은 작업들이 중지로 인해 결과가 폐기된다면 다시 계산을 해야하기 때문에 **상당히 큰 비용이 들어감**
-
+   - 교착상태에 가기까지 프로세스들이 진행한 많은 작업들이 중지로 인해 결과가 폐기된다면 다시 계산을 해야하기 때문에 **상당히 큰 비용이 들어감**
 2. 교착 상태가 제거될 때 까지 한 프로세스씩 중지
-
-   각 프로세스가 중지될 때 마다 아직도 교착 상태에 있는지 **매번 살펴봐야하기 때문에** 상당한 오버헤드 유발.
+   - 각 프로세스가 중지될 때 마다 아직도 교착 상태에 있는지 **매번 살펴봐야하기 때문에** 상당한 오버헤드 유발.
 
 #### 자원 선점
 
@@ -151,6 +148,6 @@ tags: [교착상태, deadlock]
 
 [운영체제 | 교착상태(deadlock)란 무엇인가?](https://frontalnh.github.io/2018/04/05/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EA%B5%90%EC%B0%A9%EC%83%81%ED%83%9C-deadlock-%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80/#%EC%8B%9C%EC%8A%A4%ED%85%9C-%EB%AA%A8%EB%8D%B8)
 
-[[운영체제] 데드락, 교착상태 해결 (Dead lock)  출처: <http://includestdio.tistory.com/12> [includestdio] ](http://includestdio.tistory.com/12)
+[[운영체제] 데드락, 교착상태 해결 (Dead lock)](http://includestdio.tistory.com/12)
 
 [http://asfirstalways.tistory.com/129](http://asfirstalways.tistory.com/129)
