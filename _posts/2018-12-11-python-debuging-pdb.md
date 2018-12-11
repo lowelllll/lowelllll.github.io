@@ -23,7 +23,7 @@ def sum(x, y):
 	return result
 
 if __name__ = '__main__':
-    print(sum(3+7))
+    print(sum(3,7))
 ```
 
 위 코드와 같이 디버깅을 하고 싶은 부분에 `pdb`를 임포트하고 `pdb.set_trace()`메서드를 적어준다.
