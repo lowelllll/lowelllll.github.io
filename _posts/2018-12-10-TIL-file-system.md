@@ -63,3 +63,32 @@ tags: [file system, 파일 시스템]
   - 레코드의 번호로 접근.
 - 기타 접근 방법
   - 파일에 대한 인덱스`index`를 통해 작동할 데이터의 위치를 신속하게 찾아냄.
+
+## 디렉토리 
+
+디렉토리는 파일 시스템에 포함되어 있으며 디렉토리 안에 있는 파일의 정보들을 가지고 있음.
+
+### 디렉토리 구조
+
+- **Single-Level Directory**
+  - 한개의 폴더에 한개의 파일만 존재하는 것.
+  - 각 파일의 이름은 고유해야한다.
+  - 그룹핑도 하지 못함.
+  - ![single-level-dir](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter11/11_10_TwoLevelStructure.jpg)
+- **Two-Level Directory**
+  - 마스터 파일 디렉토리 밑에 유저 파일 디렉토리가 있는 구조
+  - 각 유저당 동일한 이름의 파일을 가지고 있음
+  - path 개념이 생김.
+  - ![two-level-dir](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter11/11_10_TwoLevelStructure.jpg)
+
+-  **Tree-Structure Directories**
+
+  - 우리가 아는 트리 구조의 디렉토리
+
+  - 디렉토리 밑에 하위 디렉토리를 생성하는 구조
+
+  - 운영체제는 하위 디렉토리를 하나의 파일로 봄.
+
+  - ![tree-structure dir](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter11/11_11_TreeStructure.jpg)
+
+
