@@ -18,6 +18,9 @@ python에서 dictionary 데이터를 json 형태로 dumps하거나 반대로 jso
 만약에 single quote로 된 데이터를 변경하지 못한다면 모듈 ast를 사용해서 해결 할 수 있다.
 
 ```
+import ast
+import json
+
 data = "{'property': '1'}"
 
 # dumps 
