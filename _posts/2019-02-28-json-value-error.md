@@ -1,5 +1,5 @@
 ---
-title: json ValueError: Expecting property name.. error
+title: json ValueError Expecting property name.. error
 description: python json valueError를 해결해보자
 categories:
  - python
