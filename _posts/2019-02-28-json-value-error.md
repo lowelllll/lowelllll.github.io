@@ -3,7 +3,7 @@ title: json ValueError Expecting property name.. error
 description: python json valueError를 해결해보자
 categories:
  - python
-tags: [ValueError: Expecting property name: line 1 column 2 (char 1)]
+tags: [ValueError Expecting property name line 1 column 2 (char 1)]
 ---
 
 python에서 dictionary 데이터를 json 형태로 dumps하거나 반대로 json 데이터를 dictionary 형태로 loads할 때 발생하는 
@@ -17,7 +17,7 @@ python에서 dictionary 데이터를 json 형태로 dumps하거나 반대로 jso
 
 만약에 single quote로 된 데이터를 변경하지 못한다면 모듈 ast를 사용해서 해결 할 수 있다.
 
-```
+```python
 import ast
 import json
 
