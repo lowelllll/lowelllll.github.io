@@ -16,7 +16,7 @@ tags: [order by case, order by field, order by 정렬]
 
 어떤 데이터의 값의 정렬을 정해주고 싶을 때 사용하면 된다. 
 
-```SQL
+```
 > SELECT id, title, status FROM movie
 id title status 
 1	아바타 	2 
@@ -45,7 +45,7 @@ END;`
 
 if문과 비슷하게 동작하는 CASE문은 condition에 조건을 넣으면 되고 then 뒤에는 정렬 순위를 넣으면 된다.
 
-```SQL
+```
 > SELECT id, title, start_at, end_at
   CASE
   WHEN start_at <= NOW() AND NOW() < end_at THEN 1
