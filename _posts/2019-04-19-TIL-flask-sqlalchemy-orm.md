@@ -145,3 +145,35 @@ session.query(Model1, stmt.c.id, stmt.c.grade).\
 # ON model1.id = model2.id
 ```
 
+### 그 외 팁
+
+#### last_row_id 얻기
+
+```python
+user = Model(name='lowell', age=20)
+session.add(user)
+session.flush() # DB connection 일어남
+
+id = user.id # auto_encrement로 생성된 id
+
+session.commit() # session.rollback()
+```
+
+#### 검색 (LIKE)
+
+```python
+results = session.query(Model).\
+	filter(Model.name.like('김%')).all() # 성이 김씨인 사람 찾음
+    
+# 응용해보긔 
+
+keyword = kwargs.get('keyword', '')
+search = True 
+
+if keyword:
+    search = Model.name.like(f'{keyword}%')
+    
+results = session.query(Model).\
+	filter(search).all() # 검색어가 있으면 검색, 없으면 모두 가져옴
+```
+
