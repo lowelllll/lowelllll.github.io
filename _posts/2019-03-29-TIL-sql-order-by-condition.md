@@ -36,12 +36,12 @@ id title status
 
 ### CASE
 
-`CASE
+```CASE
     WHEN <condition1> THEN <result1>
     WHEN <condition2> THEN <result2>
     WHEN <conditionN> THEN <resultN>
     ELSE <result>
-END;`
+END;```
 
 if문과 비슷하게 동작하는 CASE문은 condition에 조건을 넣으면 되고 then 뒤에는 정렬 순위를 넣으면 된다.
 
