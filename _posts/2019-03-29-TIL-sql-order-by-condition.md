@@ -1,6 +1,6 @@
 ---
-title: MySQL ORDER BY 정렬 시 조건 걸기
-description: order by 구문을 통해 정렬할 때 조건에 맞게 정렬을 할 수 있습니다.
+title: MySQL ORDER BY 정렬 시 조건 걸기, CASE 사용하기
+description: order by 구문을 통해 정렬할 때 조건에 맞게 정렬을 할 수 있습니다. 또 CASE로 원하는 값을 추출할 수 있습니다.
 categories:
  - TIL
 tags: [order by case, order by field, order by 정렬]
@@ -34,13 +34,13 @@ id title status
 
 위 예제는 status의 값 별로 정렬 순위를 정해준 것이다. 값 1이 1순위고 2가 2순위, 0이 3순위인 것을 확인할 수 있다. 
 
- ### CASE
+### CASE
 
 `CASE
-    WHEN *condition1* THEN *result1*
-    WHEN *condition2* THEN *result2*
-    WHEN *conditionN* THEN *resultN*
-    ELSE *result*
+    WHEN <condition1> THEN <result1>
+    WHEN <condition2> THEN <result2>
+    WHEN <conditionN> THEN <resultN>
+    ELSE <result>
 END;`
 
 if문과 비슷하게 동작하는 CASE문은 condition에 조건을 넣으면 되고 then 뒤에는 정렬 순위를 넣으면 된다.
