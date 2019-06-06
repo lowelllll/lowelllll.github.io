@@ -3,8 +3,10 @@ title: 가비지 컬렉터
 description: 가비지 컬렉터란?
 categories:
  - TIL
-tags: [가비지 컬렉터, garbage collector]메모리 
+tags: [가비지 컬렉터, garbage collector]
 ---
+
+`TIL 카테고리의 글은 그날 배운 것을 정리하는 목적으로 포스팅합니다. 내용이 잘못되었다면 댓글로 피드백 부탁드립니다.`
 
 ## 가비지 컬렉터
 
