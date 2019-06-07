@@ -1,0 +1,1321 @@
+
+<!doctype html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html class="theme-next muse use-motion" lang="ko">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/assets/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/assets/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/assets/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="메인 메모리,메모리 관리,main memory,memory management," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Lowell's Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/assets/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="181124 Today I learned Memory Management">
+<meta name="keywords" content="메인 메모리, 메모리 관리, main memory, memory management">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Main Momery">
+<meta property="og:url" content="http://localhost:4000/til/2018/11/27/TIL-main-memory/">
+<meta property="og:site_name" content="Lowell's Blog">
+<meta property="og:description" content="181124 Today I learned Memory Management">
+<meta property="og:locale" content="ko">
+<meta property="og:image" content="https://t1.daumcdn.net/cfile/tistory/9950C73359C4A5E416">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/1600/0*ADwXjKP1LMrEDxcB">
+<meta property="og:image" content="https://techdifferences.com/wp-content/uploads/2017/01/Swapping.jpg">
+<meta property="og:image" content="https://edux.pjwstk.edu.pl/mat/270/lec/lecture7/rys-7-4.png">
+<meta property="og:image" content="https://t1.daumcdn.net/cfile/tistory/2446D83555FB8B6127">
+<meta property="og:image" content="http://courses.teresco.org/cs432_f02/lectures/15-io/sgg-seg-ex.gif">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Main Momery">
+<meta name="twitter:description" content="181124 Today I learned Memory Management">
+<meta name="twitter:image" content="https://t1.daumcdn.net/cfile/tistory/9950C73359C4A5E416">
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":5,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '작성자'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://localhost:4000/"/>
+
+
+
+
+
+  <title>Main Momery | Lowell's Blog</title>
+  
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '',
+      xfbml      : true,
+      version    : 'v2.6'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/ko/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <meta name="google-site-verification" content="N5TPtD4W-NtIxmLpJRA6uSzKZTgB-wc6D_AeS2BSFkw" />
+  <meta name="google-site-verification" content="0nDH-74euRy51Hs3tt8Ixeui9iAtzJgVYpsZl-B2vJ8" />
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="ko">
+
+  
+
+
+  <div class="container  page-post-detail ">
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            홈
+          </a>
+        </li>
+      
+        
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            아카이브
+          </a>
+        </li>
+      
+        
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            태그
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+            검색
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="" spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+<div id="posts" class="posts-expand">
+  
+  
+
+  
+
+  
+  
+  
+
+  <article class="post post-type- " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://localhost:4000/til/2018/11/27/TIL-main-memory/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Lowell">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="assets/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lowell's Blog">
+    </span>
+
+    
+    
+      
+            <span class="post-category">
+               
+              <!-- 카테고리 -->
+                
+                  <a href="/category/#/TIL" itemprop="url" rel="index">
+                    <h3 itemprop="name">TIL</h3>
+                  </a>
+                
+                
+              
+            </span>
+        
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title post-title-custom" itemprop="name headline">
+          
+          
+            Main Momery
+          
+        </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              
+                <span class="post-meta-item-text">작성일</span>
+              
+              <time title="" itemprop="dateCreated datePublished" datetime="2018-11-27T00:00:00+09:00">
+                2018-11-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/til/2018/11/27/TIL-main-memory/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count fb-comments-count" data-href="http://localhost:4000/til/2018/11/27/TIL-main-memory/" itemprop="commentCount">0</span> comments
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+            
+                <div class="post-description">
+                    181124 Today I learned Memory Management
+                </div>
+            
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+        
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <p><code class="highlighter-rouge">TIL 카테고리의 글은 그날 배운 것을 정리하는 목적으로 포스팅합니다. 내용이 잘못되었다면 댓글로 피드백 부탁드립니다.</code></p>
+
+<h2 id="메모리-계층-구조">메모리 계층 구조</h2>
+
+<h3 id="레지스터">레지스터</h3>
+
+<blockquote>
+  <p>CPU Core 내부에 존재하며 Core에서 연산을 수행할 때 직접 참조할 수 있는 유일한 기억장치</p>
+</blockquote>
+
+<p>Core 내부에도 몇 개 존재하지 않는 귀한 기억장치이며 보통 한 워드(프로세서가 처리할 수 있는 가장 자연스러운 데이터의 크기)가 레지스터 하나의 크기임.</p>
+
+<h3 id="캐시-메모리">캐시 메모리</h3>
+
+<blockquote>
+  <p>CPU Core 내부에 존재하며 Core와 입출력 버스를 통해 정보를 주고 받음</p>
+</blockquote>
+
+<p>명령어를 저장하는 <code class="highlighter-rouge">Instruction Cache</code>와 데이터를 저장하는 <code class="highlighter-rouge">Data Cache</code>로 구분되어있음.</p>
+
+<p>주로 <code class="highlighter-rouge">Refresh</code> (메모리의 내용을 보존하기 위해서 주기적으로 데이터를 갱신하는 작업. 이 작업이 수행중일 때는 메모리에 읽거나 쓰는 동작을 하지 못함)가 필요없는 <code class="highlighter-rouge">SRAM(Static RAM)</code>으로 구성함.</p>
+
+<p>CPU 내부에서 상당한 공간을 차지함.</p>
+
+<h4 id="캐싱-caching">캐싱 (Caching)</h4>
+
+<p>데이터를 느린 하위 계층(보조기억장치)의 데이터를 미리 가져다 놓는 작업</p>
+
+<p><strong>캐싱할 데이터는 어떻게 선별할까?</strong></p>
+
+<p><strong>시간적 지역성 (Temporal Locality)</strong> : 최근 접근된 내용이 또 다시 접근될 확률이 높다.</p>
+
+<p><strong>공간적 지역성 (Spatial Locality)</strong> : 한 지역의 내용이 접근되었다면, 그 주위의 내용도 접근될 확률이 높다.</p>
+
+<p>CPU 내부에 있는 캐시 컨트롤러는 위 두가지 원리를 적용해 캐시 메모리에 적재될 내용을 관리함.</p>
+
+<h3 id="메인-메모리">메인 메모리</h3>
+
+<blockquote>
+  <p>CPU 외부에 존재하며 CPU와 North Bridge를 통한 데이터 버스를 통해 통신함.</p>
+</blockquote>
+
+<p>데이터를 보존하기 위해서 주기적으로 <code class="highlighter-rouge">Refresh</code>가 필요한 <code class="highlighter-rouge">DRAM</code>으로 구성됨.</p>
+
+<h3 id="보조기억장치">보조기억장치</h3>
+
+<blockquote>
+  <p>하드디스크, CD, DVD, USB 메모리 등. 메인 메모리에 비해 접근 속도가 현저하게 떨어짐</p>
+</blockquote>
+
+<h4 id="프로세서에서-접근-속도가-빠른-기억장치의-순서">프로세서에서 접근 속도가 빠른 기억장치의 순서</h4>
+
+<ol>
+  <li>레지스터</li>
+  <li>캐시 메모리</li>
+  <li>메인 메모리</li>
+  <li>보조 기억장치</li>
+</ol>
+
+<p>접근 속도가 빠르다 = 프로세서와 가깝다.</p>
+
+<h1 id="메모리-관리">메모리 관리</h1>
+
+<h3 id="base-register-limit-register">Base Register, Limit Register</h3>
+
+<p>운영체제는 각 프로세스들이 메모리에 올라왔을 때 다른 프로세스가 메모리 공간에 접근하는 것을 막아야함.</p>
+
+<p>이를 위해 메모리에서 프로세스의 시작 위치를 저장하는 <code class="highlighter-rouge">Base register</code>와 프로세스에게 할당된 메모리의 크기 <code class="highlighter-rouge">Limit register</code> 값을 이용해 프로세스들의 메모리 공간(space)의 경계를 나눔.</p>
+
+<p><img src="https://t1.daumcdn.net/cfile/tistory/9950C73359C4A5E416" alt="메모리" /></p>
+
+<p><strong>Base Register &lt;= 프로세스가 접근할 수 있는 공간 &lt;= Base Register+ Limit Register</strong></p>
+
+<h3 id="address-binding">Address Binding</h3>
+
+<blockquote>
+  <p>프로세스가 접근해야 하는 값과 함수에 대한 주소가 정해지는 것</p>
+</blockquote>
+
+<p><code class="highlighter-rouge">Logical Address</code>, <code class="highlighter-rouge">Virtual Address</code></p>
+
+<ul>
+  <li>논리적 주소. CPU가 생성하는 주소</li>
+</ul>
+
+<p><code class="highlighter-rouge">Physical Address</code></p>
+
+<ul>
+  <li>물리적 주소. 실제 접근해야하는 메모리 주소.</li>
+  <li>메모리에 나타나는 주소</li>
+  <li><code class="highlighter-rouge">Logical Address</code>와 다를 수 있음.</li>
+</ul>
+
+<h4 id="바인딩-시점">바인딩 시점</h4>
+
+<ol>
+  <li>
+    <p>컴파일 시점 주소 바인딩</p>
+
+    <blockquote>
+      <p><strong>컴파일이 될 때 컴파일러에서 멍령어들과 변수의 메모리 주소가 정해지는 것</strong></p>
+    </blockquote>
+
+    <ul>
+      <li>여기서 정해지는 주소는 실제 메모리 주소.</li>
+      <li>CPU에서 명령어를 실행할 때 이미 주소가 정해져있으므로 따로 주소 계산을 하지 않고 바로 접근해야하는 주소가 되므로 컴파일 시점 바인딩에서는 <strong>Logical Address  = Physical Address</strong></li>
+      <li>주소가 결정나고 프로그램을 다른 시스템에서 실행했을 때 해당 시스템의 메모리를 어디서부터 하ㄹ당해주는지 나타내는 <code class="highlighter-rouge">stating point</code>가 다르거나 이미 그 주소에 다른 프로그램이 실행 중이라면  이 프로그램은 실행할 수 없음.</li>
+    </ul>
+  </li>
+  <li>
+    <p>로드 시점 주소 바인딩</p>
+
+    <blockquote>
+      <p>프로그램이 컴파일 되고 <strong>메모리에 올라갈 때 CPU에서 주소가 계산되는 것</strong></p>
+    </blockquote>
+
+    <ul>
+      <li>컴파일 된 프로그램 내의 각 변수나 명령어의 주소는 <strong>특정 값</strong>을 기준으로 정해짐.</li>
+      <li>메모리에 올라가 CPU에서 주소를 계산할 때 프로그램이 올라간 메모리 주소의 Base Register 값에 이를 더하여 주소를 만들어냄.</li>
+      <li><strong>CPU 내에서 계산되고 발생한 Logical 주소는 해당 메모리의 실제 주소 Physical Address와 같게됨.</strong></li>
+      <li>한번 메모리에 올라가면 종료될 때 까지 그 위치에 존재하게됨.</li>
+    </ul>
+  </li>
+  <li>
+    <p>실행 시점 주소 바인딩</p>
+
+    <blockquote>
+      <p><strong>메모리에 올라가 매번 명령어가 실행될 때 마다 주소가 계산되는 것</strong></p>
+    </blockquote>
+
+    <ul>
+      <li>프로그램의 메모리 위치가 매번 변하기 때문에 이 방법을 사용.</li>
+      <li>프로세스는 여러 이유로 인해 메모리 공간 안에서 위치가 바뀔 수 있음. -&gt; 시작 위치는 계속 바뀌고 프로세스 내의 주소들도 바뀌게 되는데 위 두가지 방법으로는 매번 바뀌는 메모리 주소에 접근을 할 수 없게됨.</li>
+      <li>CPU에서 나온 임의의 주소 <code class="highlighter-rouge">MMU</code>를 걸쳐 실제 주소로 바뀌어 접근함.</li>
+      <li><strong>CPU에서 발생한 주소가 Logical Address이고 MMU를 통해 바뀐 주소가 메모리의 실제 주소인 Physical Address이므로 두 주소가 다름</strong> (Logical Address는 가상 주소)</li>
+    </ul>
+  </li>
+</ol>
+
+<h3 id="mmu-memory-management-unit">MMU (Memory Management Unit)</h3>
+
+<blockquote>
+  <p>가상 주소를 물리 주소로 매핑하는 하드웨어 장치</p>
+</blockquote>
+
+<ul>
+  <li>재배치  레지스터를 사용함.</li>
+</ul>
+
+<p><img src="https://cdn-images-1.medium.com/max/1600/0*ADwXjKP1LMrEDxcB" alt="메모리" /></p>
+
+<h5 id="프로그램이-메모리에-올라가는-과정">프로그램이 메모리에 올라가는 과정</h5>
+
+<ol>
+  <li>로드과정
+    <ul>
+      <li>프로그램을 메모리에 올림</li>
+    </ul>
+  </li>
+  <li>링킹 과정
+    <ul>
+      <li>라이브러리 파일과 연결해줌</li>
+    </ul>
+  </li>
+</ol>
+
+<p>메모리에 올라가서도 지속적으로 메모리 공간을 차지하는 것이 아닌 운영체제의 필요에 의해 <code class="highlighter-rouge">swap-in</code>되거나 <code class="highlighter-rouge">swap-out</code> 되기도 함</p>
+
+<h4 id="linking">linking</h4>
+
+<blockquote>
+  <p>프로그래머가 작성한 소스코드를 컴파일하여 생성된 목적파일과 이미 컴파일된 라이브러리 파일들을 묶어 하나의 실행 파일을 생성하는 과정</p>
+</blockquote>
+
+<h3 id="dynamic-linking">Dynamic Linking</h3>
+
+<blockquote>
+  <p>프로그램이 실행되기까지 링킹이 지연됨.</p>
+</blockquote>
+
+<h4 id="static-linking">Static linking</h4>
+
+<p>매번 프로세스 메모리에 사용하는 라이브러리를 확보하여 프로세스와 함께 올림. -&gt; <strong>메모리 낭비</strong></p>
+
+<p>다이나믹 링킹은 <code class="highlighter-rouge">shared libraries</code>라고도 불림.</p>
+
+<h3 id="swapping">Swapping</h3>
+
+<p>ready queue에 있는 우선순위가 높은 프로세스가 메모리에 있는 프로세스와 자리를 바꾼다고 생각하면 됨.</p>
+
+<p>메모리에 있던 프로세스는 <code class="highlighter-rouge">backing store</code>라는 곳에 머물다가 다시 메모리에 할당되어 실행됨.</p>
+
+<p>메모리에서 backing store로 가는 것을 <code class="highlighter-rouge">swap out</code>이라고 하고 다시 메모리에 할당되는 것을 <code class="highlighter-rouge">swap in</code>이라고 함.</p>
+
+<p><img src="https://techdifferences.com/wp-content/uploads/2017/01/Swapping.jpg" alt="메모리" /></p>
+
+<h2 id="메모리-할당-방법">메모리 할당 방법</h2>
+
+<h3 id="연속적인-할당">연속적인 할당</h3>
+
+<p>프로세스에게 메모리를 연속적으로 할당하는 방법.</p>
+
+<p><strong>hole(구멍)</strong>은 비워져있는 메모리 공간으로 프로세스에게 할당할 수 있는 메모리 공간(avaliable)임.</p>
+
+<ul>
+  <li><code class="highlighter-rouge">first-fit</code>
+    <ul>
+      <li>최초로 할당받을 수 있는 크기의 공간에 무조건 할당됨.</li>
+    </ul>
+  </li>
+  <li><code class="highlighter-rouge">best-fit</code>
+    <ul>
+      <li>크기가 가장 근접한 공간에 할당됨. 속도가 가장 빠름.</li>
+    </ul>
+  </li>
+  <li><code class="highlighter-rouge">worst-fit</code>
+    <ul>
+      <li>크기가 가장 많이 차이가 나는 공간에 할당됨.</li>
+    </ul>
+  </li>
+</ul>
+
+<p><img src="https://edux.pjwstk.edu.pl/mat/270/lec/lecture7/rys-7-4.png" alt="메모리 할당 방법" /></p>
+
+<p>이 연속적인 할당 방법에는 단편화 문제가 생기는데 단편화에는 두 종류에 단편화가 있음.</p>
+
+<ul>
+  <li><strong>외부 단편화 (external fragmentation)</strong>
+    <ul>
+      <li>메모리 공간에는 요청에 만족하는 크기의 할당할 수 있는 공간이 존재하나, <strong>연속적이지 못해 할당할 수 없음.</strong></li>
+    </ul>
+  </li>
+  <li><strong>내부 단편화 (internal fragmentation)</strong>
+    <ul>
+      <li>메모리를 할당해주는 단위가<strong>시스템의 block 단위</strong>인데, 만약 요청하는 메모리 크기가 14.5kByte이고 시스템의 block 단위가 1kByte이면 15kByte를 할당해주게 되고 이 때 0.5 kByte의 메모리가 낭비됨.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>이 단편화 문제를 해결할 방법에는 압축과 비연속적인 할당이 있음.</p>
+
+<p>압축 방법의 경우 상당히 제한적임.</p>
+
+<h3 id="비지속적인-할당">비지속적인 할당</h3>
+
+<h3 id="paging">Paging</h3>
+
+<blockquote>
+  <p>논리 메모리는 <code class="highlighter-rouge">page</code>라 불리는 고정 크기의 블록으로 나누어지고 물리 메모리는 <code class="highlighter-rouge">frame</code> 이라는 페이지와 <strong>같은 크기</strong>의 블록들로 나누어짐.</p>
+</blockquote>
+
+<p>page와 frame를 매핑할 <code class="highlighter-rouge">page table</code>이 존재하는데 이 page table에는 각 페이지 번호와 그에 해당하는 frame의 시작 물리 주소를 저장함.</p>
+
+<p><img src="https://t1.daumcdn.net/cfile/tistory/2446D83555FB8B6127" alt="paging" /></p>
+
+<h3 id="segmentation">Segmentation</h3>
+
+<blockquote>
+  <p>페이징과 비슷하나 논리 메모리와 물리 메모리를 같은 크기의 블록이 아닌 서로 다른 크기의 논리적 단위인 <code class="highlighter-rouge">segment</code>로 분할함.</p>
+</blockquote>
+
+<p>블록의 크기를 모르기 때문에 <code class="highlighter-rouge">segment table</code>에는 해당 segment의 시작점인 <code class="highlighter-rouge">base</code>와 segment의 길이인 <code class="highlighter-rouge">limit</code>을 가지고 있음.</p>
+
+<p><img src="http://courses.teresco.org/cs432_f02/lectures/15-io/sgg-seg-ex.gif" alt="segmentation" /></p>
+
+<h2 id="refer">refer</h2>
+
+<ul>
+  <li><a href="http://codex.cs.yale.edu/avi/os-book/OS9/slide-dir/index.html">oprating system concepts 8장 </a></li>
+  <li><a href="http://baked-corn.tistory.com/16?category=718232">http://baked-corn.tistory.com/16?category=718232</a></li>
+  <li><a href="https://medium.com/@lyoungh2570/%EB%A9%94%EB%AA%A8%EB%A6%AC-%EA%B4%80%EB%A6%AC-e770ff60db8f">https://medium.com/@lyoungh2570/%EB%A9%94%EB%AA%A8%EB%A6%AC-%EA%B4%80%EB%A6%AC-e770ff60db8f</a></li>
+  <li><a href="https://m.blog.naver.com/s2kiess/220149980093">https://m.blog.naver.com/s2kiess/220149980093</a></li>
+</ul>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            
+            <a href="/tag/#/%EB%A9%94%EC%9D%B8%20%EB%A9%94%EB%AA%A8%EB%A6%AC" rel="tag"># 메인 메모리</a>
+          
+            
+            <a href="/tag/#/%EB%A9%94%EB%AA%A8%EB%A6%AC%20%EA%B4%80%EB%A6%AC" rel="tag"># 메모리 관리</a>
+          
+            
+            <a href="/tag/#/main%20memory" rel="tag"># main memory</a>
+          
+            
+            <a href="/tag/#/memory%20management" rel="tag"># memory management</a>
+          
+        </div>
+      
+
+      
+      
+      
+      
+      
+
+      
+      
+        <div class="post-nav" id="post-nav-id">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/til/2018/12/02/TIL-virtual-memory/" rel="next" title="Virtual Momery">
+                <i class="fa fa-chevron-left"></i> Virtual Momery
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/til/2018/11/24/TIL-deadlock/" rel="prev" title="Deadlock">
+                Deadlock <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+      
+
+      
+    </footer>
+  </article>
+
+  <div class="post-spread">
+    
+  </div>
+</div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="fb-comments"
+           data-href="http://localhost:4000/til/2018/11/27/TIL-main-memory/"
+           data-numposts="10"
+           data-width="100%"
+           data-colorscheme="light">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lowell</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://jekyllrb.com">Jekyll</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/simpleyyt/jekyll-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+   
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/assets/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/assets/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  <script type="text/javascript" src="/assets/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/assets/js/src/post-details.js?v=5.1.1"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/assets/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+    
+
+  
+
+
+
+
+
+  
+
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
+

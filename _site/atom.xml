@@ -1,977 +1,635 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.5.2">Jekyll</generator><link href="http://localhost:4000/atom.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-11-08T15:27:27+09:00</updated><id>http://localhost:4000/</id><title type="html">Lowell’s Blog</title><subtitle>lowell의 기술 블로그 </subtitle><author><name>Lowell</name></author><entry><title type="html">git commit 합치기 (rebase -i)</title><link href="http://localhost:4000/git/2018/11/08/git-commit-%ED%95%A9%EC%B9%98%EA%B8%B0/" rel="alternate" type="text/html" title="git commit 합치기 (rebase -i)" /><published>2018-11-08T00:00:00+09:00</published><updated>2018-11-08T00:00:00+09:00</updated><id>http://localhost:4000/git/2018/11/08/git-commit-%ED%95%A9%EC%B9%98%EA%B8%B0</id><content type="html" xml:base="http://localhost:4000/git/2018/11/08/git-commit-%ED%95%A9%EC%B9%98%EA%B8%B0/">&lt;h3 id=&quot;상황&quot;&gt;상황&lt;/h3&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.5.2">Jekyll</generator><link href="http://localhost:4000/atom.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-06-07T16:12:44+09:00</updated><id>http://localhost:4000/</id><title type="html">Lowell’s Blog</title><subtitle>lowell의 기술 블로그 </subtitle><author><name>Lowell</name></author><entry><title type="html">가비지 컬렉터</title><link href="http://localhost:4000/til/2019/06/06/TIL-garbage-collector/" rel="alternate" type="text/html" title="가비지 컬렉터" /><published>2019-06-06T00:00:00+09:00</published><updated>2019-06-06T00:00:00+09:00</updated><id>http://localhost:4000/til/2019/06/06/TIL-garbage-collector</id><content type="html" xml:base="http://localhost:4000/til/2019/06/06/TIL-garbage-collector/">&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;TIL 카테고리의 글은 그날 배운 것을 정리하는 목적으로 포스팅합니다. 내용이 잘못되었다면 댓글로 피드백 부탁드립니다.&lt;/code&gt;&lt;/p&gt;
 
-&lt;p&gt;회사에서 기능을 구현하고 풀리퀘까지 보낸 상황에서 로직에 수정해야하는 부분을 발견했다.&lt;/p&gt;
-
-&lt;p&gt;로직을 수정하고 커밋하려고 하니 지저분한 커밋이 늘어나는 것 같아 굉장히 찝찝해졌다. ‘이건 커밋 메세지를 또 뭐라하지..’&lt;/p&gt;
-
-&lt;p&gt;어떻게 하면 좋을 까 생각해보니 예전에 사수님께서 커밋을 합칠 수 있다고 말씀해주신 것이 생각나 바로 검색을 해보았다.&lt;/p&gt;
-
-&lt;h3 id=&quot;커밋-합치기&quot;&gt;커밋 합치기&lt;/h3&gt;
-
-&lt;p&gt;깃을 사용하는 사람이라면 &lt;strong&gt;같은 기능 구현에 대한 여러 번의 커밋&lt;/strong&gt;을 한적이 있을 것이다.&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;웹 디자인 css를 완성하고 '웹 디자인 구현'이라고 커밋을 했는데 웹 페이지를 다시 보니 폰트 사이즈가 맘에 안들어서 수정한 후 '폰트 사이즈 수정' 이라고 커밋을 했다.
-커밋 후 다시 보니 이번에는 폰트 색깔이 맘에 안들어 바꾸고 '폰트 색깔 수정' 이라고 커밋을 했다.
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;디자인을 구현한건 똑같은데 여러 번의 커밋이 이루어졌다.&lt;/p&gt;
-
-&lt;p&gt;이렇게 되면 협업을 할 때 다른사람이 커밋의 내용에 대해 의문이 들 수도 있고 이런 커밋들이 많아지면 커밋 이력은 매우 지저분해진다.&lt;/p&gt;
-
-&lt;p&gt;이럴 때 커밋을 합치면 이런 문제를 해결할 수 있다.&lt;/p&gt;
-
-&lt;p&gt;커밋을 합치는 것은 &lt;code class=&quot;highlighter-rouge&quot;&gt;rebase -i&lt;/code&gt; 명령어로 합칠 수 있다.&lt;/p&gt;
-
-&lt;p&gt;먼저 &lt;code class=&quot;highlighter-rouge&quot;&gt;git log&lt;/code&gt;를 통해 내가 어디서부터 어디까지 커밋을 합칠 것인지 살펴보자.&lt;/p&gt;
-
-&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;commit e1f09108a51c09919c3488f06e3160c8f57
-Author: 
-Date:   Thu Nov 8 15:06:01 2018 +0900
-
-    Message 4
-
-commit 405715479d9e97bbe714820dda88e04dbc
-Author: 
-Date:   Thu Oct 25 12:14:21 2018 +0900
-
-    Message 3
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Message 3&lt;/code&gt; 커밋에  &lt;code class=&quot;highlighter-rouge&quot;&gt;Message 4&lt;/code&gt; 커밋을 합쳐보도록 하겠다.&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git rebase -i HEAD~2 
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;위 명령어는 최근 커밋 2개를 합치라는 명령어이다.&lt;/p&gt;
-
-&lt;p&gt;head는 현재 브랜치에서 마지막 커밋을 가르킨다.&lt;/p&gt;
-
-&lt;p&gt;즉 마지막 커밋과 그 전 커밋을 합치는 것이다.&lt;/p&gt;
-
-&lt;p&gt;만약 2개 커밋이 아닌 3개 커밋을 합치고 싶다면 &lt;code class=&quot;highlighter-rouge&quot;&gt;HEAD~3&lt;/code&gt; 이라고 숫자만 바꿔주면 된다.&lt;/p&gt;
-
-&lt;p&gt;위 명령어를 실행하면 vi 편집기가 뜰 것이다.&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;pick 4057154 Message 3
-pick e1f0910 Message 4
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;vi 상단에는 내가 합치고 싶은 커밋들이 나와있을 건데 여기서 합치고 싶은 커밋의 &lt;code class=&quot;highlighter-rouge&quot;&gt;pick&lt;/code&gt;을 &lt;code class=&quot;highlighter-rouge&quot;&gt;squash&lt;/code&gt;로 바꿔준다.&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;pick 4057154 Message 3
-squash e1f0910 Message 4
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;message 4 커밋을 message 3 커밋으로 합칠 거기 때문에 Message 4의 &lt;code class=&quot;highlighter-rouge&quot;&gt;pick&lt;/code&gt;을 &lt;code class=&quot;highlighter-rouge&quot;&gt;squash&lt;/code&gt;로 바꿔준다.&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;:wq&lt;/code&gt; 저장을 하면&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# This is a combination of 2 commits.
-# This is the 1st commit message:
-
-Message 3
-
-# This is the commit message #2:
-
-# Message 4
-
-# Please enter the commit message for your changes. Lines starting
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;이렇게 다시 vi 편집기가 뜨는데 &lt;strong&gt;여기서는 어떤 커밋 메세지를 사용할 것이냐&lt;/strong&gt;를 묻는 것이므로&lt;/p&gt;
-
-&lt;p&gt;Message 4 커밋 메세지를 지우면 message 3의 커밋 메세지만 남게 된다.&lt;/p&gt;
-
-&lt;p&gt;지우지 않고 위와 같이 주석 처리를 할 수 있다.&lt;/p&gt;
-
-&lt;p&gt;위 설정까지 다 했다면 커밋이 합쳐졌을 것이다.&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;commit 405715479d9e97bbe714820dda88e04dbc493282
-Author: 
-Date:   Thu Oct 25 12:14:21 2018 +0900
-
-    Message 3
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;커밋 합친 것을 원격 저장소에도 반영하고 싶으면 &lt;code class=&quot;highlighter-rouge&quot;&gt;push&lt;/code&gt;를 하면 된다.&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git push -f origin [branch]
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;커밋 합치기 참 쉽죵? 🤗&lt;/p&gt;</content><author><name>Lowell</name></author><category term="git rebase" /><category term="git commit 합치기" /><summary type="html">상황</summary></entry><entry><title type="html">Docker</title><link href="http://localhost:4000/til/2018/11/06/TIL-Docker/" rel="alternate" type="text/html" title="Docker" /><published>2018-11-06T00:00:00+09:00</published><updated>2018-11-06T00:00:00+09:00</updated><id>http://localhost:4000/til/2018/11/06/TIL-Docker</id><content type="html" xml:base="http://localhost:4000/til/2018/11/06/TIL-Docker/">&lt;p&gt;&lt;img src=&quot;https://www.docker.com/sites/default/files/Whale%20Logo332_5.png&quot; alt=&quot;https://www.docker.com/sites/default/files/Whale%20Logo332_5.png&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;도커란&quot;&gt;도커란?&lt;/h2&gt;
+&lt;h2 id=&quot;가비지-컬렉터&quot;&gt;가비지 컬렉터&lt;/h2&gt;
 
 &lt;blockquote&gt;
-  &lt;p&gt;컨테이너 기반의 오픈소스 가상화 플랫폼&lt;/p&gt;
+  &lt;p&gt; &lt;a href=&quot;https://ko.wikipedia.org/wiki/%EB%A9%94%EB%AA%A8%EB%A6%AC_%EA%B4%80%EB%A6%AC&quot;&gt;메모리 관리&lt;/a&gt; 기법 중의 하나로, 프로그램이 동적으로 할당했던 메모리 영역 중에서 필요없게 된 영역을 해제하는 기능&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;h3 id=&quot;컨테이너&quot;&gt;컨테이너&lt;/h3&gt;
+&lt;p&gt;C와 같은 언어들은 프로그램을 짤 때 메모리를 직접 관리해주어야 함. 변수나 함수를 사용할 때 더이상 사용하지 않는 변수나 함수의 메모리를 직접 해제해주는 등..&lt;/p&gt;
 
-&lt;p&gt;격리된 공간에서 프로세스가 동작하는 기술 (가상화 기술)&lt;/p&gt;
+&lt;p&gt;만약 메모리를 비우지 않고 남긴 채로 계속 사용하다 보면 메모리 누수(memory leak)이 발생하게되고, 메모리가 꽉차게 되면 컴퓨터는터짐.&lt;/p&gt;
 
-&lt;p&gt;이미지를 실행한 상태.&lt;/p&gt;
+&lt;p&gt;이렇게 직접 메모리를 관리하지 않고 &lt;code class=&quot;highlighter-rouge&quot;&gt;가비지 컬렉터&lt;/code&gt;가 메모리를 직접 관리해주는 언어들이 생김.  이렇게 메모리를 직접 관리해주는 언어를 &lt;strong&gt;managed language&lt;/strong&gt; 라고하고 그렇지 않은 언어를&lt;strong&gt;unmanaged language&lt;/strong&gt;라고함.&lt;/p&gt;
 
-&lt;h3 id=&quot;이미지&quot;&gt;이미지&lt;/h3&gt;
+&lt;p&gt;가비지컬렉터는 특정 때에 필요없는 정보(garbage)를 버림.&lt;/p&gt;
 
-&lt;p&gt;컨테이너 실행에 필요한 파일과 설정 값등을 포함하고 있는 것.&lt;/p&gt;
+&lt;h3 id=&quot;가비지-컬렉터-동작-방식&quot;&gt;가비지 컬렉터 동작 방식&lt;/h3&gt;
 
-&lt;p&gt;상태 값을 가지지 않고 변하지 않음.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;mark-and-sweep&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;메모리를 훑으면서 필요한 것들을 마크 후 마크되지 않은 것들을 버린다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;reference counting&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;한 요소가 다른 요소에게 몇번 참조되는 지 센 후 참조 번수가 0인 요소를 삭제하는 것.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;메모리-누수를-방지하는-법&quot;&gt;메모리 누수를 방지하는 법&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;순환 참조를 하지 말자.&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;변수끼리 서로 참조하는 것. 이렇게 되면 둘 다 참조 카운트가 0이 되지 않으므로 누수가 생김.&lt;/p&gt;
+
+        &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;
+    
+&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'b'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'a'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; 
+    
+&lt;span class=&quot;c&quot;&gt;# NO! &lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+        &lt;/div&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;refer&quot;&gt;refer&lt;/h3&gt;
+
+&lt;p&gt;[얄팍한 코딩사전](&lt;a href=&quot;https://www.youtube.com/watch?v=24f2-eJAeII&quot;&gt;https://www.youtube.com/watch?v=24f2-eJAeII&lt;/a&gt; )&lt;/p&gt;</content><author><name>Lowell</name></author><category term="가비지 컬렉터" /><category term="garbage collector" /><summary type="html">TIL 카테고리의 글은 그날 배운 것을 정리하는 목적으로 포스팅합니다. 내용이 잘못되었다면 댓글로 피드백 부탁드립니다.</summary></entry><entry><title type="html">DB - 인덱스</title><link href="http://localhost:4000/til/2019/05/18/TIL-DB-index/" rel="alternate" type="text/html" title="DB - 인덱스" /><published>2019-05-18T00:00:00+09:00</published><updated>2019-05-18T00:00:00+09:00</updated><id>http://localhost:4000/til/2019/05/18/TIL-DB-index</id><content type="html" xml:base="http://localhost:4000/til/2019/05/18/TIL-DB-index/">&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;TIL 카테고리의 글은 그날 배운 것을 정리하는 목적으로 포스팅합니다. 내용이 잘못되었다면 댓글로 피드백 부탁드립니다.&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;대용량 데이터에서 사용자 ID 1,234,567번의 데이터를 어떻게 빠르게 얻을 수 있을까?&lt;/p&gt;
+
+&lt;h2 id=&quot;인덱스란&quot;&gt;인덱스란&lt;/h2&gt;
 
 &lt;blockquote&gt;
-  &lt;p&gt;이미지가 &lt;code class=&quot;highlighter-rouge&quot;&gt;클래스&lt;/code&gt;이면 컨테이너는 클래스의 &lt;code class=&quot;highlighter-rouge&quot;&gt;인스턴스&lt;/code&gt;이다.&lt;/p&gt;
+  &lt;p&gt;대용량 데이터에서 쉽게 원하는 데이터를 찾기위한 방법&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;p&gt;같은 이미지에서 여러 개의 컨테이너를 생성할 수 있고 컨테이너의 상태가 바뀌거나 삭제되더라도 이미지는 변하지 않고 그대로 남아있음.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;하나의 서버에 여러개의 컨테이너를 실행하면 서로 영향을 미치지 않고 독립적으로 실행되어 마치 가벼운 VMVirtual Machine을 사용하는 느낌을 줍니다. 실행중인 컨테이너에 접속하여 명령어를 입력할 수 있고 apt-get이나 yum으로 패키지를 설치할 수 있으며 사용자도 추가하고 여러개의 프로세스를 백그라운드로 실행할 수도 있습니다. CPU나 메모리 사용량을 제한할 수 있고 호스트의 특정 포트와 연결하거나 호스트의 특정 디렉토리를 내부 디렉토리인 것처럼 사용할 수도 있습니다.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;정말 가벼운 VM 사용하는 것 같음! 짱&lt;/p&gt;
-
-&lt;h2 id=&quot;mac에서-도커-설치&quot;&gt;Mac에서 도커 설치&lt;/h2&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://docs.docker.com/docker-for-mac/&quot;&gt;Docker-for-Mac&lt;/a&gt; 이 곳에서 로그인 후 설치!&lt;/p&gt;
-
-&lt;p&gt;설치가 완료되었다면 도커가 잘 설치되었는지 확인해보자.&lt;/p&gt;
-
-&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;docker version
-Client:
- Version:           18.06.1-ce
- API version:       1.38
- Go version:        go1.10.3
- Git commit:        e68fc7a
- Built:             Tue Aug 21 17:21:31 2018
- OS/Arch:           darwin/amd64
- Experimental:      &lt;span class=&quot;nb&quot;&gt;false
-
-&lt;/span&gt;Server:
- Engine:
-  Version:          18.06.1-ce
-  API version:      1.38 &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;minimum version 1.12&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-  Go version:       go1.10.3
-  Git commit:       e68fc7a
-  Built:            Tue Aug 21 17:29:02 2018
-  OS/Arch:          linux/amd64
-  Experimental:     &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h2 id=&quot;명령어&quot;&gt;명령어&lt;/h2&gt;
-
-&lt;p&gt;&lt;strong&gt;컨테이너 실행&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;docker run ubuntu:16.04
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;run&lt;/code&gt; ubuntu 이미지가 있으면 docker 컨테이너 실행, 없으면 이미지 다운로드하고 컨테이너 실행 후 바로 종료됨.&lt;/p&gt;
-
-&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;docker run -rm -it ubuntu:16.04 /bin/bash
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-rm&lt;/code&gt; 컨테이너 실행 후 종료시 컨테이너 삭제 옵션&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-it&lt;/code&gt;  키보드 입력을 위한 옵션&lt;/p&gt;
-
-&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;docker run -d -p 1234:6379 redis
-
-&lt;span class=&quot;c&quot;&gt;# 아래와 같이 접속&lt;/span&gt;
-&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;telnet localhost 1234
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-d&lt;/code&gt; 백그라운드 작업&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-p&lt;/code&gt; 컨테이너 포트를 호스트 포트로 연결&lt;/p&gt;
-
-&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;docker run -d -p 3306:3306 -e &lt;span class=&quot;nv&quot;&gt;MYSQL_ALLOW_EMPTY_PASSWORD&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt; --name mysql mysql:5.7
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-e&lt;/code&gt; 환경변수 설정&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;--name&lt;/code&gt; 컨테이너 이름 설정&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;컨테이너 목록 확인&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;docker ps &lt;span class=&quot;c&quot;&gt;# 실행 중인 컨테이너 목록&lt;/span&gt;
-&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;docker ps -a &lt;span class=&quot;c&quot;&gt;# 전체 컨테이너 목록&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;실행 중인 컨테이너 중지&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;docker stop &lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;container_id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt; or container_name&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;컨테이너 완전 삭제&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;docker stop &lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;container_id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt; or container_name&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;이미지 목록 확인&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;docker images
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;이미지 업데이트&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;docker pull ubuntu:14.04
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;pull&lt;/code&gt;  이미지를 최신 버전으로 다시 다운 받을 수 있음.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;이미지 삭제&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;docker rmi &lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;image_id&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;컨테이너가 실행 중인 이미지는 삭제되지 않음!&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;컨테이너 실행 로그 확인&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;docker logs &lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;container_id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt; or container_name&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;컨테이너에서 실행한 로그를 확인.&lt;/p&gt;
-
-&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;docker logs --tail 10 &lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;container_id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt; or container_name&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;--tail&lt;/code&gt;컨테이너에서 실행한 로그 마지막 10줄까지 출력.&lt;/p&gt;
-
-&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;docker logs -f &lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;container_id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt; or container_name&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-f&lt;/code&gt;실시간으로 로그가 생성되는 것을 확인함.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;컨테이너 명령어 실행&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;docker &lt;span class=&quot;nb&quot;&gt;exec&lt;/span&gt; -it mysql /bin/bash &lt;span class=&quot;c&quot;&gt;# 컨테이너에 접속&lt;/span&gt;
-&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;mysql -uroot 
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;컨테이너에 들어가 보거나 컨테이너의 파일을 실행하고 싶을 때.&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;run&lt;/code&gt; 새로 컨테이너를 만들어서 실행.&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;exec&lt;/code&gt; 실행 중인 컨테이너에 명령어를 내림.&lt;/p&gt;
-
-&lt;p&gt;접속한 이후에는 어떤 작업도 할 수 있고 컨테이너를 마음껏 조작 할 수 있음.&lt;/p&gt;
-
-&lt;h2 id=&quot;그-외&quot;&gt;그 외&lt;/h2&gt;
-
-&lt;p&gt;컨테이너를 삭제한다는 것&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;컨테이너에서 생성된 파일이 사라지는 것&lt;/li&gt;
-  &lt;li&gt;데이터베이스의 데이터가 사라지는 것&lt;/li&gt;
-  &lt;li&gt;웹 애플리케이션의 사용자가 올린 이미지가 사라지는 것&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;컨테이너 삭제시 유지해야하는 데이터는 반드시 컨테이너 내부가 아닌 외부 스토리지에 저장해야함.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;docker-compose&quot;&gt;Docker compose&lt;/h3&gt;
-
-&lt;p&gt;설정 파일을 이용한 도커 설정&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-dockerfile&quot;&gt;version: '2'
-
-services:
-   db:
-     image: mysql:5.7
-     volumes:
-       - db_data:/var/lib/mysql
-     restart: always
-     environment:
-       MYSQL_ROOT_PASSWORD: wordpress
-       MYSQL_DATABASE: wordpress
-       MYSQL_USER: wordpress
-       MYSQL_PASSWORD: wordpress
-
-   wordpress:
-     depends_on:
-       - db
-     image: wordpress:latest
-     volumes:
-       - wp_data:/var/www/html
-     ports:
-       - &quot;8000:80&quot;
-     restart: always
-     environment:
-       WORDPRESS_DB_HOST: db:3306
-       WORDPRESS_DB_PASSWORD: wordpress
-volumes:
-    db_data:
-    wp_data:
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&quot;refer&quot;&gt;refer&lt;/h2&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://subicura.com/2017/01/19/docker-guide-for-beginners-2.html&quot;&gt;https://subicura.com/2017/01/19/docker-guide-for-beginners-2.html&lt;/a&gt;&lt;/p&gt;</content><author><name>Lowell</name></author><category term="docker" /><category term="docker 사용법" /><category term="docker 명령어" /><summary type="html"></summary></entry><entry><title type="html">레드햇 페도라에서 Nginx 설치하기</title><link href="http://localhost:4000/nginx/2018/11/05/%EB%A0%88%EB%93%9C%ED%96%87-%ED%8E%98%EB%8F%84%EB%9D%BC%EC%97%90%EC%84%9C-Nginx-%EC%84%A4%EC%B9%98%ED%95%98%EA%B8%B0/" rel="alternate" type="text/html" title="레드햇 페도라에서 Nginx 설치하기" /><published>2018-11-05T00:00:00+09:00</published><updated>2018-11-05T00:00:00+09:00</updated><id>http://localhost:4000/nginx/2018/11/05/%EB%A0%88%EB%93%9C%ED%96%87%20%ED%8E%98%EB%8F%84%EB%9D%BC%EC%97%90%EC%84%9C%20Nginx%20%EC%84%A4%EC%B9%98%ED%95%98%EA%B8%B0</id><content type="html" xml:base="http://localhost:4000/nginx/2018/11/05/%EB%A0%88%EB%93%9C%ED%96%87-%ED%8E%98%EB%8F%84%EB%9D%BC%EC%97%90%EC%84%9C-Nginx-%EC%84%A4%EC%B9%98%ED%95%98%EA%B8%B0/">&lt;p&gt;레드햇 페도라에서 Nginx 웹 서버를 설치한다. centos OS에서도 똑같이 설치할 수 있다.&lt;/p&gt;
-
-&lt;p&gt;먼저 nginx를 받을 repository를 추가한다.&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$ vi /etc/yum.repos.d/nginx.repo&lt;/code&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;[nginx]
-name=nginx repo
-baseurl=http://nginx.org/packages/[OS]/[OSRELEASE]/$basearch/
-gpgcheck=0
-enabled=1
-
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;여기서 대괄호로 감싸진 OS와 OSRELEASE를 자신의 OS와 버전에 따라 변경을 해줘야 한다.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://nginx.org/packages/&quot;&gt;http://nginx.org/packages/&lt;/a&gt; 여기에 있는 자신의 OS와 OS 버전에 맞는 것이 있는지 확인 후 변경을 해준다. (없으면 패키지 설치가 안 되기 때문에 꼭 확인하고 변경해주자)&lt;/p&gt;
-
-&lt;p&gt;설정 후 저장을 하고 Nginx를 설치한다.&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$ yum install nginx&lt;/code&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;nginx-명령어&quot;&gt;Nginx 명령어&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;Nginx 시작&lt;/p&gt;
-
-    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$ sudo service nginx start&lt;/code&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Nginx 중지&lt;/p&gt;
-
-    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$ sudo service nginx stop&lt;/code&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Nginx 재시작&lt;/p&gt;
-
-    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$ sudo service nginx restart&lt;/code&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Nginx 상태&lt;/p&gt;
-
-    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$ sudo service nginx status&lt;/code&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Nginx 설정 후 다시 로드&lt;/p&gt;
-
-    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$ sudo service nginx reload&lt;/code&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Nginx 설정이 성공 적인지 확인&lt;/p&gt;
-
-    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$ sudo nginx -t&lt;/code&gt;&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;refer&quot;&gt;refer&lt;/h2&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://blog.tjsrms.me/centos-7-nginx-%EC%84%A4%EC%B9%98%ED%95%98%EA%B8%B0/&quot;&gt;CentOS 7 Nginx 설치하기&lt;/a&gt;&lt;/p&gt;</content><author><name>Lowell</name></author><category term="nginx 설치" /><category term="fedora nginx 설치" /><category term="레드햇 페도라 nginx 설치" /><summary type="html">레드햇 페도라에서 Nginx 웹 서버를 설치한다. centos OS에서도 똑같이 설치할 수 있다.</summary></entry><entry><title type="html">AWS(rhel fedora)Nginx-uWSGI-Django 연동하기</title><link href="http://localhost:4000/django/2018/11/05/Nginx-uWSGI-Django/" rel="alternate" type="text/html" title="AWS(rhel fedora)Nginx-uWSGI-Django 연동하기" /><published>2018-11-05T00:00:00+09:00</published><updated>2018-11-05T00:00:00+09:00</updated><id>http://localhost:4000/django/2018/11/05/Nginx-uWSGI-Django</id><content type="html" xml:base="http://localhost:4000/django/2018/11/05/Nginx-uWSGI-Django/">&lt;p&gt;이 포스팅에서는 AWS에서 서버를 셋팅할 것이기 때문에 AWS EC2 설정이 되어있다는 가정하에 진행한다.&lt;/p&gt;
-
-&lt;p&gt;또한 글쓴이의 OS 환경은 레드햇 페도라 환경에서 진행했다.&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;먼저 간단하게 서버 구조를 말하면  Nginx 80번 포트로 접속하면 uWSGI 8000번 포트로 요청을 보내 우리가 만든 Django 프로젝트에 접속하게 될 것이다.&lt;/p&gt;
-
-&lt;p&gt;우리가 사용자에게 listen할 포트(80)는 열어놔야하기 때문에 AWS 사용자 지정 포트에서 80번 포트를 열어줘야한다.&lt;/p&gt;
-
-&lt;p&gt;포트를 변경하고 싶으면 변경해도 되지만 설정한 포트에따라 사용자 지정 포트를 열어줘야 하는 것도 명심하자.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://pic3.zhimg.com/v2-9bc6cfcdb7b946a728ccfe26f4eb5c01_1200x500.jpg&quot; alt=&quot;nginx_wsgi_django&quot; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;1-django&quot;&gt;1. Django&lt;/h3&gt;
-
-&lt;p&gt;django 프로젝트는 배포될 준비가 다 되어있다는 가정 하에 진행한다.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;가상환경 셋팅&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;static root 설정&lt;/li&gt;
-  &lt;li&gt;media root 설정&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$ python manage.py collectstatic&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;2nginx&quot;&gt;2.Nginx&lt;/h3&gt;
-
-&lt;p&gt;글쓴이는 Nginx 설정에 정말 삽질을 했다.&lt;/p&gt;
-
-&lt;p&gt;블로그를 보며 배포를 하려고 하는데 블로그에서는 sites-available 폴더에 conf 파일을 넣으면 된다고하는데.. 해당 폴더가없어서 삽질을 엄청했다.&lt;/p&gt;
-
-&lt;p&gt;이 포스팅은 &lt;code class=&quot;highlighter-rouge&quot;&gt;sites-available&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;sites-enabled&lt;/code&gt; 폴더가 없는 개발자들에게 유용한 포스트가 될 것이다.(그러길 바란다..)&lt;/p&gt;
-
-&lt;p&gt;먼저 uWSGI와 nginx 서버 등을 설정하기 위해 conf 파일을 생성한다.&lt;/p&gt;
-
-&lt;p&gt;etc/nginx/conf.d/testprj.conf 생성 (nginx의 경로는 OS 별로 다를 수  있기 때문에 꼭 확인해보자.)&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;[..] 대괄호 안에있는 것은 자신의 프로젝트의 이름이나 경로에 따라 알맞게 변경한다.&lt;/code&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# etc/nginx/conf.d/testprj.conf 
-
-server {
-    listen                   80; # nginx가 listen할 포트
-    server_name              [www.your.domain.com 123.23.56.5] #서버 도메인이나 아이피 입력
-    client_max_body_size     10M;
-    access_log               /var/log/testprj.access.log; # 성공 로그를 기록할 파일
-    error_log                /var/log/testprj.error.log; # 에러 로그를 기록할 파일 
-
-    # -------------
-    # Handle Django
-    # -------------
-
-    location / {
-    	# 외부에서 특정 포트로 Nginx를 통해 http 요청을 받았을 때 요청을 uWSGI를 통해 Django로 넘김
-        proxy_pass       http://localhost:8000; # uWSGI가 nginx 요청을 받을 주소와 포트
-        proxy_set_header Upgrade            $http_upgrade;
-        proxy_set_header Connection         &quot;upgrade&quot;;
-        proxy_set_header Host               $host;
-        proxy_set_header X-Real-IP          $remote_addr;
-        proxy_set_header X-Forwarded-For    $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto  $scheme;
-    }
-
-    # ------------------
-    # serve static files
-    # ------------------
-
-
-    # here we assume the STATIC_ROOT inside your django project is
-    # set to /static/
-    location /static/ {
-    	# /static/ 으로 들어 올 때 경로 설정.
-        alias   [/home/user/testprj/static/]; # django project settings.py에 설정되어있는 STATIC_ROOT 주소
-    }
-}
-
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;여기서&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ sudo nginx -t
-nginx: [emerg] could not build server_names_hash, you should increase server_names_hash_bucket_size: 64
-nginx: configuration file /etc/nginx/nginx.conf test failed
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;nginx 서버 확인 시 이런 오류가 난다면&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;nginx.conf&lt;/code&gt; 파일 수정을 해줘야 한다.&lt;/p&gt;
-
-&lt;p&gt;아래 설정을 &lt;code class=&quot;highlighter-rouge&quot;&gt;http {} block&lt;/code&gt;에 설정 안에 넣는다.&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# etc/nginx/nginx.conf
-
-htttp{
-    server_names_hash_bucket_size 512;
-	server_names_hash_max_size 512;
-	...
-}
-
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;오류에는 64라고 되어있어 64로 했더니 오류가 사라지지 않아  512로하니까 되었다.&lt;/p&gt;
-
-&lt;p&gt;이렇게 하고&lt;code class=&quot;highlighter-rouge&quot;&gt; $ sudo nginx -t &lt;/code&gt;수행 -&amp;gt; 성공하면 nginx 설정 끝!&lt;/p&gt;
-
-&lt;h3 id=&quot;3-uwsgi&quot;&gt;3. uWSGI&lt;/h3&gt;
-
-&lt;p&gt;가상환경이 활성화된 상태에서 uWSGI 설치&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$ pip install uwsgi&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;잘 깔렸는지 확인해보자&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$ wsgi --http :8000 --module [your-project-name].wsgi&lt;/code&gt; (manage.py 디렉토리에서)&lt;/p&gt;
-
-&lt;p&gt;잘 되면 ini파일 생성&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$ sudo vi [testprj].ini&lt;/code&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# home/user/testprj/[testprj].ini
-
-[uwsgi] # 이건 변경 Xß
-module          =  [testprj].wsgi:application
-master          =  true
-pidfile         =  [testprj].uwsgi.pid
-enable-threads  = true
-http            =  127.0.0.1:8000 # uWSGI 포트 설정 
-processes       =  5
-harakiri        =  50
-max-requests    =  5000
-# clear environment on exit
-vacuum          =  true
-# optional path to a virtualenv
-home            =  [/home/user/.pyenv/versions/3.6.5/envs/devenv] # 가상환경 경로 설정
-# background the process
-daemonize       =  [testprj].uwsgi.log
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;이렇게 하구 저장!&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;실행 &lt;code class=&quot;highlighter-rouge&quot;&gt;$ uwsgi testprj.ini (가상환경 안에서 )&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;uWSGI 로그확인 &lt;code class=&quot;highlighter-rouge&quot;&gt;$ vi testprj.uwsgi.log&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;uWSGI 중지 &lt;code class=&quot;highlighter-rouge&quot;&gt;$ uwsgi --stop [testprj].uwsgi.pid&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;uWSGI 가 실행된 상태에서 nginx 서버를 시작한다.&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$ sudo service nginx start&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;이후 맨 처음 nginx에서 생성한 conf 파일의 server_name에 설정한 주소(AWS 주소)로 들어가보면 Django project가 띄어져 있을 것이다! 그러면 연동 끝!&lt;/p&gt;
-
-&lt;p&gt;설정 중 오류가 있으면 댓글 남겨주세요 💁‍&lt;/p&gt;
-
-&lt;h2 id=&quot;refer&quot;&gt;refer&lt;/h2&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://medium.com/@charlesthk/deploy-nginx-django-uwsgi-on-aws-ec2-amazon-linux-517a683163c6&quot;&gt;https://medium.com/@charlesthk/deploy-nginx-django-uwsgi-on-aws-ec2-amazon-linux-517a683163c6&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://www.savour-it.com/posts/2018-02-06-nginx-uwsgi-django-setting/&quot;&gt;https://www.savour-it.com/posts/2018-02-06-nginx-uwsgi-django-setting/&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://www.digitalocean.com/community/tutorials/how-to-serve-django-applications-with-uwsgi-and-nginx-on-ubuntu-14-04&quot;&gt;https://www.digitalocean.com/community/tutorials/how-to-serve-django-applications-with-uwsgi-and-nginx-on-ubuntu-14-04&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://blog.leop0ld.org/posts/use-python3-django-uwsgi-nginx/&quot;&gt;https://blog.leop0ld.org/posts/use-python3-django-uwsgi-nginx/&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://charles.lescampeurs.org/2008/11/14/fix-nginx-increase-server_names_hash_bucket_size&quot;&gt;http://charles.lescampeurs.org/2008/11/14/fix-nginx-increase-server_names_hash_bucket_size&lt;/a&gt;&lt;/p&gt;</content><author><name>Lowell</name></author><category term="django" /><category term="nginx uwsgi django 연동" /><category term="nginx uwsgi django" /><category term="aws nginx django" /><category term="aws django 배포" /><summary type="html">이 포스팅에서는 AWS에서 서버를 셋팅할 것이기 때문에 AWS EC2 설정이 되어있다는 가정하에 진행한다.</summary></entry><entry><title type="html">Django-MySQL 연동하기</title><link href="http://localhost:4000/django/2018/11/05/Django-MySQL-%EC%97%B0%EB%8F%99%ED%95%98%EA%B8%B0/" rel="alternate" type="text/html" title="Django-MySQL 연동하기" /><published>2018-11-05T00:00:00+09:00</published><updated>2018-11-05T00:00:00+09:00</updated><id>http://localhost:4000/django/2018/11/05/Django-MySQL-%EC%97%B0%EB%8F%99%ED%95%98%EA%B8%B0</id><content type="html" xml:base="http://localhost:4000/django/2018/11/05/Django-MySQL-%EC%97%B0%EB%8F%99%ED%95%98%EA%B8%B0/">&lt;p&gt;이 포스팅은 mac과 linux 환경에서의 Django-MySQL 연동 글이다.&lt;/p&gt;
-
-&lt;p&gt;윈도우 환경에서 작업을 진행한다면, &lt;a href=&quot;http://jamanbbo.tistory.com/28&quot;&gt;이 포스팅&lt;/a&gt; 과 함께 보기 추천한다. (별로 다른 건 없지만 윈도우 환경에서 오류 해결 법이 좀 더 추가되어있다)&lt;/p&gt;
-
-&lt;p&gt;MySQL이 설치되어있다는 가정하에 진행하므로 꼭 설치 후 아래 항목들을 차례로 진행하길 바란다. (설치가 되어있지 않으면 오류가 난다)&lt;/p&gt;
-
-&lt;h3 id=&quot;django와-mysql을-연동하기-위한-연동-드라이버를-설치&quot;&gt;Django와 MySQL을 연동하기 위한 연동 드라이버를 설치&lt;/h3&gt;
-
-&lt;p&gt;django에서 제공하는 MySQL 연동 드라이버 모듈은 3가지가 있다.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;MySQLdb - 제일 안정된 드라이버, python3은 지원하지 않음&lt;/li&gt;
-  &lt;li&gt;Mysqlclient - MySQLdb를 개선한 패키지, Python3.3 이상의 버전도 지원하고있음, &lt;strong&gt;장고에서 추천함&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;MySQL Connector/Python - MySQL 개발사 오라클에서 제공하는 드라이버&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;위 모듈 중 자신에게 맞는 드라이버를 설치하면 되는데 우리는 mysqlclient를 사용할 것이다.&lt;/p&gt;
-
-&lt;p&gt;mysqlclient를 설치해준다.&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$ pip sintall mysqlclient&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;centos/rhel fedora OS에서 설치시&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;mysqlclient OSError: mysql_config not found&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;이런 오류가 발생한다면 mysql-devel을 설치해주면 해결된다.&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$ sudo yum install mysql-devel&lt;/code&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;django에서-mysql-연동-세팅&quot;&gt;Django에서 MySQL 연동 세팅&lt;/h3&gt;
-
-&lt;p&gt;정상적으로 설치가 되었다면 django project의 &lt;code class=&quot;highlighter-rouge&quot;&gt;settings.py&lt;/code&gt; 파일에서 DATABASE 항목을 설정해준다.&lt;/p&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# settings.py&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;DATABASES&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-	&lt;span class=&quot;s&quot;&gt;'default'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-		&lt;span class=&quot;s&quot;&gt;'ENGINE'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'django.db.backends.mysql'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# mysql 엔진 설정&lt;/span&gt;
-		&lt;span class=&quot;s&quot;&gt;'NAME'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'mysite'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# 데이터베이스 이름 &lt;/span&gt;
-		&lt;span class=&quot;s&quot;&gt;'USER'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'root'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# 데이터베이스 연결시 사용할 유저 이름&lt;/span&gt;
-		&lt;span class=&quot;s&quot;&gt;'PASSWORD'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'password'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;# 유저 패스워드&lt;/span&gt;
-        &lt;span class=&quot;s&quot;&gt;'HOST'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'l27.0.0.1'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# 데이터베이스 서버 주소&lt;/span&gt;
-        &lt;span class=&quot;s&quot;&gt;'PORT'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'3306'&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# 데이터베이스 서버 포트&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;ENGINE&lt;/code&gt;을 제외한 항목은 자신의 mysql 설정에 맞게 수정해야한다.&lt;/p&gt;
-
-&lt;p&gt;지금까지 설정이 올바르게 되었다면 Django와 MySQL이 연동이 되었을 것이다.&lt;/p&gt;
-
-&lt;h3 id=&quot;mysql의-데이터테이블를-반영&quot;&gt;MySQL의 데이터(테이블)를 반영&lt;/h3&gt;
-
-&lt;p&gt;만약 현재 MySQL의 데이터베이스에 저장되어있는 테이블들을 Django project에 반영하고 싶다면&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$ python manage.py inspectdb &amp;gt; ./app/models.py&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;명령어를 사용하면 된다.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-mysql&quot;&gt;mysql&amp;gt; desc board_tbl;
-+---------+--------------+------+-----+---------+----------------+
-| Field   | Type         | Null | Key | Default | Extra          |
-+---------+--------------+------+-----+---------+----------------+
-| idx     | int(6)       | NO   | PRI | NULL    | auto_increment |
-| writer  | int(11)      | YES  |     | NULL    |                |
-| subject | varchar(255) | YES  |     | NULL    |                |
-| content | text         | YES  |     | NULL    |                |
-| date    | datetime     | YES  |     | NULL    |                |
-+---------+--------------+------+-----+---------+----------------+
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;MySQL 테이블이 model로 적용된 모습&lt;/p&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# app/models.py&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;BoardTbl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;models&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Model&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;idx&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;models&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;AutoField&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;primary_key&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;writer&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;models&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;IntegerField&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;blank&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;subject&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;models&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;CharField&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;max_length&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;255&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;blank&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;content&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;models&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;TextField&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;blank&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;date&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;models&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DateTimeField&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;blank&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-
-    &lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Meta&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;managed&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;False&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;db_table&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'board_tbl'&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;django-migration을-mysql에-반영&quot;&gt;Django migration을 MySQL에 반영&lt;/h3&gt;
-
-&lt;p&gt;Django의 migration을 MySQL에 반영하는 것은 sqllite3에 migration을 반영하는 것과 같다.&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt; $ python manage.py migrate&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;이 명령어를 실행하게 되면 MySQL 테이블에 auth_user 등 장고의 기본 테이블들이 생성된 것을 확인할 수  있을 것이다.&lt;/p&gt;
-
-&lt;p&gt;이렇게 마지막까지 잘 되었다면 MySQL을 사용할 준비를 마친 것이다.&lt;/p&gt;
-
-&lt;p&gt;이제 ORM, raw SQL 등을 기존 sqlite3 처럼 사용할 수 있다.&lt;/p&gt;</content><author><name>Lowell</name></author><category term="django mysql연동" /><category term="django mysql" /><summary type="html">이 포스팅은 mac과 linux 환경에서의 Django-MySQL 연동 글이다.</summary></entry><entry><title type="html">GIL을 알아보자</title><link href="http://localhost:4000/python/2018/10/24/GIL/" rel="alternate" type="text/html" title="GIL을 알아보자" /><published>2018-10-24T00:00:00+09:00</published><updated>2018-10-24T00:00:00+09:00</updated><id>http://localhost:4000/python/2018/10/24/GIL</id><content type="html" xml:base="http://localhost:4000/python/2018/10/24/GIL/">&lt;p&gt;Global Interpreter Lock&lt;/p&gt;
-
-&lt;p&gt;한  CPU만 일함.!
-다중 CPU 환경에서 동시에 여러 파이썬 코드를 병렬로 실행할 수 없음.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;인터프리터의 구현이 쉬워짐&lt;/li&gt;
-  &lt;li&gt;Garbage Collector 만들기 조음&lt;/li&gt;
-  &lt;li&gt;C/C++ 확장 만들기 만들기 쉬움.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;프로그램에 I/O 작업을 많이하면 파이썬 쓰레드도 좋음.&lt;/p&gt;
-
-&lt;p&gt;우리가 하는 일반 프로그래밍은 I/O Bound&lt;/p&gt;
-
-&lt;p&gt;계산을 많이 하는 작업
-쓰레드 -&amp;gt; 프로세스&lt;/p&gt;
-
-&lt;p&gt;다중 CPU에서 병렬 실행을 위해서는 다중 프로세스를 이용하는 multiprocessing 모듈을 사용함.
-프로그램에 I/O 작업을 많이하면 파이썬 쓰레드도 좋음.&lt;/p&gt;
-
-&lt;p&gt;우리가 하는 일반 프로그래밍은 I/O Bound&lt;/p&gt;
-
-&lt;p&gt;계산을 많이 하는 작업
-쓰레드 -&amp;gt; 프로세스&lt;/p&gt;
-
-&lt;p&gt;다중 CPU에서 병렬 실행을 위해서는 다중 프로세스를 이용하는 multiprocessing 모듈을 사용함.&lt;/p&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;th1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Thread&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;target&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;do_work&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;th1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;th1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;pr1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Process&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;target&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;do_work&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;pr1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;pr1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;process&quot;&gt;Process&lt;/h3&gt;
-&lt;p&gt;운영체제가 작업하는 단위&lt;/p&gt;
-
-&lt;h3 id=&quot;thread&quot;&gt;Thread&lt;/h3&gt;
-&lt;p&gt;이 Process 안에서 공유되는 메모리를 바탕으로여러 작업을 생성하는 작업 단위.
--&amp;gt; 각 thread마다 할단된 개인적인 메모리가 있으면서 thread가 속한 process가 가지는 메모리에도접근가능함.&lt;/p&gt;
-
-&lt;h3 id=&quot;race-condition&quot;&gt;Race condition&lt;/h3&gt;
-&lt;p&gt;여러 thread가 공유된 데이터를 변경함으로써 발생하는 문제.&lt;/p&gt;
-
-&lt;p&gt;“Thread-safe 하다”
-thread들이 race condition을 발생시키지 않으면서 각자의 일을 수행한다는 뜻.&lt;/p&gt;
-
-&lt;h3 id=&quot;mutex&quot;&gt;Mutex&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;Thread-safe한 코드를 만들기 위해서 사용하는 것 중 하나.&lt;/li&gt;
-  &lt;li&gt;Race condition을 막기 위해 공유되는 메모리의 데이터를 여러 thread가 동시에 사용할 수 없도록 잠그는일을 맡음.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-linenos&quot; data-lang=&quot;linenos&quot;&gt;휴대폰이 없던 시절에는 공중 전화를 주로 이용했었다. 거리의 모든 남자들은 각자의 아내에게 전화를 너무나 걸고 싶어한다.
-어떤 한 남자가 처음으로 공중 전화 부스에 들어가서 그의 사랑하는 아내에게 전화를 걸었다면, 그는 꼭 전화 부스의 문을 꼭 잡고 있어야 한다. 
-왜냐하면 사랑에 눈이 먼 다른 남자들이 전화를 걸기 위해 시도때도 없이 달려들고 있기 때문이다. 줄 서는 질서 문화 따위는 없다. 
-심지어 그 문을 놓친다면, 전화 부스에 들이닥친 남자들이 수화기를 뺏어 당신의 아내에게 애정 표현을 할 지도 모른다.
-아내와의 즐거운 통화를 무사히 마쳤다면, 이제 문을 잡고 있던 손을 놓고 부스 밖으로 나가면 된다.
- 그러면 공중 전화를 쓰기 위해 달려드는 다른 남자들 중 제일 빠른 한 명이 부스에 들어가서 똑같이 문을 꼭 잡고 그의 아내와 통화할 수 있다.&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;thread: 각 남자들&lt;/li&gt;
-  &lt;li&gt;mutex: 공중 전화 부스의 문&lt;/li&gt;
-  &lt;li&gt;lock: 그 문을 잡고 있는 남자의 손&lt;/li&gt;
-  &lt;li&gt;resource: 공중 전화&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;CPython reference counting 을 하는 과정에서
-Rece condition이 일어나면 그 결과는 메모리 유실/object가 죽음이 발생&lt;/p&gt;
-
-&lt;p&gt;이를 해결하기 위해 mutex사용 
--&amp;gt; object 하나하나 마다 대응하는 mutex가 필요함! 성능적으로 많은 손해, deadlock 위험상황&lt;/p&gt;
-
-&lt;p&gt;CPython의 결정
-mutex를 통해 모든 reference 개수를 일일히 보호하지 말고 python interpreter자체를 잠구자!
--&amp;gt; 오직 한 thread만이 python 코드를 사용할 수 있음
-한 프로세스 안에서 여러 쓰레드를 이용한 병렬처리를 막음.&lt;/p&gt;
-
-&lt;p&gt;한 쓰레드가 파이썬코드를 실행하기 위해선 공중전화 박스에 들어가 interpreter lock을 잡아야함!&lt;br /&gt;
-그래서 Global Interpreter Lock&lt;/p&gt;</content><author><name>Lowell</name></author><category term="python gil" /><category term="gil" /><category term="global interpreter block" /><summary type="html">Global Interpreter Lock</summary></entry><entry><title type="html">heroku를 사용해 django 프로젝트 배포하기</title><link href="http://localhost:4000/django/2018/10/24/Django-heroku-deploy/" rel="alternate" type="text/html" title="heroku를 사용해 django 프로젝트 배포하기" /><published>2018-10-24T00:00:00+09:00</published><updated>2018-10-24T00:00:00+09:00</updated><id>http://localhost:4000/django/2018/10/24/Django-heroku-deploy</id><content type="html" xml:base="http://localhost:4000/django/2018/10/24/Django-heroku-deploy/">&lt;p&gt;git이 설치되어있다고 가정한다.&lt;/p&gt;
-
-&lt;h3 id=&quot;1-heroku-회원가입&quot;&gt;1. heroku 회원가입&lt;/h3&gt;
-
-&lt;h3 id=&quot;2-헤로쿠-사용을-위한-패키지-다운&quot;&gt;2. 헤로쿠 사용을 위한 패키지 다운&lt;/h3&gt;
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;virtualenv&lt;/code&gt; 활성화 상태에서 패키지 다운로드&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ pip install dj-database-url gunicorn whitenoise
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;3-requirementstxt-파일-생성&quot;&gt;3. &lt;code class=&quot;highlighter-rouge&quot;&gt;requirements.txt&lt;/code&gt; 파일 생성&lt;/h3&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ pip freeze &amp;gt; requirements.txt
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;생성된 requirements.txt 맨 아래에 아래 내용 추가&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ psycopg2==2.7.1
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;4-procfile-파일-생성&quot;&gt;4.&lt;code class=&quot;highlighter-rouge&quot;&gt; Procfile &lt;/code&gt;파일 생성&lt;/h3&gt;
-&lt;p&gt;헤로쿠에게 웹 사이트를 시작시키기 위해 실행되어야할 명령어의 순서를 알려주기 위해 procfile 파일 생성 (확장자 x, cmd에서 vi나 nano로 생성)&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;web: gunicorn &amp;lt;mysite&amp;gt;.wsgi --log-file -
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;웹 애플리케이션을 배포할 때 &lt;code class=&quot;highlighter-rouge&quot;&gt;gunicorn &amp;lt;mysite&amp;gt;.wsgi&lt;/code&gt; 명령을 실행하는 것을 의미&lt;br /&gt;
-(gunicorn은 강력한 버전의 runserver 명령어)&lt;/p&gt;
-
-&lt;h3 id=&quot;5-runtimetxt-파일-생성&quot;&gt;5. &lt;code class=&quot;highlighter-rouge&quot;&gt;runtime.txt&lt;/code&gt; 파일 생성&lt;/h3&gt;
-&lt;p&gt;헤로쿠에게 어떤 버전의 파이썬을 사용하는지 알려줌.&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# djangoproject/runtime.txt
-python-3.6.5 # 프로젝트 파이썬 버전
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;5-settingspy-설정&quot;&gt;5. &lt;code class=&quot;highlighter-rouge&quot;&gt;settings.py&lt;/code&gt; 설정&lt;/h3&gt;
-&lt;p&gt;로컬 컴퓨터 설정 파일 &lt;code class=&quot;highlighter-rouge&quot;&gt;local_settigns.py&lt;/code&gt;생성&lt;/p&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# local_settings.py&lt;/span&gt;
-
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;os&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;BASE_DIR&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dirname&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dirname&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;__file__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;DATABASES&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;s&quot;&gt;'default'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;s&quot;&gt;'ENGINE'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'django.db.backends.sqlite3'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-        &lt;span class=&quot;s&quot;&gt;'NAME'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;BASE_DIR&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'db.sqlite3'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;DEBUG&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;이 파일은 로컬에서 프로젝트를 돌릴 때 사용을 하기 위함인 것 같다.&lt;/p&gt;
-
-&lt;h3 id=&quot;6-헤로쿠-배포를-위한-settingspy-설정&quot;&gt;6. 헤로쿠 배포를 위한 &lt;code class=&quot;highlighter-rouge&quot;&gt;settings.py&lt;/code&gt; 설정&lt;/h3&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# settings.py&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;dj_database_url&lt;/span&gt;
-
-&lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;DEBUG&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;False&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;ALLOWED_HOSTS&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'127.0.0.1'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'.herokuapp.com'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-
-&lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;DATABASES&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;s&quot;&gt;'default'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;s&quot;&gt;'ENGINE'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'django.db.backends.postgresql_psycopg2'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-        &lt;span class=&quot;s&quot;&gt;'NAME'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'lowell'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-        &lt;span class=&quot;s&quot;&gt;'USER'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'name'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-        &lt;span class=&quot;s&quot;&gt;'PASSWORD'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;''&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-        &lt;span class=&quot;s&quot;&gt;'HOST'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'localhost'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-        &lt;span class=&quot;s&quot;&gt;'PORT'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;''&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;db_from_env&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dj_database_url&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;conn_max_age&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;500&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;DATABASES&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'default'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;update&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;db_from_env&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;7-wsgipy-설정&quot;&gt;7. &lt;code class=&quot;highlighter-rouge&quot;&gt;wsgi.py&lt;/code&gt; 설정&lt;/h3&gt;
-&lt;p&gt;프로젝트의 wsgi.py 파일의 끝에 다음 라인 추가&lt;/p&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# wsgi.py&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;whitenoise.django&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;DjangoWhiteNoise&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;application&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;DjangoWhiteNoise&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;application&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;8-gitignore-파일-생성&quot;&gt;8. &lt;code class=&quot;highlighter-rouge&quot;&gt;gitignore&lt;/code&gt; 파일 생성&lt;/h3&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;*.pyc
-db.sqlite3
-myvenv
-__pycache__
-local_settings.py # 로컬 환경을 위한 파일이기 때문에 등록
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;9-heroku-로그인&quot;&gt;9. heroku 로그인&lt;/h3&gt;
-&lt;p&gt;아까 만들었던 계정으로 로긘하깅&lt;/p&gt;
-
-&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;heroku login
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;10-git-저장소-생성커밋&quot;&gt;10. git 저장소 생성,커밋&lt;/h3&gt;
-&lt;p&gt;현재 장고 프로젝트 루트 디렉토리에 git 저장소를 생성부터 커밋&lt;/p&gt;
-
-&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;git init
-&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;git add . 
-&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;git status 
-
-&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;git commit -m &lt;span class=&quot;s2&quot;&gt;&quot;additional files and changes for Heroku&quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;11-애플리케이션-이름-설정&quot;&gt;11. 애플리케이션 이름 설정&lt;/h3&gt;
-
-&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;heroku create &amp;lt;appname&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;이 이름은 도메인이 된다. &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;appname&amp;gt;.herokuapp.com&lt;/code&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;12-이제-배포하면-된다&quot;&gt;12. 이제 배포하면 된다.&lt;/h3&gt;
-
-&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;git push heroku master
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;13-애플리케이션-접속&quot;&gt;13. 애플리케이션 접속&lt;/h3&gt;
-&lt;p&gt;헤로쿠에 웹 프로세스를 시작하라고 말한다.&lt;/p&gt;
-
-&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;heroku ps:scale &lt;span class=&quot;nv&quot;&gt;web&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;1
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;앱에 들어가보장. 아래 명령어를 입력하면 브라우저가 뜰 것이당.&lt;/p&gt;
-
-&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;heroku open
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;14-migrate--createsuperuser&quot;&gt;14. migrate , createsuperuser&lt;/h3&gt;
-
-&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;heroku run python manage.py migrate
-
-&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;heroku run python manage.py createsuperuser
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;오류-발생시&quot;&gt;오류 발생시&lt;/h3&gt;
-
-&lt;p&gt;오류가 생겼다면 다음 블로그를 참조해보자.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://ggilrong.tistory.com/entry/heroku%EC%97%90-django-%EC%95%B1%EB%B0%B0%ED%8F%AC%ED%95%98%EA%B8%B0&quot;&gt;오류해결&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;refer&quot;&gt;refer&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&quot;http://ggilrong.tistory.com/entry/heroku%EC%97%90-django-%EC%95%B1%EB%B0%B0%ED%8F%AC%ED%95%98%EA%B8%B0&quot;&gt;https://tutorial-extensions.djangogirls.org/ko/heroku/&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://ggilrong.tistory.com/entry/heroku%EC%97%90-django-%EC%95%B1%EB%B0%B0%ED%8F%AC%ED%95%98%EA%B8%B0&quot;&gt;http://ggilrong.tistory.com/entry/heroku%EC%97%90-django-%EC%95%B1%EB%B0%B0%ED%8F%AC%ED%95%98%EA%B8%B0&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://morningbird.tistory.com/23&quot;&gt;http://morningbird.tistory.com/23&lt;/a&gt;&lt;/p&gt;</content><author><name>Lowell</name></author><category term="django" /><category term="django 배포" /><category term="django heroku" /><category term="heroku" /><summary type="html">git이 설치되어있다고 가정한다.</summary></entry><entry><title type="html">python3 venv 가상환경 사용하기</title><link href="http://localhost:4000/python/2018/08/23/python3-venv-%EA%B0%80%EC%83%81%ED%99%98%EA%B2%BD-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0/" rel="alternate" type="text/html" title="python3 venv 가상환경 사용하기" /><published>2018-08-23T00:00:00+09:00</published><updated>2018-08-23T00:00:00+09:00</updated><id>http://localhost:4000/python/2018/08/23/python3-venv-%EA%B0%80%EC%83%81%ED%99%98%EA%B2%BD-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0</id><content type="html" xml:base="http://localhost:4000/python/2018/08/23/python3-venv-%EA%B0%80%EC%83%81%ED%99%98%EA%B2%BD-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0/">&lt;p&gt;venv는 python3에서 기본으로 제공하는 가상환경(virtualenv)을 만들 수 있는 라이브러리이다.&lt;/p&gt;
-
-&lt;p&gt;나는 이 라이브러리를 여태동안 모르고 있었다!&lt;/p&gt;
-
-&lt;p&gt;원래 mac에서는 &lt;code class=&quot;highlighter-rouge&quot;&gt;pyenv&lt;/code&gt;를 사용하여 가상환경을 세팅했는데 윈도우는&lt;code class=&quot;highlighter-rouge&quot;&gt;pyenv&lt;/code&gt;를 사용할 수 없다.&lt;/p&gt;
-
-&lt;p&gt;그래서 그동안 서드파티 라이브러리인 &lt;code class=&quot;highlighter-rouge&quot;&gt;virtualenv&lt;/code&gt;를 사용하고 있었는데 venv로 갈아탈 예정이다.&lt;/p&gt;
-
-&lt;p&gt;기본으로 제공하는데 사용해줘야지!&lt;/p&gt;
-
-&lt;p&gt;만약 &lt;code class=&quot;highlighter-rouge&quot;&gt;virtualenv&lt;/code&gt; 라이브러리를 사용하고 싶다면 &lt;a href=&quot;http://jamanbbo.tistory.com/10&quot;&gt;해당 포스트&lt;/a&gt;에서 사용법을 확인하면 된다.&lt;/p&gt;
-
-&lt;h2 id=&quot;venv-사용하기&quot;&gt;venv 사용하기&lt;/h2&gt;
-
-&lt;p&gt;먼저 venv는 python3에 빌트인 되어있기 때문에 설치를 하지 않아도 사용가능하고 python2.7에서는 사용이 불가능하다.&lt;/p&gt;
-
-&lt;p&gt;python2를 사용한다면 virtualenv/pyenv 라이브러리를 설치해야한다.&lt;/p&gt;
+&lt;h3 id=&quot;원하는-위치까지-빠르게-도달하는-방법&quot;&gt;원하는 위치까지 빠르게 도달하는 방법&lt;/h3&gt;
 
 &lt;ol&gt;
-  &lt;li&gt;
-    &lt;p&gt;가상환경 생성&lt;/p&gt;
+  &lt;li&gt;사용자 정보를 고정 길이로 관리함&lt;/li&gt;
+&lt;/ol&gt;
 
-    &lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# window &lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# python -m venv [venv 이름]&lt;/span&gt;
-&lt;span class=&quot;gp&quot;&gt;&amp;gt; &lt;/span&gt;python -m venv ./myenv
-   
-&lt;span class=&quot;c&quot;&gt;# mac&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# python3 -m venv [venv이름]&lt;/span&gt;
-&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;python3 -m venv ./myenv
+&lt;p&gt;사용자 정보가 무조건 100바이트로 관리된다고 하면 사용자 ID * 100바이트 가 해당 사용자의 정보가 들어가있는 시작 위치가 됨. 1,234,567 사용자를 찾기 위해서도 1,234,567 * 100 을 하면 원하는 데이터를 빠르게 얻을 수 있음.&lt;/p&gt;
+
+&lt;p&gt;단 무조건 100바이트 값이기 때문에 100바이트 이상이 되는 데이터를 저장하지 못함. 그렇다고 넉넉하게 10000바이트로 한다고 하면 낭비가 너무 심함.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;따라서 고정 길이 파일로 관리하는 방식은 좋지않음.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;인덱스 구조 도입&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;고정 길이 방식이 아닌 가변 길이 방식으로 데이터를 관리함. 예를 들어 책의 색인처럼 키워드와 기재된페이지로 구성되어있도록.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;소프트웨어 139쪽&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;이것을 응용하여 사용자 정보 데이터가 저장되는 곳가 별도로 사용자 ID(키워드)와 사용자 정보가 저장된 위치를 저장하는 파일을 만들어 사용자 정보를 빠르게 얻을 수 있음.  사용자 ID와 저장된 위치(주소)는 숫자로 관리하면 고정 길이로 취급할 수 있기 때문에 빠름.&lt;/p&gt;
+
+&lt;p&gt;이렇게 인덱스 구조를 도입하면 사용자 정보 데이터가 저장될 때 인덱스에도 새로운 데이터의 위치를 업데이트 해야하기 때문에 SELECT(검색)의 속도는 빨라지나 그 외 INSERT, UPDATE, DELETE 작업은 느려짐.&lt;/p&gt;
+
+&lt;h3 id=&quot;해시-인덱스&quot;&gt;해시 인덱스&lt;/h3&gt;
+
+&lt;p&gt;데이터의 키 값은 숫자가 아닌 문자열, 날짜가 될 수 도 있으므로 앞서 말했듯이 고정 길이로 취급하는게 어려울 때가 있음. 그래서 실제로는 키 값을 해시 함수에 대입해서 해시 값으로 저장하는 구조가 많이 사용됨. 해시는 문자열 길이에 상관 없이 동일한 크기이기때문에 고정 길이 포맷으로 대응할 수 있음. 해시 계산 비용도 O(1) 이므로 엄청 빠름!&lt;/p&gt;
+
+&lt;p&gt;하지만 해시 인덱스는 범위 검색에서는 뛰어나지 못함. &lt;code class=&quot;highlighter-rouge&quot;&gt;id =  1&lt;/code&gt;인 데이터를 가져오는 것은 빠를 지 몰라도 &lt;code class=&quot;highlighter-rouge&quot;&gt;created_at &amp;gt; 2019-01-02&lt;/code&gt;와 같은 범위 검색에선 사용할 수 없음.  &lt;/p&gt;
+
+&lt;p&gt;아래 목적에서는 사용 불가능&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;price &amp;lt; 10000&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;title LIKE 'FIMAL%'&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;ORDER BY created_at DESC&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;**해시 인덱스는 많은 검색 작업에서 단지 일부 용도에서만 빠르게 처리할 수 있음. **&lt;/p&gt;
+
+&lt;h3 id=&quot;btree-인덱스&quot;&gt;B+Tree 인덱스&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://blog.ordinarysimple.com/img/programming/btree.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;나무 구조로 되어있는 인덱스. 정상에 있는 블록이 &lt;code class=&quot;highlighter-rouge&quot;&gt;ROOT 블록&lt;/code&gt; , 최하층이 &lt;code class=&quot;highlighter-rouge&quot;&gt;Leaf 블록&lt;/code&gt;, 중간에 있는 &lt;code class=&quot;highlighter-rouge&quot;&gt;Branch&lt;/code&gt; 블록.&lt;/p&gt;
+
+&lt;p&gt;루트 블록과 브랜치 블록은 검색의 키인 사용자 ID에 대해 해당 블록이 어디에 있는지 정보를 가지고 있음. 최하층의 리프 블록에는 실제 데이터의 저장 위치의 정보를 가지고 있음.&lt;/p&gt;
+
+&lt;p&gt;인덱스 검색 시 루트 -&amp;gt; 브랜치 -&amp;gt; 리프 순으로 도달해 원하는 데이터를 얻을 수 있음.&lt;/p&gt;
+
+&lt;p&gt;레코드 수가 적으면 루트와 리프만 있는 패턴도 존재함. 레코드수가 많으면 브랜치 아래에 브랜치가 들어가있는 4계층 이상의 구성이 될 수 도 있음.&lt;/p&gt;
+
+&lt;h3 id=&quot;최적화&quot;&gt;최적화&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;고유성 보장하기
+    &lt;ul&gt;
+      &lt;li&gt;인덱스는 고유성을 보증하기 위한 목적으로 사용가능함. 해시 인덱스는 동일한 ID의 경우 동일한 해시 값이 되고 B+Tree 인덱스에선 동일 리프에 도달하기 때문에 적은 코스트로 쉽게 중복체크가 가능함. &lt;strong&gt;따라서 고유성을 보장하려는 열(PK, Unique key)에 인덱스를 지정하는 것이 좋음. (필수로 되어있기도 함)&lt;/strong&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;멀티 칼럼 인덱스
+    &lt;ul&gt;
+      &lt;li&gt;여러개의 조건을 지정해 검색하고 싶은 경우를 위해 여러 조건의 인덱스를 걸어 검색을 가속화 할 수 있는데 이것을 멀티 칼럼 인덱스라고 함.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Index only read
+    &lt;ul&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;COUNT()&lt;/code&gt; 함수와 같이 레코드의 값이 아닌 레코드 개수를 구하고 싶은 경우에는 인덱스만 읽어서 결과를 구할 수 있음. 데이터 영역을 읽지 않고 인덱스 영역만 읽어 처리를 빠르게 할 수 있음.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;refer&quot;&gt;refer&lt;/h3&gt;
+
+&lt;p&gt;웹 프로그래머를 위한 데이터베이스를 지탱하는 기술&lt;/p&gt;</content><author><name>Lowell</name></author><category term="db index" /><category term="index" /><summary type="html">TIL 카테고리의 글은 그날 배운 것을 정리하는 목적으로 포스팅합니다. 내용이 잘못되었다면 댓글로 피드백 부탁드립니다.</summary></entry><entry><title type="html">트랜잭션</title><link href="http://localhost:4000/db/2019/05/05/DB-transaction/" rel="alternate" type="text/html" title="트랜잭션" /><published>2019-05-05T00:00:00+09:00</published><updated>2019-05-05T00:00:00+09:00</updated><id>http://localhost:4000/db/2019/05/05/DB-transaction</id><content type="html" xml:base="http://localhost:4000/db/2019/05/05/DB-transaction/">&lt;p&gt;트랜잭션은 데이터베이스에서 중요한 개념이다. 나 또한 공부하면서 많이 접했지만 도통 이해하기가 힘들었다. 실무를 시작하고 나서 왜 트랜잭션이 중요한지 깨닫게 되었고, 예전의 나처럼 실무를 접해보지 않아 트랜잭션이 무엇이고 왜 중요한지 이해가 되지 않는 사람들을 위해 이 글을 작성해보려고 한다.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;트랜잭션(Transaction)&lt;/strong&gt;은 데이터베이스의 상태를 변환시키는 하나의 논리적 기능을 수행하기 위한 작업의 단위 또는 한꺼번에 모두 수행되어야 할 일련의 연산들을 의미한다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;위의 정의를 좀 쉽게 풀어보자면  **데이터베이스의 상태를 변환시키는 하나의 논리적 기능을 수행하기 위한 작업의 단위 **는 DML 즉 &lt;code class=&quot;highlighter-rouge&quot;&gt;INSERT&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;UPDATE&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;DELETE&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;SELECT&lt;/code&gt;  들을 알맞게 사용해서 하나의 작업을 구현하는 것이라고 생각하면 된다. 또한 이 쿼리를 실행할 때 모두 성공(수행)해야 작업이 정상적으로 처리됨 뜻한다.&lt;/p&gt;
+
+&lt;p&gt;어떤 하나의 기능을 구현하게 해주는 쿼리들 중에서 한개의 쿼리가 실패했다면 이 전의 쿼리들은 &lt;code class=&quot;highlighter-rouge&quot;&gt;rollback&lt;/code&gt; 되어야 하고, 모든 쿼리가 성공했다면  &lt;code class=&quot;highlighter-rouge&quot;&gt;commit&lt;/code&gt; 을 해줘야한다.  &lt;a href=&quot;http://www.gurubee.net/lecture/1022&quot;&gt;Commit과 Rollback &lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;본인이 어떤 은행의  &lt;strong&gt;계좌이체&lt;/strong&gt; 서비스를 직접 개발한다고 생각해보자. 상황은 A가 친구 B에게 5만원을 이체하려고 한다.&lt;/p&gt;
+
+&lt;p&gt;현재 A 계좌에는 10만원이 있고 B는 3만원이 있다. 만약 이체가 성공적으로 끝나게 되면 A 계좌에는 5만원, B 계좌에는 8만원이 남아야한다.&lt;/p&gt;
+
+&lt;p&gt;위의 로직을 짜보면 먼저 A  잔액을 &lt;code class=&quot;highlighter-rouge&quot;&gt;SELECT&lt;/code&gt; 한 후 이체하려는 금액  5만원이  잔액보다 적은지, 큰지 확인 후 잔액이 크다면 이체를 할 수 있을 것이다. 그러면 &lt;code class=&quot;highlighter-rouge&quot;&gt;A 계좌 잔액 - price&lt;/code&gt; 해서 나온 금액 을 &lt;code class=&quot;highlighter-rouge&quot;&gt;UPDATE&lt;/code&gt; 한다&lt;/p&gt;
+
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;money&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;account&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'A'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;UPDATE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;account&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;SET&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;money&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;money&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;50000&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'A'&lt;/span&gt; 
 &lt;/code&gt;&lt;/pre&gt;
-    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/32219612/57629839-756ce500-75d7-11e9-96bc-b50fa96c6d68.png&quot; alt=&quot;SELECT&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/32219612/57629791-5cfcca80-75d7-11e9-8fe5-9ee9adc7f930.png&quot; alt=&quot;UPDATE&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;이후  &lt;code class=&quot;highlighter-rouge&quot;&gt;B 의 통장 잔고 잔액 + price&lt;/code&gt; 를 &lt;code class=&quot;highlighter-rouge&quot;&gt;UPDATE&lt;/code&gt; 한다.&lt;/p&gt;
+
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;UPDATE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;account&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;SET&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;money&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;money&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;50000&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'B'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/32219612/57629691-2c1c9580-75d7-11e9-936c-416dd618fbf5.png&quot; alt=&quot;UPDATE&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;위 시트를 보면 계좌이체가 성공했음을 볼 수 있다. 트랜잭션의 모든 쿼리가 성공했으니 &lt;code class=&quot;highlighter-rouge&quot;&gt;commit&lt;/code&gt;을 하면 된다.&lt;/p&gt;
+
+&lt;p&gt;여기서 &lt;strong&gt;계좌이체&lt;/strong&gt; 트랜잭션을 A 계좌  &lt;code class=&quot;highlighter-rouge&quot;&gt;SELECT&lt;/code&gt; 부터 B 통장 잔고 &lt;code class=&quot;highlighter-rouge&quot;&gt;UPDATE&lt;/code&gt; 까지 잡는다는 것을 알 수 있다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;A 계좌 SELECT&lt;/li&gt;
+  &lt;li&gt;A 계좌 UPDATE&lt;/li&gt;
+  &lt;li&gt;B 계좌 UPDATE&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;이렇게 트랜잭션을 잡은 이유는 이 쿼리들이 모두 성공해야 계좌이체가 성공하게 되기 때문이다. 이 트랜잭션에서 하나의 쿼리가 실패하게 된다면 작업은 아예 실패가 되어야 한다.&lt;/p&gt;
+
+&lt;p&gt;만약에 A 계좌 UPDATE는 &lt;strong&gt;성공&lt;/strong&gt;하고 B 계좌 UPDATE는 &lt;strong&gt;실패&lt;/strong&gt;했는데 작업이 정상적으로 처리된다면 A는 돈을 입금했음에도 불구하고 B 계좌에는 돈이 들어오지 않아 B가 A에게 왜 돈을 안보내냐고 짜증을 내며 전화를 할 것이다. 그리고 A 와 B는 은행 서비스에 신뢰가 떨어지게 되고 결국 해당 은행은 망하게 될 것이다.&lt;/p&gt;
+
+&lt;p&gt;UPDATE 부분은 이해가 가는데 왜 SELECT 부분도 같이 잡아야 할까? 이유는 &lt;strong&gt;A가 계좌이체 할 동안 다른 사람이 A 계좌에 접근하는 것을 막아야 하기 때문이다.&lt;/strong&gt; A 계좌 SELECT 해서 10만원이 남아있다는 것을 확인하고 5만원을 빼려고 하는데 UPDATE 하기 전, 즉 SELECT와 UPDATE 사이에 C가 A 계좌에 2만원을 이체한다면 어떻게 될까? 현재 프로그램은 A의 계좌 잔액을 &lt;code class=&quot;highlighter-rouge&quot;&gt;10 - 5&lt;/code&gt; 인 5만원으로 UPDATE 할 것이다. 하지만 이것은 잘못되었다. C가 2만원을 입금했으니 남은 잔액은 7만원이 되어야 한다. 이러한 문제를 막기 위해서 SELECT 까지 한꺼번에 트랜잭션으로 잡아 다른 사람이 A의 계좌에 접근하지 못하게 막아놔야 한다.&lt;/p&gt;
+
+&lt;p&gt;이렇게 트랜잭션은 중요하다. 이제부터 기능을 만들 때 어떻게 트랜잭션을 잡아야 잘했다고 소문이 날 지 고민해보자!&lt;/p&gt;</content><author><name>Lowell</name></author><category term="DB 트랜잭션" /><category term="db transaction" /><summary type="html">트랜잭션은 데이터베이스에서 중요한 개념이다. 나 또한 공부하면서 많이 접했지만 도통 이해하기가 힘들었다. 실무를 시작하고 나서 왜 트랜잭션이 중요한지 깨닫게 되었고, 예전의 나처럼 실무를 접해보지 않아 트랜잭션이 무엇이고 왜 중요한지 이해가 되지 않는 사람들을 위해 이 글을 작성해보려고 한다.</summary></entry><entry><title type="html">flask SQLAlchemy ORM 사용해보기</title><link href="http://localhost:4000/til/2019/04/19/TIL-flask-sqlalchemy-orm/" rel="alternate" type="text/html" title="flask SQLAlchemy ORM 사용해보기" /><published>2019-04-19T00:00:00+09:00</published><updated>2019-04-19T00:00:00+09:00</updated><id>http://localhost:4000/til/2019/04/19/TIL-flask-sqlalchemy-orm</id><content type="html" xml:base="http://localhost:4000/til/2019/04/19/TIL-flask-sqlalchemy-orm/">&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;TIL 카테고리의 글은 그날 배운 것을 정리하는 목적으로 포스팅합니다. 내용이 잘못되었다면 댓글로 피드백 부탁드립니다.&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;orm-사용법&quot;&gt;ORM 사용법&lt;/h2&gt;
+
+&lt;h3 id=&quot;select&quot;&gt;SELECT&lt;/h3&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;session&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;query&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Model&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;all&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# SELECT * FROM model&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;session&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;query&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Model&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Model&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Model&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;age&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;all&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# SELECT id, name, age FROM model&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;session&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;query&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Model&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;first&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# SELECT * FROM model LIMIT 1&lt;/span&gt;
+
+&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;sqlalchemy&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;func&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# count 함수&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;session&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;query&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;func&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;count&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Model&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# SELECT COUNT(id) FROM model&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# AS &lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;session&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;query&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Model&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;label&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'model_id'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;all&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# SELECT id AS model_id FROM model&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;where&quot;&gt;WHERE&lt;/h3&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;filter&lt;/code&gt;를 사용한다.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;session&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;query&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Model&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;filter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Model&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'lowell'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;all&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; 
+&lt;span class=&quot;c&quot;&gt;# SELECT * FROM model WHERE name = 'lowell'&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;session&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;query&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Model&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;filter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Model&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'lowell'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Model&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;age&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;all&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; 
+&lt;span class=&quot;c&quot;&gt;# SELECT * FROM model WHERE name = 'lowell' AND age = 20&lt;/span&gt;
+
+&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;sqlalchemy&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;or_&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# OR 연산자&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;session&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;query&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Model&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;filter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;or_&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Model&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mame&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'lowell'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Model&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;age&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;all&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# SELECT * FORM model WHERE name = 'lowell' OR age = 20&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;insert&quot;&gt;INSERT&lt;/h3&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;user&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Model&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'lowell'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;age&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;session&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;session&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;commit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# session.rollback()&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# INSERT INTO model(name, age) VALUES ('lowell', 20)&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# COMMIT&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;update&quot;&gt;UPDATE&lt;/h3&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;user&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;session&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;query&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Model&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;filter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Model&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'lowell'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;first&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;age&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;session&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;commit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# select 후 update 함&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;delete&quot;&gt;DELETE&lt;/h3&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;user&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;session&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;query&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Model&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;filter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Model&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'lowell'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;first&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;session&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;delete&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;session&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;commit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;order-by&quot;&gt;ORDER BY&lt;/h3&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;session&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;query&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Model&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;filter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Model&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'lowell'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;order_by&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Model&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;created_at&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# SELECT * FROM model WHERE name = 'lowell' ORDER BY created_at&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;session&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;query&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Model&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;filter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Model&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'lowell'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;order_by&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Model&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;created_at&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;desc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Model&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;status&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; 
+&lt;span class=&quot;c&quot;&gt;# SELECT * FROM model WHERE name = 'lowell' ORDER BY created_at DESC, status&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;join&quot;&gt;JOIN&lt;/h3&gt;
+
+&lt;h4 id=&quot;inner-join&quot;&gt;INNER JOIN&lt;/h4&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;session&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;query&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Model1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Model2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;filter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Model1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;id&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Model2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;all&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; 
+&lt;span class=&quot;c&quot;&gt;# SELECT * FROM model1 JOIN model2 ON model1.id = model2.id&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;session&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;query&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Model1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Model2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Model1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;id&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Model2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;all&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# SELECT * FROM model1 JOIN model2 ON model1.id = model2.id&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&quot;outer-join&quot;&gt;OUTER JOIN&lt;/h4&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;session&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;query&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Model1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt; \
+    &lt;span class=&quot;n&quot;&gt;outerjoin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Model2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Model1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;id&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Model2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;\
+    &lt;span class=&quot;nb&quot;&gt;all&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+    
+&lt;span class=&quot;c&quot;&gt;# SELECT * FROM model1 LEFT JOIN model2 ON model1.id = model2.id &lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;여러개 조인을 하기 이해선 그냥 이어 붙이면 된다.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;session&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;query&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Model1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Model2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;student_id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Model3&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;account&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;\
+	&lt;span class=&quot;n&quot;&gt;outerjoin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Model2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Model1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;id&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Model2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;\
+	&lt;span class=&quot;n&quot;&gt;outerjoin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Model3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Model1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;id&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Model3&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;\
+	&lt;span class=&quot;nb&quot;&gt;all&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+	
+&lt;span class=&quot;c&quot;&gt;# SELECT model1.name, model2.student_id , model3.account &lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# FROM model1&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# LEFT JOIN model2 ON model1.id = model2.id&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# LEFT JOIN model3 ON model1.id = model3.id&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;group-by&quot;&gt;GROUP BY&lt;/h3&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;session&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;query&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Model&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;group_by&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Model&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;all&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# SELECT * FROM model GROUP BY id&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;subquery&quot;&gt;SUBQUERY&lt;/h3&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;sqlalchemy&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;subquery&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;stmt&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;query&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;session&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Model2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;filter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Model2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;grade&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'A'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;subquery&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; 
+&lt;span class=&quot;c&quot;&gt;# SELECT id, grade FROM model2 WHERE grade = 'A'&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;session&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;query&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Model1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stmt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stmt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;grade&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;\
+	&lt;span class=&quot;n&quot;&gt;outerjoin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stmt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stmt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;id&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Model1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+	
+&lt;span class=&quot;c&quot;&gt;# SELECT model1.*, model2.id, model2.grade&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# FROM mode1l LEFT JOIN (SELECT id, grade FROM model2 WHERE grade = 'A') model2 &lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# ON model1.id = model2.id&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;그-외-팁&quot;&gt;그 외 팁&lt;/h3&gt;
+
+&lt;h4 id=&quot;last_row_id-얻기&quot;&gt;last_row_id 얻기&lt;/h4&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;user&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Model&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'lowell'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;age&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;session&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;session&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;flush&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# DB connection 일어남&lt;/span&gt;
+
+&lt;span class=&quot;nb&quot;&gt;id&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;id&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# auto_encrement로 생성된 id&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;session&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;commit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# session.rollback()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&quot;검색-like&quot;&gt;검색 (LIKE)&lt;/h4&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;results&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;session&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;query&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Model&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;\
+	&lt;span class=&quot;nb&quot;&gt;filter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Model&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;like&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'김&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;all&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# 성이 김씨인 사람 찾음&lt;/span&gt;
+    
+&lt;span class=&quot;c&quot;&gt;# 응용해보긔 &lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;keyword&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;kwargs&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'keyword'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;''&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;search&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt; 
+
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;keyword&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;search&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Model&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;like&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'{keyword}&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    
+&lt;span class=&quot;n&quot;&gt;results&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;session&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;query&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Model&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;\
+	&lt;span class=&quot;nb&quot;&gt;filter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;search&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;all&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# 검색어가 있으면 검색, 없으면 모두 가져옴&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;</content><author><name>Lowell</name></author><category term="flask orm" /><category term="flask sqlalchemy orm" /><category term="orm 사용법" /><summary type="html">TIL 카테고리의 글은 그날 배운 것을 정리하는 목적으로 포스팅합니다. 내용이 잘못되었다면 댓글로 피드백 부탁드립니다.</summary></entry><entry><title type="html">Jeykll Systax highlight 적용하기</title><link href="http://localhost:4000/jeykll/2019/04/15/jeykll-syntax-highlight/" rel="alternate" type="text/html" title="Jeykll Systax highlight 적용하기" /><published>2019-04-15T00:00:00+09:00</published><updated>2019-04-15T00:00:00+09:00</updated><id>http://localhost:4000/jeykll/2019/04/15/jeykll-syntax-highlight</id><content type="html" xml:base="http://localhost:4000/jeykll/2019/04/15/jeykll-syntax-highlight/">&lt;p&gt;Jeykll 블로그에서 코드를 올릴 때 syntax highlighting을 해준다면 독자가 글을 읽을 때 직관적이고 편하게 읽을 수 있을 것이다. syntax highlighting을 적용하는 것은  &lt;code class=&quot;highlighter-rouge&quot;&gt;rouge&lt;/code&gt;를 통해 쉽게 할 수 있다.&lt;/p&gt;
+
+&lt;h3 id=&quot;1--gem을-통한-rouge-설치&quot;&gt;1.  gem을 통한 rouge 설치&lt;/h3&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;gem install kramdown rouge
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;코드 하이라이팅을 위한 rouge를 설치해준다. kramdown은 지킬 마크다운 엔진이다.&lt;/p&gt;
+
+&lt;p&gt;github.io는 기본으로 kramdown 엔진을 사용한다.&lt;/p&gt;
+
+&lt;h3 id=&quot;2-_configyml-설정&quot;&gt;2. _config.yml 설정&lt;/h3&gt;
+
+&lt;div class=&quot;language-yml highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# _config.yml&lt;/span&gt;
+
+&lt;span class=&quot;s&quot;&gt;...생략&lt;/span&gt;
+
+&lt;span class=&quot;s&quot;&gt;markdown&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;kramdown&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;highlighter&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;rouge&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;3--테마-다운&quot;&gt;3.  테마 다운&lt;/h3&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;rougify &lt;span class=&quot;nb&quot;&gt;help &lt;/span&gt;style
+...
+available themes:
+  base16, base16.dark, base16.light, base16.monokai, base16.monokai.dark, base16.monokai.light, base16.solarized, base16.solarized.dark, base16.solarized.light, colorful, github, gruvbox, gruvbox.dark, gruvbox.light, igorpro, molokai, monokai, monokai.sublime, pastie, thankful_eyes, tulip
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;위 명령어로 지원하는 테마를 확인 한 후 맘에 드는 테마를 다운받으면 된다.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;rougify style monokai &amp;gt; /assets/css/syntax.css
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;4-적용&quot;&gt;4. 적용&lt;/h3&gt;
+
+&lt;p&gt;Html head 부분에 다운 받은 css 파일을 적용해준다.&lt;/p&gt;
+
+&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;...
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;link&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;rel=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;stylesheet&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;href=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/assets/css/syntax.css&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;href 안의 링크는 다운 받은 css 파일의 경로를 잘 설정해줘야한다.&lt;/p&gt;
+
+&lt;p&gt;그럼 끗 ! 💁‍♀️&lt;/p&gt;</content><author><name>Lowell</name></author><category term="jeykll highlighting" /><category term="지킬 하이라이트" /><category term="jeykll syntax highlighting" /><summary type="html">Jeykll 블로그에서 코드를 올릴 때 syntax highlighting을 해준다면 독자가 글을 읽을 때 직관적이고 편하게 읽을 수 있을 것이다. syntax highlighting을 적용하는 것은 rouge를 통해 쉽게 할 수 있다.</summary></entry><entry><title type="html">Ajax 요청 후 대기 시 액션 처리 하기</title><link href="http://localhost:4000/til/2019/04/12/TIL-ajax-loading-action/" rel="alternate" type="text/html" title="Ajax  요청 후 대기 시 액션 처리 하기" /><published>2019-04-12T00:00:00+09:00</published><updated>2019-04-12T00:00:00+09:00</updated><id>http://localhost:4000/til/2019/04/12/TIL-ajax-loading-action</id><content type="html" xml:base="http://localhost:4000/til/2019/04/12/TIL-ajax-loading-action/">&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;TIL 카테고리의 글은 그날 배운 것을 정리하는 목적으로 포스팅합니다. 내용이 잘못되었다면 댓글로 피드백 부탁드립니다.&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;상황&quot;&gt;상황&lt;/h3&gt;
+
+&lt;p&gt;ajax 요청 후 데이터를 불러 올 때 까지 로딩 바를 띄우고 데이터를 불러왔을 때에는 로딩 바가 사라지게 하고 싶었다.&lt;/p&gt;
+
+&lt;h3 id=&quot;해결&quot;&gt;해결&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$(document).ajaxStart(function() {
+        // show loader on start 
+        // ajax 요청 후 데이터를 불러 올 때 까지 액션을 취한다.
+        $(&quot;#loader&quot;).css(&quot;display&quot;,&quot;block&quot;);
+    }).ajaxSuccess(function() {
+        // hide loader on success
+        // ajax 요청 데이터를 성공적으로 받아왔을 때 액션을 취한다.
+        $(&quot;#loader&quot;).css(&quot;display&quot;,&quot;none&quot;);
+    });
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;refer&quot;&gt;refer&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://stackoverflow.com/questions/20095002/how-to-show-progress-bar-while-loading-using-ajax&quot;&gt;https://stackoverflow.com/questions/20095002/how-to-show-progress-bar-while-loading-using-ajax&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Lowell</name></author><category term="ajax request loding" /><category term="ajax loding" /><category term="ajax loading action" /><summary type="html">TIL 카테고리의 글은 그날 배운 것을 정리하는 목적으로 포스팅합니다. 내용이 잘못되었다면 댓글로 피드백 부탁드립니다.</summary></entry><entry><title type="html">MySQL ORDER BY 정렬 시 조건 걸기, CASE 사용하기</title><link href="http://localhost:4000/til/2019/03/29/TIL-sql-order-by-condition/" rel="alternate" type="text/html" title="MySQL ORDER BY 정렬 시 조건 걸기, CASE 사용하기" /><published>2019-03-29T00:00:00+09:00</published><updated>2019-03-29T00:00:00+09:00</updated><id>http://localhost:4000/til/2019/03/29/TIL-sql-order-by-condition</id><content type="html" xml:base="http://localhost:4000/til/2019/03/29/TIL-sql-order-by-condition/">&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;TIL 카테고리의 글은 그날 배운 것을 정리하는 목적으로 포스팅합니다. 내용이 잘못되었다면 댓글로 피드백 부탁드립니다.&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;쿼리를 통해 데이터를 가져올 때 데이터를 기반으로 조건을 걸어서 정렬하고 싶을 때가 있다. 그때 &lt;code class=&quot;highlighter-rouge&quot;&gt;CASE&lt;/code&gt;나 &lt;code class=&quot;highlighter-rouge&quot;&gt;FIELD&lt;/code&gt;를 사용하면 가능 조건에 따라 데이터의 정렬 우선순위를 정해줄 수 있다.&lt;/p&gt;
+
+&lt;h3 id=&quot;field&quot;&gt;FIELD&lt;/h3&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;ORDER BY FIELD (column, 1순위, 2순위, 3순위, n순위...)&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;어떤 데이터의 값의 정렬을 정해주고 싶을 때 사용하면 된다.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt; SELECT id, title, status FROM movie
+id title status 
+1	아바타 	2 
+2	써니 		 0
+3	극한직업	1
+4	캡틴마블 	1
+
+&amp;gt; SELECT * FROM movie ORDER BY FIELD(status, 1, 2, 0) 
+id title status
+3	극한직업	1
+4	캡틴마블 	1
+1	아바타 	2 
+2	써니 		 0
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;위 예제는 status의 값 별로 정렬 순위를 정해준 것이다. 값 1이 1순위고 2가 2순위, 0이 3순위인 것을 확인할 수 있다.&lt;/p&gt;
+
+&lt;h3 id=&quot;case&quot;&gt;CASE&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;CASE
+    WHEN &amp;lt;condition1&amp;gt; THEN &amp;lt;result1&amp;gt;
+    WHEN &amp;lt;condition2&amp;gt; THEN &amp;lt;result2&amp;gt;
+    WHEN &amp;lt;conditionN&amp;gt; THEN &amp;lt;resultN&amp;gt;
+    ELSE &amp;lt;result&amp;gt;
+END;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;if문과 비슷하게 동작하는 CASE문은 condition에 조건을 넣으면 되고 then 뒤에는 정렬 순위를 넣으면 된다.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt; SELECT id, title, start_at, end_at
+  CASE
+  WHEN start_at &amp;lt;= NOW() AND NOW() &amp;lt; end_at THEN 1
+    ELSE 2
+  END movie_order
+  FROM movie
+  ORDER BY movie_order
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;위 예제는 오늘이 영화 상영 기간에 포함되어있다면 1순위, 아니면 2순위로 정렬된다.&lt;/p&gt;</content><author><name>Lowell</name></author><category term="order by case" /><category term="order by field" /><category term="order by 정렬" /><summary type="html">TIL 카테고리의 글은 그날 배운 것을 정리하는 목적으로 포스팅합니다. 내용이 잘못되었다면 댓글로 피드백 부탁드립니다.</summary></entry><entry><title type="html">local storage, session storage</title><link href="http://localhost:4000/til/2019/03/21/TIL-local-storage/" rel="alternate" type="text/html" title="local storage, session storage" /><published>2019-03-21T00:00:00+09:00</published><updated>2019-03-21T00:00:00+09:00</updated><id>http://localhost:4000/til/2019/03/21/TIL-local-storage</id><content type="html" xml:base="http://localhost:4000/til/2019/03/21/TIL-local-storage/">&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;TIL 카테고리의 글은 그날 배운 것을 정리하는 목적으로 포스팅합니다. 내용이 잘못되었다면 댓글로 피드백 부탁드립니다.&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;상황&quot;&gt;상황&lt;/h3&gt;
+
+&lt;p&gt;게시판을 구현하는 중 새로 올라온 게시글을 읽지 않았으면 빨간 닷 표시를 해주고 읽었다면 닷 표시를 없애는 읽음 처리 작업을 해야했다. 카카오톡에서 유저가 프로필을 변경하면 프로필 사진 옆에 빨간 닷 표시가 생기는 것 처럼? 만들고 싶었는데 이를 서버에서 처리하기에는 계속 읽었는지 안읽었는지 확인해야해서 클라이언트 상에서 처리할 수 있는 방안을 찾던 중 회사 프론트 개발자분께서 웹 스토리지를 알려주셨다.&lt;/p&gt;
+
+&lt;h2 id=&quot;스토리지&quot;&gt;스토리지&lt;/h2&gt;
+
+&lt;p&gt;스토리지는 key-value 쌍으로 클라이언트 데이터를 저장할 수 있는 공간이다. 이 스토리지는 두 종류로 되어있는데 로컬 스토리지와 세션 스토리지로 분류되어있다. 각 스토리지는 차이점이 있어서 용도에 따라 알맞게 사용하면 된다.&lt;/p&gt;
+
+&lt;h5 id=&quot;장점&quot;&gt;장점&lt;/h5&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;용량이 크다.&lt;/li&gt;
+  &lt;li&gt;HTTP요청 때 전달되지 않아 자원낭비 적음.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;스토리지는 환경을 많이 타기 때문에 제대로 작동하지 않을 가능성이 있으므로 엄청 중요하진 않지만 있으면 좋은 기능을 구현할 때 사용하면 좋다.&lt;/p&gt;
+
+&lt;p&gt;아래와 같은 경우 등에서 사용한다고 한다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;팝업&lt;/li&gt;
+  &lt;li&gt;글 작성 시 임시저장용&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;로컬-스토리지&quot;&gt;로컬 스토리지&lt;/h3&gt;
+
+&lt;p&gt;로컬 스토리지에 데이터를 저장하면 브라우저를 껐다 키거나 컴퓨터를 껐다 켜도 직접 지우지 않는 이상 절대 지워지지 않는다. 데이터가 &lt;strong&gt;영구성&lt;/strong&gt;을 띈다. 내 경우도 한번 읽은 글에 표시를 할 필요가 없으므로 로컬 스토리지에 데이터를 저장해서 이 데이터로 읽음    처리를 했다. 로컬 스토리지에 쌓인 데이터는 개발자도구 - application - localstorage 에서 확인할 수 있다.&lt;/p&gt;
+
+&lt;h3 id=&quot;세션-스토리지&quot;&gt;세션 스토리지&lt;/h3&gt;
+
+&lt;p&gt;세션 스토리지에 데이터를 저장하면 로컬 스토리지와 반대되게 브라우저, 컴퓨터를 껐다 키면 데이터가 날라간다. 세션 스토리지에는 &lt;strong&gt;일회성&lt;/strong&gt;을 띄는 데이터를 저장하면 된다. 세션 스토리지에 쌓인 데이터는 개발자 도구 - applicaation - sessionstorage에서 확인할 수 있다.&lt;/p&gt;
+
+&lt;h3 id=&quot;javascript-에서-사용하기&quot;&gt;Javascript 에서 사용하기&lt;/h3&gt;
+
+&lt;h4 id=&quot;로컬-스토리지-1&quot;&gt;로컬 스토리지&lt;/h4&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// set data&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;localStorage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;setItem&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'lowell'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'value'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;// get data &lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;localStorage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getItem&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'lowell'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;//vallue&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// JSON 데이터도 사용가능하다.&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'lowell'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'yejin'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;23&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;localStorage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;setItem&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'people'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;JSON&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;stringify&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;people&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;JSON&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;parse&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;localStorage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getItem&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'people'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// remove data&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;localStorage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;removeItem&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&quot;세션-스토리지-1&quot;&gt;세션 스토리지&lt;/h4&gt;
+
+&lt;p&gt;로컬 스토리지 사용법에서 &lt;code class=&quot;highlighter-rouge&quot;&gt;localStroage&lt;/code&gt;를 &lt;code class=&quot;highlighter-rouge&quot;&gt;sessionStorage&lt;/code&gt;로 변경하면 된다. 메소드는 똑같다!&lt;/p&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// set data&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;sessionStorage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;setItem&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'lowell'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'value'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; 
+&lt;span class=&quot;c1&quot;&gt;// get data&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;sessionStorage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getItem&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'lowell'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;refer&quot;&gt;Refer&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;https://isme2n.github.io/devlog/2017/06/21/storage-cookie/&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;가상환경 활성화&lt;/p&gt;
-
-    &lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# window&lt;/span&gt;
-&lt;span class=&quot;gp&quot;&gt;&amp;gt; &lt;/span&gt;myenv&lt;span class=&quot;se&quot;&gt;\S&lt;/span&gt;cripts&lt;span class=&quot;se&quot;&gt;\a&lt;/span&gt;ctivate
-&lt;span class=&quot;c&quot;&gt;# mac&lt;/span&gt;
-&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;source &lt;/span&gt;myenv&lt;span class=&quot;se&quot;&gt;\b&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\a&lt;/span&gt;ctivate 
-&lt;span class=&quot;c&quot;&gt;# or &lt;/span&gt;
-. myenv&lt;span class=&quot;se&quot;&gt;\b&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\a&lt;/span&gt;ctivate
-&lt;/code&gt;&lt;/pre&gt;
-    &lt;/div&gt;
-
-    &lt;p&gt;가상환경에 성공적으로 들어간다면 prompt 앞에 현재 가상환경이 표시될 것이다.&lt;/p&gt;
-
-    &lt;p&gt;지금부터는 격리된 환경에서 작업이 가능하다!&lt;/p&gt;
-
-    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;(myenv) $ &amp;gt;&lt;/code&gt;&lt;/p&gt;
+    &lt;p&gt;https://www.zerocho.com/category/HTML&amp;amp;DOM/post/5918515b1ed39f00182d3048&lt;/p&gt;
   &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;가상환경 비활성화&lt;/p&gt;
+&lt;/ul&gt;</content><author><name>Lowell</name></author><category term="local storage" /><category term="session storage" /><summary type="html">TIL 카테고리의 글은 그날 배운 것을 정리하는 목적으로 포스팅합니다. 내용이 잘못되었다면 댓글로 피드백 부탁드립니다.</summary></entry><entry><title type="html">json ValueError Expecting property name.. error</title><link href="http://localhost:4000/python/2019/02/28/json-value-error/" rel="alternate" type="text/html" title="json ValueError Expecting property name.. error" /><published>2019-02-28T00:00:00+09:00</published><updated>2019-02-28T00:00:00+09:00</updated><id>http://localhost:4000/python/2019/02/28/json-value-error</id><content type="html" xml:base="http://localhost:4000/python/2019/02/28/json-value-error/">&lt;p&gt;python에서 dictionary 데이터를 json 형태로 dumps하거나 반대로 json 데이터를 dictionary 형태로 loads할 때 발생하는&lt;/p&gt;
 
-    &lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;&amp;gt; &lt;/span&gt;deactivate
+&lt;p&gt;&lt;strong&gt;ValueError: Expecting property name: line 1 column 2 (char 1)&lt;/strong&gt; 에러는 dumps, loads 하려는 데이터가 double quote(쌍 따옴표) 로 감싸지지 않고 single quote(따옴표)로 감싸져 있을 경우 발생한다.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&quot;{&quot;property&quot;: &quot;1&quot;}&quot; # 허용 O
+&quot;{'property': '1'}&quot; # 허용 X
 &lt;/code&gt;&lt;/pre&gt;
-    &lt;/div&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;</content><author><name>Lowell</name></author><category term="python virtualenv" /><category term="python venv" /><category term="python pyenv" /><category term="window pyenv" /><category term="python 가상환경" /><summary type="html">venv는 python3에서 기본으로 제공하는 가상환경(virtualenv)을 만들 수 있는 라이브러리이다.</summary></entry></feed>
+&lt;/div&gt;
+
+&lt;p&gt;만약에 single quote로 된 데이터를 변경하지 못한다면 모듈 ast를 사용해서 해결 할 수 있다.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;ast&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;json&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;{'property': '1'}&quot;&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# dumps &lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;json&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dumps&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ast&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;literal_eval&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# loads&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;json&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;loads&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;json&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dumps&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ast&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;literal_eval&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;refer&quot;&gt;refer&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://code.i-harness.com/en/q/1884426&quot;&gt;https://code.i-harness.com/en/q/1884426&lt;/a&gt;&lt;/p&gt;</content><author><name>Lowell</name></author><category term="ValueError Expecting property name line 1 column 2 (char 1)" /><summary type="html">python에서 dictionary 데이터를 json 형태로 dumps하거나 반대로 json 데이터를 dictionary 형태로 loads할 때 발생하는</summary></entry><entry><title type="html">일일 커밋 1년 회고</title><link href="http://localhost:4000/etc/2019/02/24/%EC%9D%BC%EC%9D%BC%EC%BB%A4%EB%B0%8B-%ED%9A%8C%EA%B3%A0/" rel="alternate" type="text/html" title="일일 커밋 1년 회고" /><published>2019-02-24T00:00:00+09:00</published><updated>2019-02-24T00:00:00+09:00</updated><id>http://localhost:4000/etc/2019/02/24/%EC%9D%BC%EC%9D%BC%EC%BB%A4%EB%B0%8B-%ED%9A%8C%EA%B3%A0</id><content type="html" xml:base="http://localhost:4000/etc/2019/02/24/%EC%9D%BC%EC%9D%BC%EC%BB%A4%EB%B0%8B-%ED%9A%8C%EA%B3%A0/">&lt;p&gt;일일커밋을 시작한지 1년이 되었다. 나는 1년을 기념해서 일일 커밋을 회고하려고 한다.&lt;/p&gt;
+
+&lt;h3 id=&quot;일일커밋을-시작한-이유&quot;&gt;일일커밋을 시작한 이유&lt;/h3&gt;
+
+&lt;p&gt;나는 공부를 열심히 하고자 하는 사람이다. 하지만 게으르고 무기력할 때가 많다. 그래서 하고싶은 공부가 있더라도 실행을 하지 못하는 큰 단점이 있었다. 공부를 할때는 열심히 했지만 아닐 때는 몇일 내내 하지 않는 경우가 많았다. 한번 안하게 되면 계속 안해지고 .. 죄책감도 컸다. 나는 이 문제점에 대해 잘 알고 있었고 해결하려고 노력했으나 고치기엔 쉽지 않았다. 그래서 이 문제를 해결하기 위한 큰 방안이 필요했다.&lt;/p&gt;
+
+&lt;p&gt;일일 커밋이라는 것은 원래부터 알고 있었다. 취업과 공부 습관에 정말 좋은 공부법이라고 들었던 것 같다. 하지만 처음 들었을 당시에는 ‘일일 커밋은 하루마다 프로그램 코드를 작성하는 것’ 이라는 생각이 컸다. 그래서 불가능해보였다. 하루에 한번 프로그램 코드를 작성하는 것은 그때 당시 나에겐 어려웠던 것이였다. 프로그램을 작성하기 위해선 어떤 프로그램을 만들 것이냐부터 생각을 해야하기 때문이다. 그래서 일일 커밋은 나에게 너무 부담으로 느껴졌다.&lt;/p&gt;
+
+&lt;p&gt;그러다 공부 습관을 기르는 방법을 찾아보던 중 다시 일일 커밋을 접하게 되었는데, 그때 일일 커밋에 대한 오해가 풀렸다. 꼭 프로그램 코드를 작성해야되는 것이 아니고 다른 공부를 했으면 그 공부한 것에 대한 커밋을 해도 된다는 것을 알게되었기 때문이다. 그리고 TIL이라는 Today I Learned 라는 것을 알게 되었다. 이것은 오늘 내가 공부한 것을 마크다운 문법으로 정리해서 올리는 것이다. 나는 이 TIL이 무척 맘에 들었고 이것을 통해서라면 일일 커밋을 실천할 수 있겠다 생각해서 일일 커밋을 시작하게 되었다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/lowelllll/TIL&quot;&gt;TIL&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;일일-커밋의-장점&quot;&gt;일일 커밋의 장점&lt;/h3&gt;
+
+&lt;p&gt;1년동안 일일 커밋을 실천해오면서 느낀 장점은 총 3 가지이다&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;공부 습관&lt;/strong&gt;을 기를 수 있다.&lt;/li&gt;
+  &lt;li&gt;1년동안 지식이 알차게 쌓인다.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;잔디&lt;/strong&gt;를 심을 수 있다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;먼저 하루마다 꼭 커밋을 해야하니 공부를 하게된다. 공부를 해야 커밋을 할 수 있으니까. 솔직히 말하면 공부를 안해도 커밋한 적이 적지 않다. 놀거나 아프거나 집에 일이 있거나.. 그럴 때에는 전에 공부했던 것을 정리하거나 진짜 대충 어디서 주워들은 용어의 정의를 정리해서 올렸다. 그래도 이렇게 매일 공부를 하고.. 커밋을 하면서 이제는 하루라도 공부를 안하면 뭔가 불안한 느낌이 든다. 그리고 그게 당연시 된 것 같다. 예전처럼 몇 일 열심히 공부하고 몇 일 엄청 늘어지는 그런 악순환이 없어졌다. 꾸준하게 공부하는 습관을 기른 것 같다. 습관 기르는게 정말 힘든데 이 부분은 일일 커밋이 정말 큰 도움이 되었다.&lt;/p&gt;
+
+&lt;p&gt;그리고 당연한 얘기지만 1년동안 열심히 공부를 하게되니 지식이 쌓인다. 지난 2018년을 돌아보면 정말 많은 것을 공부했다는 생각이 든다. 현재 내가 아는 지식의 대부분은 지난 1년동안 공부했던 것들 같다. 내가 공부를 시작한지 오래된 건 아니지만.. 일일커밋을 시작하기 전과 시작한 후의 습득량은 확연히 차이난다.&lt;/p&gt;
+
+&lt;p&gt;마지막으로는 깃허브의 잔디를 빼곡히 심을 수 있다는 점이다. 잔디가 채워지는 것은 정말 보기 좋다. 그리고 요즘은 깃허브도 포트폴리오로 속하기 때문에 관리를 잘 해줘야하는데 열심히 관리해줘야하는 부분이 잔디라고 생각한다. 듬성 듬성난 잔디보다는 빼곡하게 채워진 잔디밭이 더 보기도 좋기 때문이다.  나는 1년동안 3일 커밋을 하지 못했다. 아팠을 때, 까먹었을 때, 졸업식 날.. 그때마다 하루씩 비어지는 잔디때문에 마음이 너무 아팠다. 공부를 못했다는 생각보다 풀잔디가 아니라는… 흑 그게 너무 슬펐다. ㅜ_ㅜ&lt;/p&gt;
+
+&lt;h3 id=&quot;일일커밋의-단점&quot;&gt;일일커밋의 단점&lt;/h3&gt;
+
+&lt;p&gt;내가 생각하는 일일 커밋의 단점은 짧고 굵게 말하자면 &lt;strong&gt;스트레스&lt;/strong&gt;이다.&lt;/p&gt;
+
+&lt;p&gt;매일 매일 커밋을 해야한다는 그런 생각과 부담감과 책임감이 스트레스를 가져왔다. 회사나 학교를 갔다온 후 엄청 피곤한 날에도  ‘그래도 공부해야지’ 가 아닌 ‘그래도 커밋해야지’라는 생각이 든다는 단점.  그 부분이 나에겐 스트레스가 된 것 같다. 그래도 이런 강제성 때문에 공부를 하게 되었고 습관도 늘게되었지만..&lt;/p&gt;
+
+&lt;p&gt;그리고 커밋을 하기 애매한 공부를 했을 때. 예를 들어 하루종일 공부하기는 했으나 공부할 프로그램을 설치하느라 시간을 다 소모했을 때. 이럴 때는 공부는 했는데 커밋할 내용이 없어 난감하다. 설치 방법을 쓸 수 도 있지만 그 것을 쓰기에는 시간이 부족할 때.. 이럴 때 애매하다.&lt;/p&gt;
+
+&lt;p&gt;또한 블로그 글을 쓸 때에도 방해가 되었다. 블로그 글을 쓸 때 최소 2-3시간 정도 소요되는데 그러면 커밋을 못할 수도 있기 때문에 글을 쓰는 것을 멈추고 TIL 커밋을 했었다. 이것이 내가 티스토리에서 운영하던 블로그를 github.io로 이전한 이유이다.&lt;/p&gt;
+
+&lt;p&gt;일일 커밋을 하면서 약간 신데렐라가 된 느낌이었다. ‘12시 안에 얼른 커밋해야돼!!!!’ 이런 생각을 하고 지내왔다. 내가 잘 못된 부분이였을 수도 있지만.. 11시부터 공부를 시작하는데 12시 안에 커밋을 하지 못할 거라고 생각이 되면 공부하고 싶은 분야는 그냥 안하고 빨리 공부할 수 있는 분야를 공부하기도 했다.&lt;/p&gt;
+
+&lt;h3 id=&quot;결론&quot;&gt;결론&lt;/h3&gt;
+
+&lt;p&gt;나는 예전의 나와 같은 고민을 하고 있는 사람이라면 &lt;strong&gt;꼭 일일 커밋을 해봤으면 좋겠다고 생각한다.&lt;/strong&gt; 깃허브를 포트폴리오 역할로 사용하고 싶은 사람도 마찬가지이다. 일일 커밋은 정말 도움이 되는 공부 방법이자 포트폴리오라고 생각한다. 나도 정말 많은 도움이 되었고 1년동안 성장할 수 있었던 큰 요소는 이 일일 커밋이라고 생각한다.&lt;/p&gt;
+
+&lt;p&gt;하지만 나는 오늘 이후로 일일커밋 실천을 중단하려고 한다. 단점 부분에서 말했듯이 일일 커밋을 하며 스트레스를 알게 모르게 많이 받아왔던 것 같다. ‘이 ‘공부를 하고싶은에.. 커밋을 해야하니까 일단 빨리 정리할 수 있는 공부를 하고 다음에 하자’, ‘아 이거 설치하면 시간 다가는데 언제 커밋하지’ 이런 것들이 나를 피곤하게 만들었다.&lt;/p&gt;
+
+&lt;p&gt;그래서 이제는 내가 하고 싶은 공부를 계속해서 하고, 더 다양한 분야를 공부하기 위해 그만하려고 한다. 아예 깃허브 활동을 하지 않는 다는 것은 절대 아니다. 매일 매일 커밋해야한다는 강제성을 띄는 생각을 그만 한다는 것이다.&lt;/p&gt;
+
+&lt;p&gt;나는 1년동안 일일 커밋을 통해 기른 소중한 공부 습관을 가지고서 더욱 더 성장하고 싶고 그럴 거라는 확신이 있다. 그만두더라도 나의 잔디밭은 항상 무성할 것이다!&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/32219612/55082442-03067b00-50e5-11e9-9fc8-3ad9803f7d85.png&quot; alt=&quot;github&quot; /&gt;&lt;/p&gt;</content><author><name>Lowell</name></author><category term="일일커밋" /><summary type="html">일일커밋을 시작한지 1년이 되었다. 나는 1년을 기념해서 일일 커밋을 회고하려고 한다.</summary></entry></feed>

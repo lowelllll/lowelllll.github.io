@@ -1,0 +1,1178 @@
+
+<!doctype html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html class="theme-next muse use-motion" lang="ko">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/assets/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/assets/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/assets/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="virtual memory,가상 메모리," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Lowell's Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/assets/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="181202 Today I learned Virtual Memory">
+<meta name="keywords" content="virtual memory, 가상 메모리">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Virtual Momery">
+<meta property="og:url" content="http://localhost:4000/til/2018/12/02/TIL-virtual-memory/">
+<meta property="og:site_name" content="Lowell's Blog">
+<meta property="og:description" content="181202 Today I learned Virtual Memory">
+<meta property="og:locale" content="ko">
+<meta property="og:image" content="http://contribute.geeksforgeeks.org/wp-content/uploads/121-1.png">
+<meta property="og:image" content="https://meherchilakalapudi.files.wordpress.com/2011/12/75.jpg">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Virtual Momery">
+<meta name="twitter:description" content="181202 Today I learned Virtual Memory">
+<meta name="twitter:image" content="http://contribute.geeksforgeeks.org/wp-content/uploads/121-1.png">
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":5,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '작성자'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://localhost:4000/"/>
+
+
+
+
+
+  <title>Virtual Momery | Lowell's Blog</title>
+  
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '',
+      xfbml      : true,
+      version    : 'v2.6'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/ko/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <meta name="google-site-verification" content="N5TPtD4W-NtIxmLpJRA6uSzKZTgB-wc6D_AeS2BSFkw" />
+  <meta name="google-site-verification" content="0nDH-74euRy51Hs3tt8Ixeui9iAtzJgVYpsZl-B2vJ8" />
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="ko">
+
+  
+
+
+  <div class="container  page-post-detail ">
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            홈
+          </a>
+        </li>
+      
+        
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            아카이브
+          </a>
+        </li>
+      
+        
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            태그
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+            검색
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="" spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+<div id="posts" class="posts-expand">
+  
+  
+
+  
+
+  
+  
+  
+
+  <article class="post post-type- " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://localhost:4000/til/2018/12/02/TIL-virtual-memory/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Lowell">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="assets/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lowell's Blog">
+    </span>
+
+    
+    
+      
+            <span class="post-category">
+               
+              <!-- 카테고리 -->
+                
+                  <a href="/category/#/TIL" itemprop="url" rel="index">
+                    <h3 itemprop="name">TIL</h3>
+                  </a>
+                
+                
+              
+            </span>
+        
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title post-title-custom" itemprop="name headline">
+          
+          
+            Virtual Momery
+          
+        </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              
+                <span class="post-meta-item-text">작성일</span>
+              
+              <time title="" itemprop="dateCreated datePublished" datetime="2018-12-02T00:00:00+09:00">
+                2018-12-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/til/2018/12/02/TIL-virtual-memory/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count fb-comments-count" data-href="http://localhost:4000/til/2018/12/02/TIL-virtual-memory/" itemprop="commentCount">0</span> comments
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+            
+                <div class="post-description">
+                    181202 Today I learned Virtual Memory
+                </div>
+            
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+        
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <p><code class="highlighter-rouge">TIL 카테고리의 글은 그날 배운 것을 정리하는 목적으로 포스팅합니다. 내용이 잘못되었다면 댓글로 피드백 부탁드립니다.</code></p>
+
+<h1 id="가상-메모리">가상 메모리</h1>
+
+<blockquote>
+  <p><code class="highlighter-rouge">Virtual Memory</code> 한정된 물리 메모리의 한계를 극복하고자 디스크와 같은 저장장치를 활용해 애플리케이션들이 더 많은 메모리를 활용할 수 있게 해주는 것</p>
+</blockquote>
+
+<ul>
+  <li>어떤 프로세스를 실행할 때 프로세스 전체가 메모리에 적재되지 않고도 실행이 가능 하도록 함.</li>
+  <li>
+    <p>현재 필요한 부분만 메모리에 적재하도록 할 수 있음.</p>
+  </li>
+  <li><code class="highlighter-rouge">(실제 메모리) physical memory</code>보다 주소공간이 더 클 수 있음.</li>
+  <li>파일이나 메모리가 둘 또는 그 이상의 프로세스들에 의해 공유되는 것을 가능하게 함.</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2</pre></td><td class="code"><pre class="highlight"><code>책상에 많은 책을 펴놓고 공부를 할 때 책상에 해당되는 것이 실제 물리 메모리이고 책상에 책을 놔둘 공간이 없어 책을 꽃아놓는 책장이 가상 메모리라고 생각하면 된다.
+책상에 펴져있는 책들은 실행 중인 프로세스들이고 책장에 꽂아져있는 책들은 프로그램들이다.
+</code></pre></td></tr></tbody></table></div>
+</div>
+
+<h2 id="요구-페이징-demand-paging">요구 페이징 (Demand Paging)</h2>
+
+<blockquote>
+  <p>초기에 필요한 것만 실제 메모리에 적재하고 페이지들이 실행 과정에서 실제로 필요할 때 적재하는 기법.</p>
+</blockquote>
+
+<ul>
+  <li>한번도 접근되지 않는 페이지는 물리 메모리에 적재되지 않게 됨.</li>
+  <li>스와핑 기법과 비슷함.</li>
+  <li><code class="highlighter-rouge">pager</code> : 페이지들의 연속. 프로세스 내의 개별 페이지들을 관리함.</li>
+  <li>디스크에서 메모리로 페이지를 적재하는 <code class="highlighter-rouge">swap in</code>을 수행하는 경우 프로세스가 다시 <code class="highlighter-rouge">swap out</code>되기 전에 실제로 어떤 페이지들이 사용될 것인지 추측하고 실제로 필요한 페이지들만 메모리로 읽어옴.</li>
+</ul>
+
+<p>프로세스 전체가 아닌 부분 조각 <code class="highlighter-rouge">page</code>들만 가져오기 때문에 특정 프로세스 내에서 어떤 페이지가 실제 메모리에 적재 되어있는지 아닌지를 구별해야함.</p>
+
+<p><code class="highlighter-rouge">page table</code>의 <code class="highlighter-rouge">valid-invalid bit </code>를 이용해 판단함.</p>
+
+<p><strong>page table</strong></p>
+
+<ul>
+  <li>페이지 테이블에는 각각의 page에 맵핑되는 frame과 valid-invalid bit로 구성되어 있음.</li>
+  <li>valid-invalid bit를 통해 어떤 페이지가 실제 물리 메모리에 적재되어있는지 표시해주고 만약 실제 물리 메모리에 적재되어있지 않다면 그 페이지가 저장되어있는 디스크 주소를 기록해 나중에 필요할 때 디스크에서 가져올 수 있게 함.</li>
+</ul>
+
+<h3 id="page-fault">page fault</h3>
+
+<blockquote>
+  <p>실제 물리 메모리에 적재되어있지 않는 페이지를 접근하려고 할 때 발생하는 트랩.</p>
+</blockquote>
+
+<p>현재 접근하려고 하는 페이지 테이블의 valid-invalid bit 항목이 무효로 되어있으면 발생함.</p>
+
+<p><strong>순수 요구 페이징 (pure demand paging)</strong></p>
+
+<blockquote>
+  <p>어떤 페이지가 필요해지기 전에는 페이지를 적재하지 않는 것</p>
+</blockquote>
+
+<p>순수 요구 페이징을 사용하면 맨 처음부터 <code class="highlighter-rouge">page fault</code>가 발생함.</p>
+
+<h4 id="page-fault-handling-페이지-부재-처리">page fault handling (페이지 부재 처리)</h4>
+
+<p><img src="http://contribute.geeksforgeeks.org/wp-content/uploads/121-1.png" alt="page fault" /></p>
+
+<ol>
+  <li>프로세스에 대한 내부 테이블을 검사해서 그 메모리 참조가 유효(valid)/무효(invalid) 인지를 알아낸다.</li>
+  <li>
+    <p>만약 무효한 페이지에 대한 참조라면 그 프로세스는 중단된다. 만약 유효한 참조인데 페이지가 아직 메모리에 올라오지 않았다면, 그것을 디스크로부터 가져와야 한다.</p>
+  </li>
+  <li>빈 공간 즉, 자유 프레임을 찾는다. (예를 들면, 페이지 프레임 리스트에서 하나 가져옴)</li>
+  <li>디스크에 새로이 할당된 프레임으로 해당 페이지를 읽어 들이도록 요청한다.</li>
+  <li>
+    <p>​디스크 읽기가 끝나면, 이 페이지가 이제는 메모리에 있다는 것을 알리기 위해 페이지 테이블을 갱신하며, 프로세스가 유지하고 있는 내부 테이블을 수정한다.</p>
+  </li>
+  <li>트랩에 의해 중단되었던 명령을 다시 수행한다. ​이제 프로세스는 마치 그 페이지가 항상  메모리에 있었던 것처럼 해당 페이지를 접근할 수 있다.</li>
+</ol>
+
+<p><strong>지역성의 원리 (locality of reference)</strong></p>
+
+<blockquote>
+  <p>CPU가 참조하는 주소가 지역에 모여져있다.</p>
+</blockquote>
+
+<p>한번 읽었던 코드(주소)를 다시 읽을 확률(while, for)이 높기 때문에 <code class="highlighter-rouge">page fault</code>가 문제가 될 만큼 많이 일어나지 않음.</p>
+
+<h2 id="페이지-교체-page-replacement">페이지 교체 (Page Replacement)</h2>
+
+<blockquote>
+  <p>프로세스가 메모리보다 더 큰 용량의 페이지를 적재하려고 할 때 (메모리가 꽉 찼을 때) 페이지 알고리즘을 통해 페이지를 교체하는 것</p>
+</blockquote>
+
+<ul>
+  <li>프로그램이 실행되면서 요구 페이지가 늘어나고 메모리가 가득 차서 페이지를 올릴 자리가 없을 때 특정 페이지(<code class="highlighter-rouge">victim page</code>)와 교체하는 것.</li>
+  <li>해당 페이지가 수정됬는지 아닌지를 확인(modifiy bit or dirty biy)해서 수정됬으면 디스크에도 수정을 해야하므로 수정되지 않은 페이지를 골라 교체함.</li>
+</ul>
+
+<p><strong>victim page</strong></p>
+
+<p>희생자 페이지. 메모리에 할당되어야 하는 페이지에게 자신의 자리를 내어주는 페이지임.</p>
+
+<p><img src="https://meherchilakalapudi.files.wordpress.com/2011/12/75.jpg" alt="page replacement" /></p>
+
+<p>그렇다면 희생자 페이지는 어떤 알고리즘을 통해 고를까?</p>
+
+<h3 id="fifo-algorithm">FIFO Algorithm</h3>
+
+<blockquote>
+  <p>할당된지 오래된 페이지를 교체하는 것.</p>
+</blockquote>
+
+<ul>
+  <li>오래된 페이지가 얼마나 자주 사용될지도 모르는데 교체하는 것은 무모함.</li>
+  <li>페이지 부재율(page fault)가 높아지고 효율적이지 않음</li>
+  <li>페이지가 교체되어도 바로 부재처리(page fault handling) 되어 다시 메모리에 적재시키며 프로세스가 정상적으로 동작함.</li>
+</ul>
+
+<h3 id="optimal-algorithm">Optimal Algorithm</h3>
+
+<blockquote>
+  <p>최적 알고리즘. 앞으로 가장 오랫동안 사용되지 않을 페이지를 찾아 교체하는 것.</p>
+</blockquote>
+
+<ul>
+  <li>프레임 수가 고정된 경우 가장 낮은 페이지 부재율을 보장함.</li>
+  <li>알고리즘 구현이 어려움</li>
+</ul>
+
+<h3 id="lru-alogirithm">LRU Alogirithm</h3>
+
+<blockquote>
+  <p>가장 오랜 기간 사용되지 않은 페이지를 교체하는 것.</p>
+</blockquote>
+
+<ul>
+  <li><code class="highlighter-rouge">optimal algorithm</code>은 미래를 내다보는 것이라면 <code class="highlighter-rouge">least recently used algorithm</code>은 과거를 보고 미래를 예측한다고 생각하면 됨. (최근에 사용되지 않았으면 나중에도 사용되지 않을 것)</li>
+  <li>실질적으로 사용 가능한 알고리즘</li>
+</ul>
+
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            
+            <a href="/tag/#/virtual%20memory" rel="tag"># virtual memory</a>
+          
+            
+            <a href="/tag/#/%EA%B0%80%EC%83%81%20%EB%A9%94%EB%AA%A8%EB%A6%AC" rel="tag"># 가상 메모리</a>
+          
+        </div>
+      
+
+      
+      
+      
+      
+      
+
+      
+      
+        <div class="post-nav" id="post-nav-id">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/til/2018/12/08/TIL-storage-system/" rel="next" title="storage system">
+                <i class="fa fa-chevron-left"></i> storage system
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/til/2018/11/27/TIL-main-memory/" rel="prev" title="Main Momery">
+                Main Momery <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+      
+
+      
+    </footer>
+  </article>
+
+  <div class="post-spread">
+    
+  </div>
+</div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="fb-comments"
+           data-href="http://localhost:4000/til/2018/12/02/TIL-virtual-memory/"
+           data-numposts="10"
+           data-width="100%"
+           data-colorscheme="light">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lowell</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://jekyllrb.com">Jekyll</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/simpleyyt/jekyll-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+   
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/assets/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/assets/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  <script type="text/javascript" src="/assets/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/assets/js/src/post-details.js?v=5.1.1"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/assets/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+    
+
+  
+
+
+
+
+
+  
+
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
+

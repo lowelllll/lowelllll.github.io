@@ -543,21 +543,22 @@ htttp{
 
 <p><code class="highlighter-rouge">$ sudo vi [testprj].ini</code></p>
 
-<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12<br/>13<br/>14<br/>15<br/>16<br/>17</pre></td><td class="code"><pre class="highlight"><code># home/user/testprj/[testprj].ini
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12<br/>13<br/>14<br/>15<br/>16<br/>17<br/>18</pre></td><td class="code"><pre class="highlight"><code># home/user/testprj/[testprj].ini
 
-[uwsgi] # 이건 변경 Xß
+[uwsgi] 
 module          =  [testprj].wsgi:application
 master          =  true
 pidfile         =  [testprj].uwsgi.pid
 enable-threads  = true
-http            =  127.0.0.1:8000 # uWSGI 포트 설정 
+# uWSGI 포트 설정 
+http            =  127.0.0.1:8000 
 processes       =  5
 harakiri        =  50
 max-requests    =  5000
 # clear environment on exit
 vacuum          =  true
-# optional path to a virtualenv
-home            =  [/home/user/.pyenv/versions/3.6.5/envs/devenv] # 가상환경 경로 설정
+# 가상환경 설정
+home            =  [/home/user/.pyenv/versions/3.6.5/envs/devenv]
 # background the process
 daemonize       =  [testprj].uwsgi.log
 </code></pre></td></tr></tbody></table></div>
@@ -708,7 +709,7 @@ daemonize       =  [testprj].uwsgi.log
   
   
   &copy; 
-  <span itemprop="copyrightYear">2018</span>
+  <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

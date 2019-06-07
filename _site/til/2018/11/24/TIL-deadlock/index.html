@@ -1,0 +1,1252 @@
+
+<!doctype html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html class="theme-next muse use-motion" lang="ko">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/assets/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/assets/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/assets/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="교착상태,deadlock," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Lowell's Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/assets/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="181124 Today I learned Deadlock">
+<meta name="keywords" content="교착상태, deadlock">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Deadlock">
+<meta property="og:url" content="http://localhost:4000/til/2018/11/24/TIL-deadlock/">
+<meta property="og:site_name" content="Lowell's Blog">
+<meta property="og:description" content="181124 Today I learned Deadlock">
+<meta property="og:locale" content="ko">
+<meta property="og:image" content="https://t1.daumcdn.net/cfile/tistory/242D124B5407E3830C">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Deadlock">
+<meta name="twitter:description" content="181124 Today I learned Deadlock">
+<meta name="twitter:image" content="https://t1.daumcdn.net/cfile/tistory/242D124B5407E3830C">
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":5,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '작성자'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://localhost:4000/"/>
+
+
+
+
+
+  <title>Deadlock | Lowell's Blog</title>
+  
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '',
+      xfbml      : true,
+      version    : 'v2.6'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/ko/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <meta name="google-site-verification" content="N5TPtD4W-NtIxmLpJRA6uSzKZTgB-wc6D_AeS2BSFkw" />
+  <meta name="google-site-verification" content="0nDH-74euRy51Hs3tt8Ixeui9iAtzJgVYpsZl-B2vJ8" />
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="ko">
+
+  
+
+
+  <div class="container  page-post-detail ">
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            홈
+          </a>
+        </li>
+      
+        
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            아카이브
+          </a>
+        </li>
+      
+        
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            태그
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+            검색
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="" spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+<div id="posts" class="posts-expand">
+  
+  
+
+  
+
+  
+  
+  
+
+  <article class="post post-type- " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://localhost:4000/til/2018/11/24/TIL-deadlock/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Lowell">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="assets/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lowell's Blog">
+    </span>
+
+    
+    
+      
+            <span class="post-category">
+               
+              <!-- 카테고리 -->
+                
+                  <a href="/category/#/TIL" itemprop="url" rel="index">
+                    <h3 itemprop="name">TIL</h3>
+                  </a>
+                
+                
+              
+            </span>
+        
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title post-title-custom" itemprop="name headline">
+          
+          
+            Deadlock
+          
+        </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              
+                <span class="post-meta-item-text">작성일</span>
+              
+              <time title="" itemprop="dateCreated datePublished" datetime="2018-11-24T00:00:00+09:00">
+                2018-11-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/til/2018/11/24/TIL-deadlock/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count fb-comments-count" data-href="http://localhost:4000/til/2018/11/24/TIL-deadlock/" itemprop="commentCount">0</span> comments
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+            
+                <div class="post-description">
+                    181124 Today I learned Deadlock
+                </div>
+            
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+        
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <p><code class="highlighter-rouge">TIL 카테고리의 글은 그날 배운 것을 정리하는 목적으로 포스팅합니다. 내용이 잘못되었다면 댓글로 피드백 부탁드립니다.</code></p>
+
+<h1 id="deadlock-교착상태">Deadlock (교착상태)</h1>
+
+<blockquote>
+  <p>요청한 자원을 다른 프로세스가 점유하고 있고 점유하고있는 프로세스도 다른 자원에 대해 대기 상태에 있기 때문에 두 프로세스가 대기 상태에서 벗어날 수 없는 상황</p>
+</blockquote>
+
+<h3 id="시스템-모델">시스템 모델</h3>
+
+<p>프로세스가 사용하는 자원(resource)에는 어떤 것들이 있을까?</p>
+
+<ul>
+  <li>request</li>
+  <li>use</li>
+  <li>release</li>
+</ul>
+
+<p>정상적인 프로세스는 다음 순서로만 자원을 사용할 수 있음.</p>
+
+<h4 id="request">request</h4>
+
+<p>프로세스는 자원을 요청하고, 즉시 허용되지 않는 경우 자원을 얻을 때 까지 대기상태에 놓임</p>
+
+<h4 id="use">use</h4>
+
+<p>프로세스는 자원에 대해 작업을 수행함.</p>
+
+<h4 id="release">release</h4>
+
+<p>프로세스가 자원을 다 사용했다면 방출함.</p>
+
+<p>이러한 경쟁 구도에 놓인 프로세스들은 자원을 요청하는 시점에 해당 자원이 다른 프로세스에 의해 점유되어있으면 대기 상태에 놓이고 각 프로세스와 자원들이 서로 꼬리를 물며 자원을 대기하는 경우를 <code class="highlighter-rouge">교착상태</code>에 놓여져있다고 함.</p>
+
+<h3 id="교착상태-발생조건">교착상태 발생조건</h3>
+
+<ol>
+  <li>상호배제 <code class="highlighter-rouge">mutual exclusion</code>
+    <ul>
+      <li>프로그램들이 공유 자원을 동시에 쓸 수 없는 상황</li>
+    </ul>
+  </li>
+  <li>점유 상태로 대기
+    <ul>
+      <li>공유 자원을 점유한 상태에서 다른 자원을 기다리는 것</li>
+    </ul>
+  </li>
+  <li>선점 불가
+    <ul>
+      <li>자원을 어떤 프로세스가 점유 중일 때 다른 프로세스가 그 자원을 뺏을 수 없는 것</li>
+    </ul>
+  </li>
+  <li>순환성 대기
+    <ul>
+      <li>대기가 꼬리에 꼬리를 문 상황</li>
+    </ul>
+  </li>
+</ol>
+
+<p>교착상태가 발생하려면 위 4가지 조건이 반드시 성립되어야함.</p>
+
+<h3 id="교착상태-처리방법">교착상태 처리방법</h3>
+
+<ol>
+  <li>교착상태를 예방하거나 회피.</li>
+  <li>시스템이  교착상태가 되도록 허용한 다음 이를 회복시키는 방법.</li>
+  <li>시스템의 교착상태를 무시하고 발생하지 않는 것 처럼 꾸미는 방법(실제 OS에서 사용)</li>
+</ol>
+
+<h4 id="교착상태-예방">교착상태 예방</h4>
+
+<ul>
+  <li>
+    <p>상호배제 : 읽기 전용 같은 여러 프로세스가 동시에 접근할 수 있는 파일에는 상호배제가 필요하지 않기 때문에 상호배제가 깨어지게 되어 교착상태를 예방할 수 있음. but 공유 불가능한 데이터에서는 교착 상태를 예방하지 못하는 경우가 발생할 수 있음.</p>
+  </li>
+  <li>
+    <p>점유하며 대기 :  프로세스가 어떤 자원을 점유하고 있을 때 다른 자원을 요청하지 못하도록 보장해야함. 자기 자신이 아무런 자원을 점유하고 있지 않을 때에만 다른 자원을 요청할 수 있어야함.</p>
+
+    <ul>
+      <li>프로토콜 1 : <strong>프로세스가 실행되기 전에 자신이 필요한 모든 자원을 요청하여 할당 받는 것</strong>
+        <ul>
+          <li>많은 자원들이 할당 된 후 오랫동안 사용되지 않아 자원의 이용률이 낮아짐.</li>
+          <li>필요한 자원 중 최소 하나가 계속 다른 프로세스에게 할당되어 있으면 이 프로세스는 무한정 대기해야하는 가능성이 생김.(기아상태)</li>
+        </ul>
+      </li>
+      <li>프로토콜 2 : <strong>프로세스가 자원을 전혀 점유하지 않을 때만 자원을 요청할 수 있도록 하는 것</strong>
+        <ul>
+          <li>자원을 동시에 사용해서 어떤 작업을 해야할 때, 비효율적인 동작이 나타나 자원의 이용률이 낮아짐</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>비선점</p>
+
+    <blockquote>
+      <p>이미 할당된 자원이 선점되지 않아야 한다는 것</p>
+    </blockquote>
+
+    <ul>
+      <li>어떤 자원을 점유하고있는 프로세스가 즉시 할당할 수 없는 다른 자원을 요청하면 자신이 점유하고 있는 자원을 강제로 <strong>방출</strong>시켜 다른 프로세스가 선점하게 함으로써 교착상태를 끊어버림.</li>
+      <li>해당 프로세스는 자신이 요청하고 있는 새로운 자원 + 강제로 방출한 옛 자원을 획득해야만 다시 시작됨</li>
+    </ul>
+  </li>
+  <li>
+    <p>순환 대기 : 모든 자원 유형들에게 전체적인 순서를 부여하여 각 프로세스가 순서대로 자원을 요청하도록 강제함. 모든 자원들은 먼저 할당되는 순서가 정해져 있기 때문에 교착상태가 일어날 수 없음.</p>
+  </li>
+</ul>
+
+<p>교착상태 예방 방법은 자원의 낭비가 심함.</p>
+
+<h3 id="교착상태-회피탐지">교착상태 회피(탐지)</h3>
+
+<p>어떤 프로세스가 요청을 할 때 미래에 대한 분석을 통해 나의 요청을 늦추는 방법으로 교착상태를 피할 수 있음.</p>
+
+<ul>
+  <li>프로세스들이 필요로 하는 각 자원별 <strong>최대  사용량</strong>을 미리 선언함.</li>
+  <li>순환상태가 절대로 있을 수 없게함.</li>
+</ul>
+
+<h5 id="안전상태-safe-state">안전상태 Safe State</h5>
+
+<p>각 유효 자원의 최대 개수까지 어떤 순서로 요청을 하더라도 교착상태를 야기하지 않고 모두 할당을 잘 해줄 수 있음을 뜻함. 회피 알고리즘은 시스템이 정해진 최대 자원 내에서 시스템이 항상 안전 상태에 있도록 한함.</p>
+
+<p>오직 시스템이 안정상태로 유지될 수 있는 경우에만 즉시 요청을 들어줌.</p>
+
+<p>프로세스가 자원을 요구할 때 시스템은 자원을 할당한 후에도 안정 상태로 남아있게 되는지를 검사하여 교착 상태를 회피함.  <code class="highlighter-rouge">banker's Algorithm</code></p>
+
+<ul>
+  <li>현재 할당 된 자원의 양(<strong>Allocation</strong>)을 계산하고 프로세스에게 최대로 할당될 수 있는 자원의 양(<strong>MAX</strong>)을 계산하고 두 데이터를 통해 추가로 할당해줄 수 있는 자원의 양(<strong>Need</strong>)을 계산함 <code class="highlighter-rouge">(Need=Max-Allocation)</code></li>
+  <li>현재 가용할 수 있는 자원의 양(<strong>Avaliable</strong>)보다 <strong>Need</strong> 수보다 높으면 할당해주지 않고 요청한 정도가 Need보다 낮더라도 할당해주지 않음. http://asfirstalways.tistory.com/129</li>
+</ul>
+
+<p><img src="https://t1.daumcdn.net/cfile/tistory/242D124B5407E3830C" alt="https://t1.daumcdn.net/cfile/tistory/242D124B5407E3830C" /></p>
+
+<h3 id="교착상태-회복">교착상태 회복</h3>
+
+<p>시스템이 교착상태가 발생하는 것을 허용하고 이를 회복함.</p>
+
+<h4 id="교착상태-회복-방법">교착상태 회복 방법</h4>
+
+<ul>
+  <li>한개 이상의 프로세스를 중지</li>
+  <li>하나 이상의 프로세스들로부터 자원을 선점하는 것</li>
+</ul>
+
+<h4 id="프로세스-종료">프로세스 종료</h4>
+
+<blockquote>
+  <p>교착상태를 해결하기 위해 존재하는 프로세스 하나를 임의로 종료하여 교착 상태를 해결하는 방법</p>
+</blockquote>
+
+<ol>
+  <li>교착 상태  프로세스를 모두 중지
+    <ul>
+      <li>교착상태에 가기까지 프로세스들이 진행한 많은 작업들이 중지로 인해 결과가 폐기된다면 다시 계산을 해야하기 때문에 <strong>상당히 큰 비용이 들어감</strong></li>
+    </ul>
+  </li>
+  <li>교착 상태가 제거될 때 까지 한 프로세스씩 중지
+    <ul>
+      <li>각 프로세스가 중지될 때 마다 아직도 교착 상태에 있는지 <strong>매번 살펴봐야하기 때문에</strong> 상당한 오버헤드 유발.</li>
+    </ul>
+  </li>
+</ol>
+
+<h4 id="자원-선점">자원 선점</h4>
+
+<blockquote>
+  <p>교착 상태가 깨어질 때 까지 프로세스로부터 자원을 계속적으로 선점해 다른 프로세스에게 주어야함.</p>
+</blockquote>
+
+<p><strong>자원 선점 고려 사항</strong></p>
+
+<ol>
+  <li>
+    <p>희생자 선택 (selection of a victim)</p>
+
+    <p>자원 선점에 앞서 <strong>어떤 자원과 어느 프로세스가 선점될 것인가</strong>를 고민해야함. 비용을 최소하기 위해서 교착 상태 프로세스가 점유하고 있는 자원의 수, 교착상태 프로세스가 지금까지 실행하는 데 소요한 시간 등을 고려해 희생자를 선택함. <code class="highlighter-rouge">minimize cost </code></p>
+  </li>
+  <li>
+    <p>롤백 (Rollback)</p>
+
+    <blockquote>
+      <p>안전한 상태로 돌아가 해당 상태에 대한 프로세스를 다시 시작</p>
+    </blockquote>
+
+    <p>특정 프로세의 자원을 강제로 방출하고 선점했다면 그 프로세스를 어떻게 처리할 것인가의 고민이 필요. 가장 안전한 방법은 프로세스를 중지시키고 재시작하는 것.(롤백)</p>
+  </li>
+  <li>
+    <p>기아 상태 (starvation)</p>
+
+    <blockquote>
+      <p> 동일한 프로세스를 항상 희생자로 선택할 수 있음 (평생 실행 X)</p>
+    </blockquote>
+
+    <p>계속해서 특정 프로세스의 자원을 강제 방출시켜 선점을 시켜주게 되면 그 프로세스는 계속해서 희생자로 선택될 확률이 높고 그 프로세스는 영원히 실행이 완료되지 못하는 ㅠ_ㅠ <strong>기아 상태</strong>에 빠질 수 있음. 그렇기 때문에 <strong>프로세스가 한정된 시간에만 희생자로 선정된다는 것</strong>을 보장해야함.</p>
+  </li>
+</ol>
+
+<h2 id="refer">refer</h2>
+
+<p><a href="http://codex.cs.yale.edu/avi/os-book/OS9/slide-dir/index.html"><strong>Operating System Concepts</strong> </a></p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>[운영체제</td>
+      <td>교착상태(deadlock)란 무엇인가?](https://frontalnh.github.io/2018/04/05/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EA%B5%90%EC%B0%A9%EC%83%81%ED%83%9C-deadlock-%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80/#%EC%8B%9C%EC%8A%A4%ED%85%9C-%EB%AA%A8%EB%8D%B8)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><a href="http://includestdio.tistory.com/12">[운영체제] 데드락, 교착상태 해결 (Dead lock)</a></p>
+
+<p><a href="http://asfirstalways.tistory.com/129">http://asfirstalways.tistory.com/129</a></p>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            
+            <a href="/tag/#/%EA%B5%90%EC%B0%A9%EC%83%81%ED%83%9C" rel="tag"># 교착상태</a>
+          
+            
+            <a href="/tag/#/deadlock" rel="tag"># deadlock</a>
+          
+        </div>
+      
+
+      
+      
+      
+      
+      
+
+      
+      
+        <div class="post-nav" id="post-nav-id">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/til/2018/11/27/TIL-main-memory/" rel="next" title="Main Momery">
+                <i class="fa fa-chevron-left"></i> Main Momery
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/til/2018/11/20/TIL-process-synchronization/" rel="prev" title="프로세스 동기화">
+                프로세스 동기화 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+      
+
+      
+    </footer>
+  </article>
+
+  <div class="post-spread">
+    
+  </div>
+</div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="fb-comments"
+           data-href="http://localhost:4000/til/2018/11/24/TIL-deadlock/"
+           data-numposts="10"
+           data-width="100%"
+           data-colorscheme="light">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lowell</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://jekyllrb.com">Jekyll</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/simpleyyt/jekyll-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+   
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/assets/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/assets/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  <script type="text/javascript" src="/assets/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/assets/js/src/post-details.js?v=5.1.1"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/assets/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+    
+
+  
+
+
+
+
+
+  
+
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
+
