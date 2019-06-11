@@ -3,9 +3,7 @@ title: flask SQLAlchemy ORM 사용해보기
 description: SQL 쿼리 대신 ORM을 사용하여 데이터베이스를 CURD 할 수 있습니다.
 categories:
  - TIL
-tags: [flask orm, flask sqlalchemy orm, orm 사용법]
-
-
+tags: [flask orm, flask sqlalchemy orm, orm 사용법, flask self join]
 ---
 
 `TIL 카테고리의 글은 그날 배운 것을 정리하는 목적으로 포스팅합니다. 내용이 잘못되었다면 댓글로 피드백 부탁드립니다.`
@@ -121,6 +119,23 @@ session.query(Model1.name, Model2.student_id, Model3.account).\
 # LEFT JOIN model3 ON model1.id = model3.id
 ```
 
+#### SELF JOIN
+
+> 하나의 테이블을 조인하는 것
+
+`aliased` 를 사용하면 된다.
+
+```python
+model2 = aliased(Model)
+
+self.session.query(Model).\
+    join(model2, model2.id == Model.id).\
+    all()
+    
+# SELECT model.* FROM model JOIN model model2 ON model2.id = model.id;
+    
+```
+
 ### GROUP BY
 
 ```python
@@ -146,6 +161,27 @@ session.query(Model1, stmt.c.id, stmt.c.grade).\
 ```
 
 ### 그 외 팁
+
+#### CASE 문
+
+```python
+from sqlalchemy import case
+	
+session.query(
+	case(
+        	[
+            	(Model.age >= 20, 'adult'),
+                (Model.age >= 10, 'teenager')
+        	], 
+        	else_='not adult, not teenager'
+    	)
+    ).\
+    filter(Model.sex='female').\
+    all()
+
+# SELECT CASE WHEN age >= 20 THEN 'adult' WHEN age >= 10 THEN 'teenager' ELSE 'not adult, not teenager' FROM model WHERE sex = 'female';
+	
+```
 
 #### last_row_id 얻기
 
