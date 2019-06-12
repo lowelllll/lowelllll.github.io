@@ -419,15 +419,15 @@
 
   <h3 id="파이썬-bytes-타입을-str-타입으로-바꾸는-방법">파이썬 Bytes 타입을 str 타입으로 바꾸는 방법</h3>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8</pre></td><td class="code"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">text</span> <span class="o">=</span> <span class="n">b</span><span class="s">'hello'</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="nb">type</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
-<span class="o">&lt;</span><span class="k">class</span> <span class="err">'</span><span class="nc">bytes</span><span class="s">'&gt;</span><span class="err">
-</span><span class="s">&gt;&gt;&gt; text.decode('</span><span class="n">utf</span><span class="o">-</span><span class="mi">8</span><span class="s">')</span><span class="err">
-</span><span class="s">'</span><span class="n">hello</span><span class="s">'</span><span class="err">
-</span><span class="s">&gt;&gt;&gt; text = text.decode('</span><span class="n">utf</span><span class="o">-</span><span class="mi">8</span><span class="s">')</span><span class="err">
-</span><span class="s">&gt;&gt;&gt; type(text)</span><span class="err">
-</span><span class="s">&gt;&gt;&gt; &lt;class '</span><span class="nb">str</span><span class="s">'&gt;</span><span class="err">
-</span></code></pre></td></tr></tbody></table></div>
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8</pre></td><td class="code"><pre class="highlight"><code>&gt;&gt;&gt; text = b'hello'
+&gt;&gt;&gt; type(text)
+&lt;class 'bytes'&gt;
+&gt;&gt;&gt; text.decode('utf-8')
+'hello'
+&gt;&gt;&gt; text = text.decode('utf-8')
+&gt;&gt;&gt; type(text)
+&gt;&gt;&gt; &lt;class 'str'&gt;
+</code></pre></td></tr></tbody></table></div>
 </div>
 
 
@@ -479,6 +479,10 @@
       
         <div class="post-nav" id="post-nav-id">
           <div class="post-nav-next post-nav-item">
+            
+              <a href="/python/2019/06/11/python-sort-sorted/" rel="next" title="Python sort와 sorted">
+                <i class="fa fa-chevron-left"></i> Python sort와 sorted
+              </a>
             
           </div>
 

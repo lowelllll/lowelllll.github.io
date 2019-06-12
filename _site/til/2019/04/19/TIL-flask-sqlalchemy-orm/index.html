@@ -82,7 +82,7 @@
 <link href="/assets/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="flask orm,flask sqlalchemy orm,orm 사용법," />
+  <meta name="keywords" content="flask orm,flask sqlalchemy orm,orm 사용법,flask self join," />
 
 
 
@@ -111,7 +111,7 @@
 
 
 <meta name="description" content="SQL 쿼리 대신 ORM을 사용하여 데이터베이스를 CURD 할 수 있습니다.">
-<meta name="keywords" content="flask orm, flask sqlalchemy orm, orm 사용법">
+<meta name="keywords" content="flask orm, flask sqlalchemy orm, orm 사용법, flask self join">
 <meta property="og:type" content="article">
 <meta property="og:title" content="flask SQLAlchemy ORM 사용해보기">
 <meta property="og:url" content="http://localhost:4000/til/2019/04/19/TIL-flask-sqlalchemy-orm/">
@@ -530,6 +530,25 @@
 </code></pre></td></tr></tbody></table></div>
 </div>
 
+<h4 id="self-join">SELF JOIN</h4>
+
+<blockquote>
+  <p>하나의 테이블을 조인하는 것</p>
+</blockquote>
+
+<p><code class="highlighter-rouge">aliased</code> 를 사용하면 된다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8</pre></td><td class="code"><pre class="highlight"><code><span class="n">model2</span> <span class="o">=</span> <span class="n">aliased</span><span class="p">(</span><span class="n">Model</span><span class="p">)</span>
+
+<span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">Model</span><span class="p">)</span><span class="o">.</span>\
+    <span class="n">join</span><span class="p">(</span><span class="n">model2</span><span class="p">,</span> <span class="n">model2</span><span class="o">.</span><span class="nb">id</span> <span class="o">==</span> <span class="n">Model</span><span class="o">.</span><span class="nb">id</span><span class="p">)</span><span class="o">.</span>\
+    <span class="nb">all</span><span class="p">()</span>
+    
+<span class="c"># SELECT model.* FROM model JOIN model model2 ON model2.id = model.id;</span>
+    
+</code></pre></td></tr></tbody></table></div>
+</div>
+
 <h3 id="group-by">GROUP BY</h3>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3</pre></td><td class="code"><pre class="highlight"><code><span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">Model</span><span class="p">)</span><span class="o">.</span><span class="n">group_by</span><span class="p">(</span><span class="n">Model</span><span class="o">.</span><span class="nb">id</span><span class="p">)</span><span class="o">.</span><span class="nb">all</span><span class="p">()</span>
@@ -555,6 +574,27 @@
 </div>
 
 <h3 id="그-외-팁">그 외 팁</h3>
+
+<h4 id="case-문">CASE 문</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12<br/>13<br/>14<br/>15<br/>16</pre></td><td class="code"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">case</span>
+	
+<span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span>
+	<span class="n">case</span><span class="p">(</span>
+        	<span class="p">[</span>
+            	<span class="p">(</span><span class="n">Model</span><span class="o">.</span><span class="n">age</span> <span class="o">&gt;=</span> <span class="mi">20</span><span class="p">,</span> <span class="s">'adult'</span><span class="p">),</span>
+                <span class="p">(</span><span class="n">Model</span><span class="o">.</span><span class="n">age</span> <span class="o">&gt;=</span> <span class="mi">10</span><span class="p">,</span> <span class="s">'teenager'</span><span class="p">)</span>
+        	<span class="p">],</span> 
+        	<span class="n">else_</span><span class="o">=</span><span class="s">'not adult, not teenager'</span>
+    	<span class="p">)</span>
+    <span class="p">)</span><span class="o">.</span>\
+    <span class="nb">filter</span><span class="p">(</span><span class="n">Model</span><span class="o">.</span><span class="n">sex</span><span class="o">=</span><span class="s">'female'</span><span class="p">)</span><span class="o">.</span>\
+    <span class="nb">all</span><span class="p">()</span>
+
+<span class="c"># SELECT CASE WHEN age &gt;= 20 THEN 'adult' WHEN age &gt;= 10 THEN 'teenager' ELSE 'not adult, not teenager' FROM model WHERE sex = 'female';</span>
+	
+</code></pre></td></tr></tbody></table></div>
+</div>
 
 <h4 id="last_row_id-얻기">last_row_id 얻기</h4>
 
@@ -624,6 +664,9 @@
           
             
             <a href="/tag/#/orm%20%EC%82%AC%EC%9A%A9%EB%B2%95" rel="tag"># orm 사용법</a>
+          
+            
+            <a href="/tag/#/flask%20self%20join" rel="tag"># flask self join</a>
           
         </div>
       
