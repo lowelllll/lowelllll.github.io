@@ -2,7 +2,7 @@
 title: Python sort와 sorted
 description: sort와 sorted의 차이점을 알고 키 값으로 정렬을 하는 방법을 알 수 있습니다.
 categories:
- - Python
+ - python
 tags: [python sort sorted, 파이썬 sort sorted 차이, python sort key, python sort key two, python 다중 조건 정렬]
 ---
 
