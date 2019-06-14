@@ -82,7 +82,7 @@
 <link href="/assets/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="flask orm,flask sqlalchemy orm,orm 사용법,flask self join," />
+  <meta name="keywords" content="flask orm,flask sqlalchemy orm,orm 사용법,flask self join,sqlalchemy selfjoin,sqlalchemy lastrowid,sqlalchemy update," />
 
 
 
@@ -111,7 +111,7 @@
 
 
 <meta name="description" content="SQL 쿼리 대신 ORM을 사용하여 데이터베이스를 CURD 할 수 있습니다.">
-<meta name="keywords" content="flask orm, flask sqlalchemy orm, orm 사용법, flask self join">
+<meta name="keywords" content="flask orm, flask sqlalchemy orm, orm 사용법, flask self join, sqlalchemy selfjoin, sqlalchemy lastrowid, sqlalchemy update">
 <meta property="og:type" content="article">
 <meta property="og:title" content="flask SQLAlchemy ORM 사용해보기">
 <meta property="og:url" content="http://localhost:4000/til/2019/04/19/TIL-flask-sqlalchemy-orm/">
@@ -466,11 +466,23 @@
 
 <h3 id="update">UPDATE</h3>
 
+<p>방법 1</p>
+
 <div class="language-python highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5</pre></td><td class="code"><pre class="highlight"><code><span class="n">user</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">Model</span><span class="p">)</span><span class="o">.</span><span class="nb">filter</span><span class="p">(</span><span class="n">Model</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s">'lowell'</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
 <span class="n">user</span><span class="o">.</span><span class="n">age</span> <span class="o">+=</span> <span class="mi">1</span>
 <span class="n">session</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
 
 <span class="c"># select 후 update 함</span>
+</code></pre></td></tr></tbody></table></div>
+</div>
+
+<p>방법 2</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5</pre></td><td class="code"><pre class="highlight"><code><span class="n">user</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">Model</span><span class="p">)</span><span class="o">.</span><span class="nb">filter</span><span class="p">(</span><span class="n">Model</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s">'lowell'</span><span class="p">)</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s">'age'</span><span class="p">:</span> <span class="n">User</span><span class="o">.</span><span class="n">age</span> <span class="o">+</span> <span class="mi">1</span><span class="p">});</span>
+<span class="n">session</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+
+<span class="c"># select를 하지 않는 update 방법</span>
+<span class="c"># UPDATE model SET age = age + 1 WHERE name = 'lowell'</span>
 </code></pre></td></tr></tbody></table></div>
 </div>
 
@@ -626,6 +638,9 @@
 </code></pre></td></tr></tbody></table></div>
 </div>
 
+<h3 id="refer">refer</h3>
+
+<p>https://stackoverflow.com/questions/9667138/how-to-update-sqlalchemy-row-entry</p>
 
 
       
@@ -667,6 +682,15 @@
           
             
             <a href="/tag/#/flask%20self%20join" rel="tag"># flask self join</a>
+          
+            
+            <a href="/tag/#/sqlalchemy%20selfjoin" rel="tag"># sqlalchemy selfjoin</a>
+          
+            
+            <a href="/tag/#/sqlalchemy%20lastrowid" rel="tag"># sqlalchemy lastrowid</a>
+          
+            
+            <a href="/tag/#/sqlalchemy%20update" rel="tag"># sqlalchemy update</a>
           
         </div>
       

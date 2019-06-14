@@ -3,7 +3,7 @@ title: flask SQLAlchemy ORM 사용해보기
 description: SQL 쿼리 대신 ORM을 사용하여 데이터베이스를 CURD 할 수 있습니다.
 categories:
  - TIL
-tags: [flask orm, flask sqlalchemy orm, orm 사용법, flask self join]
+tags: [flask orm, flask sqlalchemy orm, orm 사용법, flask self join, sqlalchemy selfjoin, sqlalchemy lastrowid, sqlalchemy update]
 ---
 
 `TIL 카테고리의 글은 그날 배운 것을 정리하는 목적으로 포스팅합니다. 내용이 잘못되었다면 댓글로 피드백 부탁드립니다.`
@@ -55,12 +55,24 @@ session.commit() # session.rollback()
 
 ### UPDATE
 
+방법 1
+
 ```python
 user = session.query(Model).filter(Model.name == 'lowell').first()
 user.age += 1
 session.commit()
 
 # select 후 update 함
+```
+
+방법 2
+
+```python
+user = session.query(Model).filter(Model.name == 'lowell').update({'age': User.age + 1});
+session.commit()
+
+# select를 하지 않는 update 방법
+# UPDATE model SET age = age + 1 WHERE name = 'lowell'
 ```
 
 ### DELETE
@@ -213,3 +225,8 @@ results = session.query(Model).\
 	filter(search).all() # 검색어가 있으면 검색, 없으면 모두 가져옴
 ```
 
+
+
+### refer
+
+https://stackoverflow.com/questions/9667138/how-to-update-sqlalchemy-row-entry
