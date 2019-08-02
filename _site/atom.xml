@@ -1,4 +1,61 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.5.2">Jekyll</generator><link href="http://localhost:4000/atom.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-06-12T09:21:59+09:00</updated><id>http://localhost:4000/</id><title type="html">Lowell’s Blog</title><subtitle>lowell의 기술 블로그 </subtitle><author><name>Lowell</name></author><entry><title type="html">Python sort와 sorted</title><link href="http://localhost:4000/python/2019/06/11/python-sort-sorted/" rel="alternate" type="text/html" title="Python sort와 sorted" /><published>2019-06-11T00:00:00+09:00</published><updated>2019-06-11T00:00:00+09:00</updated><id>http://localhost:4000/python/2019/06/11/python-sort-sorted</id><content type="html" xml:base="http://localhost:4000/python/2019/06/11/python-sort-sorted/">&lt;h3 id=&quot;listsort&quot;&gt;list.sort()&lt;/h3&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.5.2">Jekyll</generator><link href="http://localhost:4000/atom.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-08-02T09:22:38+09:00</updated><id>http://localhost:4000/</id><title type="html">Lowell’s Blog</title><subtitle>lowell의 기술 블로그 </subtitle><author><name>Lowell</name></author><entry><title type="html">git remote url 변경하기</title><link href="http://localhost:4000/til/2019/07/29/change-git-remote-url/" rel="alternate" type="text/html" title="git remote url 변경하기" /><published>2019-07-29T00:00:00+09:00</published><updated>2019-07-29T00:00:00+09:00</updated><id>http://localhost:4000/til/2019/07/29/change-git-remote-url</id><content type="html" xml:base="http://localhost:4000/til/2019/07/29/change-git-remote-url/">&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;TIL 카테고리의 글은 그날 배운 것을 정리하는 목적으로 포스팅합니다. 내용이 잘못되었다면 댓글로 피드백 부탁드립니다.&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;상황&quot;&gt;상황&lt;/h3&gt;
+
+&lt;p&gt;사정이 생겨 github username을 변경하고 푸시를 하려고 했는데 &lt;code class=&quot;highlighter-rouge&quot;&gt;authentication&lt;/code&gt; 오류가 나면서 푸시가 되지 않았다.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;fatal: Authentication failed &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'https://old-username@github.com/account/repo.git/
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;해결&quot;&gt;해결&lt;/h3&gt;
+
+&lt;p&gt;usename을 바꾸면서 이전 username의 remote url을 사용할 수 없어 새로운 username이 들어간 remote url로 변경해줬다.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;git config --list &lt;span class=&quot;c&quot;&gt;# remote url 확인 &lt;/span&gt;
+remote.origin.url orgin https://old-username@github.com/account/repo.git/
+
+&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;git remote &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt;-url origin https://new-username@github.com/account/repo.git/
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;</content><author><name>Lowell</name></author><category term="git remote url 변경" /><category term="change git remote url" /><category term="git username 변경" /><summary type="html">TIL 카테고리의 글은 그날 배운 것을 정리하는 목적으로 포스팅합니다. 내용이 잘못되었다면 댓글로 피드백 부탁드립니다.</summary></entry><entry><title type="html">robots.txt는 뭘까?</title><link href="http://localhost:4000/til/2019/07/08/TIL-robots_txt/" rel="alternate" type="text/html" title="robots.txt는 뭘까?" /><published>2019-07-08T00:00:00+09:00</published><updated>2019-07-08T00:00:00+09:00</updated><id>http://localhost:4000/til/2019/07/08/TIL-robots_txt</id><content type="html" xml:base="http://localhost:4000/til/2019/07/08/TIL-robots_txt/">&lt;p&gt;크롤링을 배우게 되면 여기 저기 사이트를 크롤링해서 데이터를 가져온 후 유용한 프로그램을 만들어 보고 싶을 것이다. 나도 크롤링을 배운 후 어디다 써보고 싶어서 이런 저런 아이디어를 생각해냈다. 그러다 문득 크롤링을 하는 것은 그 사이트의 데이터를 허가 없이 가져다 사용하는 것인데.. 크롤링을 통해서 수익을 내지 않더라도 웹 사이트나 어플을 런칭해도 될까?라는 생각이 들었다. 그래서 인터넷을 뒤져보기 시작했는데 지나가다 많이 보던 &lt;code class=&quot;highlighter-rouge&quot;&gt;robots.txt&lt;/code&gt; 의 정체를 이제서야 알게되었다.&lt;/p&gt;
+
+&lt;h2 id=&quot;robotstxt-&quot;&gt;robots.txt ?&lt;/h2&gt;
+
+&lt;p&gt;robots.txt 파일은 서버  root 디렉토리에 위치하는 파일이다. 이 파일을 통해 해당 사이트가 크롤링을 허용하는지 알 수 있다. google 의 robots.txt 파일을 보자.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://google.com/robots.txt&quot;&gt;http://google.com/robots.txt&lt;/a&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;User-agent: *
+Disallow: /search
+Allow: /search/about
+Allow: /search/static
+Allow: /search/howsearchworks
+Disallow: /sdch
+Disallow: /groups
+Disallow: /index.html?
+Disallow: /?
+Allow: /?hl=
+...
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;user-agent : * 는 모든 유저에 대한 크롤링 권한을 뜻한다. Disallow에 해당하는 페이지는 크롤링을 허용하지 않는다는 것이고, Allow는 허용한다는 것이다. 구글은 검색 페이지에 대한 크롤링은 허용하지 않는 것 같다. 네이버도 알아보자&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.naver.com/robots.txt&quot;&gt;https://www.naver.com/robots.txt&lt;/a&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;User-agent: *
+Disallow: /
+Allow : /$ 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;네이버는 모든 페이지에 대한 크롤링을 허용하지 않는다.&lt;/p&gt;
+
+&lt;p&gt;이렇게 크롤링을 할 때 해당 사이트의 robots.txt을 통해 크롤링 허용 여부를 확인하고 프로그램을 개발하는 것이 좋을 것 같다!  또한 자신의 사이트를 만들 때에도 robots.txt 파일을 생성해 둠으로써 크롤링 허용에 대한 정의를 해두는 것이 좋을 것 같다.&lt;/p&gt;</content><author><name>Lowell</name></author><category term="robots.txt" /><category term="크롤링 불법" /><summary type="html">크롤링을 배우게 되면 여기 저기 사이트를 크롤링해서 데이터를 가져온 후 유용한 프로그램을 만들어 보고 싶을 것이다. 나도 크롤링을 배운 후 어디다 써보고 싶어서 이런 저런 아이디어를 생각해냈다. 그러다 문득 크롤링을 하는 것은 그 사이트의 데이터를 허가 없이 가져다 사용하는 것인데.. 크롤링을 통해서 수익을 내지 않더라도 웹 사이트나 어플을 런칭해도 될까?라는 생각이 들었다. 그래서 인터넷을 뒤져보기 시작했는데 지나가다 많이 보던 robots.txt 의 정체를 이제서야 알게되었다.</summary></entry><entry><title type="html">Redis</title><link href="http://localhost:4000/til/2019/07/05/TIL-Redis/" rel="alternate" type="text/html" title="Redis" /><published>2019-07-05T00:00:00+09:00</published><updated>2019-07-05T00:00:00+09:00</updated><id>http://localhost:4000/til/2019/07/05/TIL-Redis</id><content type="html" xml:base="http://localhost:4000/til/2019/07/05/TIL-Redis/"></content><author><name>Lowell</name></author><category term="Redis" /><category term="레디스" /><category term="레디스 사용법" /><category term="레디스 명령어" /><summary type="html"></summary></entry><entry><title type="html">Postman 200% 활용하기</title><link href="http://localhost:4000/tip/2019/06/20/use-postman/" rel="alternate" type="text/html" title="Postman 200% 활용하기" /><published>2019-06-20T00:00:00+09:00</published><updated>2019-06-20T00:00:00+09:00</updated><id>http://localhost:4000/tip/2019/06/20/use-postman</id><content type="html" xml:base="http://localhost:4000/tip/2019/06/20/use-postman/">&lt;p&gt;Postman은 API 테스트를 편하게 할 수 있는 프로그램이다. 많은 분들이 알고있는 request 기능 외에 좋은 기능들을 알게 되어서 공유하려고 한다. ㅎㅎ&lt;/p&gt;
+
+&lt;p&gt;기본적인 사용법을 모른다면 아래 링크를 참고하자.&lt;/p&gt;
+
+&lt;p&gt;https://meetup.toast.com/posts/107&lt;/p&gt;</content><author><name>Lowell</name></author><category term="postman share collection" /><category term="postman 사용법" /><category term="postman" /><category term="postman share" /><category term="postman 공유" /><category term="postman 환경 변수" /><summary type="html">Postman은 API 테스트를 편하게 할 수 있는 프로그램이다. 많은 분들이 알고있는 request 기능 외에 좋은 기능들을 알게 되어서 공유하려고 한다. ㅎㅎ</summary></entry><entry><title type="html">Python sort와 sorted</title><link href="http://localhost:4000/python/2019/06/11/python-sort-sorted/" rel="alternate" type="text/html" title="Python sort와 sorted" /><published>2019-06-11T00:00:00+09:00</published><updated>2019-06-11T00:00:00+09:00</updated><id>http://localhost:4000/python/2019/06/11/python-sort-sorted</id><content type="html" xml:base="http://localhost:4000/python/2019/06/11/python-sort-sorted/">&lt;h3 id=&quot;listsort&quot;&gt;list.sort()&lt;/h3&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;score&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;92&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;34&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;56&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;80&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;97&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;65&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;70&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;55&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
 &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;score&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sort&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# 오름차순&lt;/span&gt;
@@ -327,11 +384,23 @@
 
 &lt;h3 id=&quot;update&quot;&gt;UPDATE&lt;/h3&gt;
 
+&lt;p&gt;방법 1&lt;/p&gt;
+
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;user&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;session&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;query&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Model&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;filter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Model&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'lowell'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;first&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;age&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;session&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;commit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
 
 &lt;span class=&quot;c&quot;&gt;# select 후 update 함&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;방법 2&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;user&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;session&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;query&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Model&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;filter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Model&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'lowell'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;update&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'age'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;User&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;age&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;session&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;commit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# select를 하지 않는 update 방법&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# UPDATE model SET age = age + 1 WHERE name = 'lowell'&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
@@ -485,203 +554,8 @@
 &lt;span class=&quot;n&quot;&gt;results&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;session&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;query&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Model&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;\
 	&lt;span class=&quot;nb&quot;&gt;filter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;search&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;all&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# 검색어가 있으면 검색, 없으면 모두 가져옴&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;</content><author><name>Lowell</name></author><category term="flask orm" /><category term="flask sqlalchemy orm" /><category term="orm 사용법" /><category term="flask self join" /><summary type="html">TIL 카테고리의 글은 그날 배운 것을 정리하는 목적으로 포스팅합니다. 내용이 잘못되었다면 댓글로 피드백 부탁드립니다.</summary></entry><entry><title type="html">Jeykll Systax highlight 적용하기</title><link href="http://localhost:4000/jeykll/2019/04/15/jeykll-syntax-highlight/" rel="alternate" type="text/html" title="Jeykll Systax highlight 적용하기" /><published>2019-04-15T00:00:00+09:00</published><updated>2019-04-15T00:00:00+09:00</updated><id>http://localhost:4000/jeykll/2019/04/15/jeykll-syntax-highlight</id><content type="html" xml:base="http://localhost:4000/jeykll/2019/04/15/jeykll-syntax-highlight/">&lt;p&gt;Jeykll 블로그에서 코드를 올릴 때 syntax highlighting을 해준다면 독자가 글을 읽을 때 직관적이고 편하게 읽을 수 있을 것이다. syntax highlighting을 적용하는 것은  &lt;code class=&quot;highlighter-rouge&quot;&gt;rouge&lt;/code&gt;를 통해 쉽게 할 수 있다.&lt;/p&gt;
-
-&lt;h3 id=&quot;1--gem을-통한-rouge-설치&quot;&gt;1.  gem을 통한 rouge 설치&lt;/h3&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;gem install kramdown rouge
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;코드 하이라이팅을 위한 rouge를 설치해준다. kramdown은 지킬 마크다운 엔진이다.&lt;/p&gt;
-
-&lt;p&gt;github.io는 기본으로 kramdown 엔진을 사용한다.&lt;/p&gt;
-
-&lt;h3 id=&quot;2-_configyml-설정&quot;&gt;2. _config.yml 설정&lt;/h3&gt;
-
-&lt;div class=&quot;language-yml highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# _config.yml&lt;/span&gt;
-
-&lt;span class=&quot;s&quot;&gt;...생략&lt;/span&gt;
-
-&lt;span class=&quot;s&quot;&gt;markdown&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;kramdown&lt;/span&gt;
-&lt;span class=&quot;s&quot;&gt;highlighter&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;rouge&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;3--테마-다운&quot;&gt;3.  테마 다운&lt;/h3&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;rougify &lt;span class=&quot;nb&quot;&gt;help &lt;/span&gt;style
-...
-available themes:
-  base16, base16.dark, base16.light, base16.monokai, base16.monokai.dark, base16.monokai.light, base16.solarized, base16.solarized.dark, base16.solarized.light, colorful, github, gruvbox, gruvbox.dark, gruvbox.light, igorpro, molokai, monokai, monokai.sublime, pastie, thankful_eyes, tulip
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;위 명령어로 지원하는 테마를 확인 한 후 맘에 드는 테마를 다운받으면 된다.&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;rougify style monokai &amp;gt; /assets/css/syntax.css
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;4-적용&quot;&gt;4. 적용&lt;/h3&gt;
-
-&lt;p&gt;Html head 부분에 다운 받은 css 파일을 적용해준다.&lt;/p&gt;
-
-&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;...
-  &lt;span class=&quot;nt&quot;&gt;&amp;lt;link&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;rel=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;stylesheet&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;href=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/assets/css/syntax.css&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
-
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;href 안의 링크는 다운 받은 css 파일의 경로를 잘 설정해줘야한다.&lt;/p&gt;
-
-&lt;p&gt;그럼 끗 ! 💁‍♀️&lt;/p&gt;</content><author><name>Lowell</name></author><category term="jeykll highlighting" /><category term="지킬 하이라이트" /><category term="jeykll syntax highlighting" /><summary type="html">Jeykll 블로그에서 코드를 올릴 때 syntax highlighting을 해준다면 독자가 글을 읽을 때 직관적이고 편하게 읽을 수 있을 것이다. syntax highlighting을 적용하는 것은 rouge를 통해 쉽게 할 수 있다.</summary></entry><entry><title type="html">Ajax 요청 후 대기 시 액션 처리 하기</title><link href="http://localhost:4000/til/2019/04/12/TIL-ajax-loading-action/" rel="alternate" type="text/html" title="Ajax  요청 후 대기 시 액션 처리 하기" /><published>2019-04-12T00:00:00+09:00</published><updated>2019-04-12T00:00:00+09:00</updated><id>http://localhost:4000/til/2019/04/12/TIL-ajax-loading-action</id><content type="html" xml:base="http://localhost:4000/til/2019/04/12/TIL-ajax-loading-action/">&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;TIL 카테고리의 글은 그날 배운 것을 정리하는 목적으로 포스팅합니다. 내용이 잘못되었다면 댓글로 피드백 부탁드립니다.&lt;/code&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;상황&quot;&gt;상황&lt;/h3&gt;
-
-&lt;p&gt;ajax 요청 후 데이터를 불러 올 때 까지 로딩 바를 띄우고 데이터를 불러왔을 때에는 로딩 바가 사라지게 하고 싶었다.&lt;/p&gt;
-
-&lt;h3 id=&quot;해결&quot;&gt;해결&lt;/h3&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$(document).ajaxStart(function() {
-        // show loader on start 
-        // ajax 요청 후 데이터를 불러 올 때 까지 액션을 취한다.
-        $(&quot;#loader&quot;).css(&quot;display&quot;,&quot;block&quot;);
-    }).ajaxSuccess(function() {
-        // hide loader on success
-        // ajax 요청 데이터를 성공적으로 받아왔을 때 액션을 취한다.
-        $(&quot;#loader&quot;).css(&quot;display&quot;,&quot;none&quot;);
-    });
-&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
 &lt;h3 id=&quot;refer&quot;&gt;refer&lt;/h3&gt;
 
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://stackoverflow.com/questions/20095002/how-to-show-progress-bar-while-loading-using-ajax&quot;&gt;https://stackoverflow.com/questions/20095002/how-to-show-progress-bar-while-loading-using-ajax&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Lowell</name></author><category term="ajax request loding" /><category term="ajax loding" /><category term="ajax loading action" /><summary type="html">TIL 카테고리의 글은 그날 배운 것을 정리하는 목적으로 포스팅합니다. 내용이 잘못되었다면 댓글로 피드백 부탁드립니다.</summary></entry><entry><title type="html">MySQL ORDER BY 정렬 시 조건 걸기, CASE 사용하기</title><link href="http://localhost:4000/til/2019/03/29/TIL-sql-order-by-condition/" rel="alternate" type="text/html" title="MySQL ORDER BY 정렬 시 조건 걸기, CASE 사용하기" /><published>2019-03-29T00:00:00+09:00</published><updated>2019-03-29T00:00:00+09:00</updated><id>http://localhost:4000/til/2019/03/29/TIL-sql-order-by-condition</id><content type="html" xml:base="http://localhost:4000/til/2019/03/29/TIL-sql-order-by-condition/">&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;TIL 카테고리의 글은 그날 배운 것을 정리하는 목적으로 포스팅합니다. 내용이 잘못되었다면 댓글로 피드백 부탁드립니다.&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;쿼리를 통해 데이터를 가져올 때 데이터를 기반으로 조건을 걸어서 정렬하고 싶을 때가 있다. 그때 &lt;code class=&quot;highlighter-rouge&quot;&gt;CASE&lt;/code&gt;나 &lt;code class=&quot;highlighter-rouge&quot;&gt;FIELD&lt;/code&gt;를 사용하면 가능 조건에 따라 데이터의 정렬 우선순위를 정해줄 수 있다.&lt;/p&gt;
-
-&lt;h3 id=&quot;field&quot;&gt;FIELD&lt;/h3&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;ORDER BY FIELD (column, 1순위, 2순위, 3순위, n순위...)&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;어떤 데이터의 값의 정렬을 정해주고 싶을 때 사용하면 된다.&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt; SELECT id, title, status FROM movie
-id title status 
-1	아바타 	2 
-2	써니 		 0
-3	극한직업	1
-4	캡틴마블 	1
-
-&amp;gt; SELECT * FROM movie ORDER BY FIELD(status, 1, 2, 0) 
-id title status
-3	극한직업	1
-4	캡틴마블 	1
-1	아바타 	2 
-2	써니 		 0
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;위 예제는 status의 값 별로 정렬 순위를 정해준 것이다. 값 1이 1순위고 2가 2순위, 0이 3순위인 것을 확인할 수 있다.&lt;/p&gt;
-
-&lt;h3 id=&quot;case&quot;&gt;CASE&lt;/h3&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;CASE
-    WHEN &amp;lt;condition1&amp;gt; THEN &amp;lt;result1&amp;gt;
-    WHEN &amp;lt;condition2&amp;gt; THEN &amp;lt;result2&amp;gt;
-    WHEN &amp;lt;conditionN&amp;gt; THEN &amp;lt;resultN&amp;gt;
-    ELSE &amp;lt;result&amp;gt;
-END;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;if문과 비슷하게 동작하는 CASE문은 condition에 조건을 넣으면 되고 then 뒤에는 정렬 순위를 넣으면 된다.&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt; SELECT id, title, start_at, end_at
-  CASE
-  WHEN start_at &amp;lt;= NOW() AND NOW() &amp;lt; end_at THEN 1
-    ELSE 2
-  END movie_order
-  FROM movie
-  ORDER BY movie_order
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;위 예제는 오늘이 영화 상영 기간에 포함되어있다면 1순위, 아니면 2순위로 정렬된다.&lt;/p&gt;</content><author><name>Lowell</name></author><category term="order by case" /><category term="order by field" /><category term="order by 정렬" /><summary type="html">TIL 카테고리의 글은 그날 배운 것을 정리하는 목적으로 포스팅합니다. 내용이 잘못되었다면 댓글로 피드백 부탁드립니다.</summary></entry><entry><title type="html">local storage, session storage</title><link href="http://localhost:4000/til/2019/03/21/TIL-local-storage/" rel="alternate" type="text/html" title="local storage, session storage" /><published>2019-03-21T00:00:00+09:00</published><updated>2019-03-21T00:00:00+09:00</updated><id>http://localhost:4000/til/2019/03/21/TIL-local-storage</id><content type="html" xml:base="http://localhost:4000/til/2019/03/21/TIL-local-storage/">&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;TIL 카테고리의 글은 그날 배운 것을 정리하는 목적으로 포스팅합니다. 내용이 잘못되었다면 댓글로 피드백 부탁드립니다.&lt;/code&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;상황&quot;&gt;상황&lt;/h3&gt;
-
-&lt;p&gt;게시판을 구현하는 중 새로 올라온 게시글을 읽지 않았으면 빨간 닷 표시를 해주고 읽었다면 닷 표시를 없애는 읽음 처리 작업을 해야했다. 카카오톡에서 유저가 프로필을 변경하면 프로필 사진 옆에 빨간 닷 표시가 생기는 것 처럼? 만들고 싶었는데 이를 서버에서 처리하기에는 계속 읽었는지 안읽었는지 확인해야해서 클라이언트 상에서 처리할 수 있는 방안을 찾던 중 회사 프론트 개발자분께서 웹 스토리지를 알려주셨다.&lt;/p&gt;
-
-&lt;h2 id=&quot;스토리지&quot;&gt;스토리지&lt;/h2&gt;
-
-&lt;p&gt;스토리지는 key-value 쌍으로 클라이언트 데이터를 저장할 수 있는 공간이다. 이 스토리지는 두 종류로 되어있는데 로컬 스토리지와 세션 스토리지로 분류되어있다. 각 스토리지는 차이점이 있어서 용도에 따라 알맞게 사용하면 된다.&lt;/p&gt;
-
-&lt;h5 id=&quot;장점&quot;&gt;장점&lt;/h5&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;용량이 크다.&lt;/li&gt;
-  &lt;li&gt;HTTP요청 때 전달되지 않아 자원낭비 적음.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;스토리지는 환경을 많이 타기 때문에 제대로 작동하지 않을 가능성이 있으므로 엄청 중요하진 않지만 있으면 좋은 기능을 구현할 때 사용하면 좋다.&lt;/p&gt;
-
-&lt;p&gt;아래와 같은 경우 등에서 사용한다고 한다.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;팝업&lt;/li&gt;
-  &lt;li&gt;글 작성 시 임시저장용&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;로컬-스토리지&quot;&gt;로컬 스토리지&lt;/h3&gt;
-
-&lt;p&gt;로컬 스토리지에 데이터를 저장하면 브라우저를 껐다 키거나 컴퓨터를 껐다 켜도 직접 지우지 않는 이상 절대 지워지지 않는다. 데이터가 &lt;strong&gt;영구성&lt;/strong&gt;을 띈다. 내 경우도 한번 읽은 글에 표시를 할 필요가 없으므로 로컬 스토리지에 데이터를 저장해서 이 데이터로 읽음    처리를 했다. 로컬 스토리지에 쌓인 데이터는 개발자도구 - application - localstorage 에서 확인할 수 있다.&lt;/p&gt;
-
-&lt;h3 id=&quot;세션-스토리지&quot;&gt;세션 스토리지&lt;/h3&gt;
-
-&lt;p&gt;세션 스토리지에 데이터를 저장하면 로컬 스토리지와 반대되게 브라우저, 컴퓨터를 껐다 키면 데이터가 날라간다. 세션 스토리지에는 &lt;strong&gt;일회성&lt;/strong&gt;을 띄는 데이터를 저장하면 된다. 세션 스토리지에 쌓인 데이터는 개발자 도구 - applicaation - sessionstorage에서 확인할 수 있다.&lt;/p&gt;
-
-&lt;h3 id=&quot;javascript-에서-사용하기&quot;&gt;Javascript 에서 사용하기&lt;/h3&gt;
-
-&lt;h4 id=&quot;로컬-스토리지-1&quot;&gt;로컬 스토리지&lt;/h4&gt;
-
-&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// set data&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;localStorage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;setItem&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'lowell'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'value'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;// get data &lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;localStorage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getItem&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'lowell'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;//vallue&lt;/span&gt;
-
-&lt;span class=&quot;c1&quot;&gt;// JSON 데이터도 사용가능하다.&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'lowell'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'yejin'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;23&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;localStorage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;setItem&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'people'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;JSON&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;stringify&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
-
-&lt;span class=&quot;nx&quot;&gt;people&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;JSON&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;parse&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;localStorage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getItem&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'people'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
-
-&lt;span class=&quot;c1&quot;&gt;// remove data&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;localStorage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;removeItem&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h4 id=&quot;세션-스토리지-1&quot;&gt;세션 스토리지&lt;/h4&gt;
-
-&lt;p&gt;로컬 스토리지 사용법에서 &lt;code class=&quot;highlighter-rouge&quot;&gt;localStroage&lt;/code&gt;를 &lt;code class=&quot;highlighter-rouge&quot;&gt;sessionStorage&lt;/code&gt;로 변경하면 된다. 메소드는 똑같다!&lt;/p&gt;
-
-&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// set data&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;sessionStorage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;setItem&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'lowell'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'value'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; 
-&lt;span class=&quot;c1&quot;&gt;// get data&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;sessionStorage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getItem&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'lowell'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;refer&quot;&gt;Refer&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;https://isme2n.github.io/devlog/2017/06/21/storage-cookie/&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;https://www.zerocho.com/category/HTML&amp;amp;DOM/post/5918515b1ed39f00182d3048&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Lowell</name></author><category term="local storage" /><category term="session storage" /><summary type="html">TIL 카테고리의 글은 그날 배운 것을 정리하는 목적으로 포스팅합니다. 내용이 잘못되었다면 댓글로 피드백 부탁드립니다.</summary></entry></feed>
+&lt;p&gt;https://stackoverflow.com/questions/9667138/how-to-update-sqlalchemy-row-entry&lt;/p&gt;</content><author><name>Lowell</name></author><category term="flask orm" /><category term="flask sqlalchemy orm" /><category term="orm 사용법" /><category term="flask self join" /><category term="sqlalchemy selfjoin" /><category term="sqlalchemy lastrowid" /><category term="sqlalchemy update" /><summary type="html">TIL 카테고리의 글은 그날 배운 것을 정리하는 목적으로 포스팅합니다. 내용이 잘못되었다면 댓글로 피드백 부탁드립니다.</summary></entry></feed>
