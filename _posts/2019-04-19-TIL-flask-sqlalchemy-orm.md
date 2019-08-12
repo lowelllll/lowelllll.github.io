@@ -204,7 +204,7 @@ session.flush() # DB connection 일어남
 
 id = user.id # auto_encrement로 생성된 id
 
-session.commit() # session.rollback()
+session.commit()
 ```
 
 #### 검색 (LIKE)
@@ -225,7 +225,34 @@ results = session.query(Model).\
 	filter(search).all() # 검색어가 있으면 검색, 없으면 모두 가져옴
 ```
 
+#### IN
 
+```python
+session.query(Model).filter(Model.name.in_(('lowell', 'yejin'))).all() 
+# SELECT * FROM model WHERE name IN ('lowell', 'yejin');
+```
+
+#### NOT IN
+
+```python
+session.query(Model).filter(~Model.name.in_(('lowell', 'yejin'))).all() 
+# SELECT * FROM model WHERE name NOT IN ('lowell', 'yejin');
+```
+
+#### COMMIT, ROLLBACK
+
+```python
+session.commit() # commit
+session.rollback() # rollback
+```
+
+#### DATE 계산하기 (DATE_ADD)
+
+```python
+today = datetime.datetime.now().strftime('%Y-%m-%d')
+session.query(Model).filter(today >= func.ADDDATE(Model.created_at, 30)).all()
+# SELECT * FROM model WHERE NOW() >= DATE_ADD(created_at, INTERVAL 30 DAY);
+```
 
 ### refer
 
