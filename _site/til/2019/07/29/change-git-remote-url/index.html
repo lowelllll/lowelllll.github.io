@@ -82,7 +82,7 @@
 <link href="/assets/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Jekyll, NexT" />
+  <meta name="keywords" content="git remote url 변경,change git remote url,git username 변경," />
 
 
 
@@ -110,17 +110,17 @@
 
 
 
-<meta name="description" content="lowell의 기술 블로그">
-<meta name="keywords" content="Jekyll, NexT">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Lowell's Blog">
-<meta property="og:url" content="http://localhost:4000/page8/">
+<meta name="description" content="TIL 카테고리의 글은 그날 배운 것을 정리하는 목적으로 포스팅합니다. 내용이 잘못되었다면 댓글로 피드백 부탁드립니다.">
+<meta name="keywords" content="git remote url 변경, change git remote url, git username 변경">
+<meta property="og:type" content="article">
+<meta property="og:title" content="git remote url 변경하기">
+<meta property="og:url" content="http://localhost:4000/til/2019/07/29/change-git-remote-url/">
 <meta property="og:site_name" content="Lowell's Blog">
-<meta property="og:description" content="lowell의 기술 블로그">
+<meta property="og:description" content="TIL 카테고리의 글은 그날 배운 것을 정리하는 목적으로 포스팅합니다. 내용이 잘못되었다면 댓글로 피드백 부탁드립니다.">
 <meta property="og:locale" content="ko">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Lowell's Blog">
-<meta name="twitter:description" content="lowell의 기술 블로그">
+<meta name="twitter:title" content="git remote url 변경하기">
+<meta name="twitter:description" content="TIL 카테고리의 글은 그날 배운 것을 정리하는 목적으로 포스팅합니다. 내용이 잘못되었다면 댓글로 피드백 부탁드립니다.">
 
 
 <script type="text/javascript" id="hexo.configurations">
@@ -153,7 +153,7 @@
 
 
 
-  <title>Lowell's Blog</title>
+  <title>git remote url 변경하기 | Lowell's Blog</title>
   
 <script>
   window.fbAsyncInit = function() {
@@ -198,7 +198,7 @@
   
 
 
-  <div class="container  page-home ">
+  <div class="container  page-post-detail ">
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"> <div class="site-brand-wrapper">
@@ -300,12 +300,9 @@
           <div id="content" class="content">
             
 
-
-
-<section id="posts" class="posts-expand">
+<div id="posts" class="posts-expand">
   
-    
-    
+  
 
   
 
@@ -314,7 +311,7 @@
   
 
   <article class="post post-type- " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://localhost:4000/til/2018/11/13/TIL-SSR-CSR/">
+    <link itemprop="mainEntityOfPage" href="http://localhost:4000/til/2019/07/29/change-git-remote-url/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Lowell">
@@ -348,12 +345,7 @@
           <h2 class="post-title post-title-custom" itemprop="name headline">
           
           
-            
-                
-                <a class="post-title-link" href="/til/2018/11/13/TIL-SSR-CSR/" itemprop="url">
-                서버사이드 렌더링과 클라이언트사이드 렌더링
-              </a>
-            
+            git remote url 변경하기
           
         </h2>
         
@@ -364,8 +356,8 @@
               
                 <span class="post-meta-item-text">작성일</span>
               
-              <time title="" itemprop="dateCreated datePublished" datetime="2018-11-13T00:00:00+09:00">
-                2018-11-13
+              <time title="" itemprop="dateCreated datePublished" datetime="2019-07-29T00:00:00+09:00">
+                2019-07-29
               </time>
             
 
@@ -381,8 +373,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/til/2018/11/13/TIL-SSR-CSR/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count fb-comments-count" data-href="http://localhost:4000/til/2018/11/13/TIL-SSR-CSR/" itemprop="commentCount">0</span> comments
+                <a href="/til/2019/07/29/change-git-remote-url/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count fb-comments-count" data-href="http://localhost:4000/til/2019/07/29/change-git-remote-url/" itemprop="commentCount">0</span> comments
                 </a>
               </span>
             
@@ -396,6 +388,12 @@
           
 
           
+            
+                <div class="post-description">
+                    
+                </div>
+            
+          
 
         </div>
       </header>
@@ -405,617 +403,117 @@
 
       
         
-          181113 Today I learned SSR and CSR
-          <!--noindex-->
-          
-          <!--/noindex-->
-          
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <p><code class="highlighter-rouge">TIL 카테고리의 글은 그날 배운 것을 정리하는 목적으로 포스팅합니다. 내용이 잘못되었다면 댓글로 피드백 부탁드립니다.</code></p>
+
+<h3 id="상황">상황</h3>
+
+<p>사정이 생겨 github username을 변경하고 푸시를 하려고 했는데 <code class="highlighter-rouge">authentication</code> 오류가 나면서 푸시가 되지 않았다.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1</pre></td><td class="code"><pre class="highlight"><code>fatal: Authentication failed <span class="k">for</span> <span class="s1">'https://old-username@github.com/account/repo.git/
+</span></code></pre></td></tr></tbody></table></div>
+</div>
+
+<h3 id="해결">해결</h3>
+
+<p>usename을 바꾸면서 이전 username의 remote url을 사용할 수 없어 새로운 username이 들어간 remote url로 변경해줬다.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4</pre></td><td class="code"><pre class="highlight"><code><span class="gp">$ </span>git config --list <span class="c"># remote url 확인 </span>
+remote.origin.url orgin https://old-username@github.com/account/repo.git/
+
+<span class="gp">$ </span>git remote <span class="nb">set</span>-url origin https://new-username@github.com/account/repo.git/
+</code></pre></td></tr></tbody></table></div>
+</div>
+
+
+
       
     </div>
 
     <div>
       
-    </div>
+        
 
-    <div>
       
     </div>
 
     <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
       
     </div>
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-        
-        
-        
-        
-          <div class="post-eof"></div>
-        
-      
-    </footer>
-  </article>
-
-  
-    
-    
-
-  
-
-  
-  
-  
-
-  <article class="post post-type- " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://localhost:4000/git/2018/11/08/git-commit-%ED%95%A9%EC%B9%98%EA%B8%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Lowell">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="assets/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Lowell's Blog">
-    </span>
-
-    
-    
-      
-            <span class="post-category">
-               
-              <!-- 카테고리 -->
-                
-                  <a href="/category/#/git" itemprop="url" rel="index">
-                    <h3 itemprop="name">git</h3>
-                  </a>
-                
-                
-              
-            </span>
-        
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title post-title-custom" itemprop="name headline">
-          
+        <div class="post-tags">
           
             
-                
-                <a class="post-title-link" href="/git/2018/11/08/git-commit-%ED%95%A9%EC%B9%98%EA%B8%B0/" itemprop="url">
-                git commit 합치기 (rebase -i)
+            <a href="/tag/#/git%20remote%20url%20%EB%B3%80%EA%B2%BD" rel="tag"># git remote url 변경</a>
+          
+            
+            <a href="/tag/#/change%20git%20remote%20url" rel="tag"># change git remote url</a>
+          
+            
+            <a href="/tag/#/git%20username%20%EB%B3%80%EA%B2%BD" rel="tag"># git username 변경</a>
+          
+        </div>
+      
+
+      
+      
+      
+      
+      
+
+      
+      
+        <div class="post-nav" id="post-nav-id">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/til/2019/07/08/TIL-robots_txt/" rel="prev" title="robots.txt는 뭘까?">
+                robots.txt는 뭘까? <i class="fa fa-chevron-right"></i>
               </a>
             
-          
-        </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              
-                <span class="post-meta-item-text">작성일</span>
-              
-              <time title="" itemprop="dateCreated datePublished" datetime="2018-11-08T00:00:00+09:00">
-                2018-11-08
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/git/2018/11/08/git-commit-%ED%95%A9%EC%B9%98%EA%B8%B0/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count fb-comments-count" data-href="http://localhost:4000/git/2018/11/08/git-commit-%ED%95%A9%EC%B9%98%EA%B8%B0/" itemprop="commentCount">0</span> comments
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
       
-        
-          깃 능력자 되기 - rebase를 사용해서 지저분한 커밋 내역을 정리하자!
-          <!--noindex-->
-          
-          <!--/noindex-->
-          
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
       
 
-      
-
-      
-
-      
-        
-        
-        
-        
-          <div class="post-eof"></div>
-        
       
     </footer>
   </article>
 
-  
+  <div class="post-spread">
     
-    
-
-  
-
-  
-  
-  
-
-  <article class="post post-type- " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://localhost:4000/til/2018/11/06/TIL-Docker/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Lowell">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="assets/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Lowell's Blog">
-    </span>
-
-    
-    
-      
-            <span class="post-category">
-               
-              <!-- 카테고리 -->
-                
-                  <a href="/category/#/TIL" itemprop="url" rel="index">
-                    <h3 itemprop="name">TIL</h3>
-                  </a>
-                
-                
-              
-            </span>
-        
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title post-title-custom" itemprop="name headline">
-          
-          
-            
-                
-                <a class="post-title-link" href="/til/2018/11/06/TIL-Docker/" itemprop="url">
-                Docker
-              </a>
-            
-          
-        </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              
-                <span class="post-meta-item-text">작성일</span>
-              
-              <time title="" itemprop="dateCreated datePublished" datetime="2018-11-06T00:00:00+09:00">
-                2018-11-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/til/2018/11/06/TIL-Docker/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count fb-comments-count" data-href="http://localhost:4000/til/2018/11/06/TIL-Docker/" itemprop="commentCount">0</span> comments
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-        
-          181106 Today I learned Docker
-          <!--noindex-->
-          
-          <!--/noindex-->
-          
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-        
-        
-        
-        
-          <div class="post-eof"></div>
-        
-      
-    </footer>
-  </article>
-
-  
-    
-    
-
-  
-
-  
-  
-  
-
-  <article class="post post-type- " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://localhost:4000/nginx/2018/11/05/%EB%A0%88%EB%93%9C%ED%96%87-%ED%8E%98%EB%8F%84%EB%9D%BC%EC%97%90%EC%84%9C-Nginx-%EC%84%A4%EC%B9%98%ED%95%98%EA%B8%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Lowell">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="assets/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Lowell's Blog">
-    </span>
-
-    
-    
-      
-            <span class="post-category">
-               
-              <!-- 카테고리 -->
-                
-                  <a href="/category/#/Nginx" itemprop="url" rel="index">
-                    <h3 itemprop="name">Nginx</h3>
-                  </a>
-                
-                
-              
-            </span>
-        
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title post-title-custom" itemprop="name headline">
-          
-          
-            
-                
-                <a class="post-title-link" href="/nginx/2018/11/05/%EB%A0%88%EB%93%9C%ED%96%87-%ED%8E%98%EB%8F%84%EB%9D%BC%EC%97%90%EC%84%9C-Nginx-%EC%84%A4%EC%B9%98%ED%95%98%EA%B8%B0/" itemprop="url">
-                레드햇 페도라에서 Nginx 설치하기
-              </a>
-            
-          
-        </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              
-                <span class="post-meta-item-text">작성일</span>
-              
-              <time title="" itemprop="dateCreated datePublished" datetime="2018-11-05T00:00:00+09:00">
-                2018-11-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/nginx/2018/11/05/%EB%A0%88%EB%93%9C%ED%96%87-%ED%8E%98%EB%8F%84%EB%9D%BC%EC%97%90%EC%84%9C-Nginx-%EC%84%A4%EC%B9%98%ED%95%98%EA%B8%B0/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count fb-comments-count" data-href="http://localhost:4000/nginx/2018/11/05/%EB%A0%88%EB%93%9C%ED%96%87-%ED%8E%98%EB%8F%84%EB%9D%BC%EC%97%90%EC%84%9C-Nginx-%EC%84%A4%EC%B9%98%ED%95%98%EA%B8%B0/" itemprop="commentCount">0</span> comments
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-        
-          레드햇 페도라 환경에서 Nginx 웹 서버를 설치해보자.
-          <!--noindex-->
-          
-          <!--/noindex-->
-          
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-        
-        
-        
-        
-          <div class="post-eof"></div>
-        
-      
-    </footer>
-  </article>
-
-  
-    
-    
-
-  
-
-  
-  
-  
-
-  <article class="post post-type- " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://localhost:4000/django/2018/11/05/Nginx-uWSGI-Django/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Lowell">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="assets/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Lowell's Blog">
-    </span>
-
-    
-    
-      
-            <span class="post-category">
-               
-              <!-- 카테고리 -->
-                
-                  <a href="/category/#/django" itemprop="url" rel="index">
-                    <h3 itemprop="name">django</h3>
-                  </a>
-                
-                
-              
-            </span>
-        
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title post-title-custom" itemprop="name headline">
-          
-          
-            
-                
-                <a class="post-title-link" href="/django/2018/11/05/Nginx-uWSGI-Django/" itemprop="url">
-                AWS(rhel fedora)Nginx-uWSGI-Django 연동하기
-              </a>
-            
-          
-        </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              
-                <span class="post-meta-item-text">작성일</span>
-              
-              <time title="" itemprop="dateCreated datePublished" datetime="2018-11-05T00:00:00+09:00">
-                2018-11-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/django/2018/11/05/Nginx-uWSGI-Django/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count fb-comments-count" data-href="http://localhost:4000/django/2018/11/05/Nginx-uWSGI-Django/" itemprop="commentCount">0</span> comments
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-        
-          AWS EC2 환경에서 Nginx-uWSGI-Django를 연동해 배포해보자.
-          <!--noindex-->
-          
-          <!--/noindex-->
-          
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-        
-        
-        
-        
-      
-    </footer>
-  </article>
-
-  
-</section>
-
-
-  <nav class="pagination">
-    
-    
-    
-
-
-
-    <a class="extend prev" rel="prev" href="/page7"><i class="fa fa-angle-left"></i></a> <a class="page-number" href="/">1</a> <span class="space">&hellip;</span> <a class="page-number" href="/page7">7</a> <span class="page-number current">8</span> <a class="page-number" href="/page9">9</a> <a class="extend prev" rel="next" href="/page9"><i class="fa fa-angle-right"></i></a>
-  </nav>
-
-
+  </div>
+</div>
 
 
           </div>
@@ -1023,6 +521,17 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div class="fb-comments"
+           data-href="http://localhost:4000/til/2019/07/29/change-git-remote-url/"
+           data-numposts="10"
+           data-width="100%"
+           data-colorscheme="light">
+      </div>
+    
+  </div>
+
 
         </div>
         

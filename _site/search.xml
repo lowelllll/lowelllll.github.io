@@ -2,6 +2,96 @@
 <search>
   
     <entry>
+      <title><![CDATA[git remote url 변경하기]]></title>
+      <url>/til/2019/07/29/change-git-remote-url/</url>
+      <content type="text"><![CDATA[TIL 카테고리의 글은 그날 배운 것을 정리하는 목적으로 포스팅합니다. 내용이 잘못되었다면 댓글로 피드백 부탁드립니다.상황사정이 생겨 github username을 변경하고 푸시를 하려고 했는데 authentication 오류가 나면서 푸시가 되지 않았다.fatal: Authentication failed for 'https://old-username@github.com/account/repo.git/해결usename을 바꾸면서 이전 username의 remote url을 사용할 수 없어 새로운 username이 들어간 remote url로 변경해줬다.$ git config --list # remote url 확인 remote.origin.url orgin https://old-username@github.com/account/repo.git/$ git remote set-url origin https://new-username@github.com/account/repo.git/]]></content>
+      <categories>
+        
+          <category> TIL </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> git remote url 변경 </tag>
+        
+          <tag> change git remote url </tag>
+        
+          <tag> git username 변경 </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[robots.txt는 뭘까?]]></title>
+      <url>/til/2019/07/08/TIL-robots_txt/</url>
+      <content type="text"><![CDATA[크롤링을 배우게 되면 여기 저기 사이트를 크롤링해서 데이터를 가져온 후 유용한 프로그램을 만들어 보고 싶을 것이다. 나도 크롤링을 배운 후 어디다 써보고 싶어서 이런 저런 아이디어를 생각해냈다. 그러다 문득 크롤링을 하는 것은 그 사이트의 데이터를 허가 없이 가져다 사용하는 것인데.. 크롤링을 통해서 수익을 내지 않더라도 웹 사이트나 어플을 런칭해도 될까?라는 생각이 들었다. 그래서 인터넷을 뒤져보기 시작했는데 지나가다 많이 보던 robots.txt 의 정체를 이제서야 알게되었다.robots.txt ?robots.txt 파일은 서버  root 디렉토리에 위치하는 파일이다. 이 파일을 통해 해당 사이트가 크롤링을 허용하는지 알 수 있다. google 의 robots.txt 파일을 보자.http://google.com/robots.txtUser-agent: *Disallow: /searchAllow: /search/aboutAllow: /search/staticAllow: /search/howsearchworksDisallow: /sdchDisallow: /groupsDisallow: /index.html?Disallow: /?Allow: /?hl=...user-agent : * 는 모든 유저에 대한 크롤링 권한을 뜻한다. Disallow에 해당하는 페이지는 크롤링을 허용하지 않는다는 것이고, Allow는 허용한다는 것이다. 구글은 검색 페이지에 대한 크롤링은 허용하지 않는 것 같다. 네이버도 알아보자https://www.naver.com/robots.txtUser-agent: *Disallow: /Allow : /$ 네이버는 모든 페이지에 대한 크롤링을 허용하지 않는다.이렇게 크롤링을 할 때 해당 사이트의 robots.txt을 통해 크롤링 허용 여부를 확인하고 프로그램을 개발하는 것이 좋을 것 같다!  또한 자신의 사이트를 만들 때에도 robots.txt 파일을 생성해 둠으로써 크롤링 허용에 대한 정의를 해두는 것이 좋을 것 같다.]]></content>
+      <categories>
+        
+          <category> TIL </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> robots.txt </tag>
+        
+          <tag> 크롤링 불법 </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Redis]]></title>
+      <url>/til/2019/07/05/TIL-Redis/</url>
+      <content type="text"><![CDATA[]]></content>
+      <categories>
+        
+          <category> TIL </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> Redis </tag>
+        
+          <tag> 레디스 </tag>
+        
+          <tag> 레디스 사용법 </tag>
+        
+          <tag> 레디스 명령어 </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Postman 200% 활용하기]]></title>
+      <url>/tip/2019/06/20/use-postman/</url>
+      <content type="text"><![CDATA[Postman은 API 테스트를 편하게 할 수 있는 프로그램이다. 많은 분들이 알고있는 request 기능 외에 좋은 기능들을 알게 되어서 공유하려고 한다. ㅎㅎ기본적인 사용법을 모른다면 아래 링크를 참고하자.https://meetup.toast.com/posts/107]]></content>
+      <categories>
+        
+          <category> tip </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> postman share collection </tag>
+        
+          <tag> postman 사용법 </tag>
+        
+          <tag> postman </tag>
+        
+          <tag> postman share </tag>
+        
+          <tag> postman 공유 </tag>
+        
+          <tag> postman 환경 변수 </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
       <title><![CDATA[Python sort와 sorted]]></title>
       <url>/python/2019/06/11/python-sort-sorted/</url>
       <content type="text"><![CDATA[list.sort()&gt;&gt;&gt; score = [92, 34, 56, 100, 80, 97, 20, 65, 70, 55]&gt;&gt;&gt; score.sort() # 오름차순&gt;&gt;&gt; score[20, 34, 55, 56, 65, 70, 80, 92, 97, 100]list.sort()는 리스트를 정렬하는데 기존 객체를 정렬한다. 따라서 반환 값이 없다.(None) score를 정렬 후 프린트 해보면 요소들이 오름차순으로 된 것을 볼 수 있다.sorted(list)&gt;&gt;&gt; score = [92, 34, 56, 100, 80, 97, 20, 65, 70, 55]&gt;&gt;&gt; sorted(score)[20, 34, 55, 56, 65, 70, 80, 92, 97, 100]&gt;&gt;&gt; score[92, 34, 56, 100, 80, 97, 20, 65, 70, 55]sorted(list)는 리스트를 정렬하는 것은 똑같지만 기존 객체를 정렬하는 것이 아닌 기존 객체의 요소를 정렬한 새로운 객체를 반환한다. 따라서 기존 객체인 score는 요소들의 위치가 변하지 않은 것을 확인할 수 있다.list.sort(), sorted(list)는 성능의 차이가 없으므로 둘 중 필요한 것을 사용하면 된다. 내림차순을 사용하려면 reverse=True 를 인자로 넘겨주면 된다.&gt;&gt;&gt; score = [92, 34, 56, 100, 80, 97, 20, 65, 70, 55]&gt;&gt;&gt; sorted(score, reverse=True) # 내림차순[100, 97, 92, 80, 70, 65, 56, 55, 34, 20]&gt;&gt;&gt; score.sort(reverse=True) # 내림차순&gt;&gt;&gt; score[100, 97, 92, 80, 70, 65, 56, 55, 34, 20]어떤 값을 기준으로 정렬하기여러개의 딕셔너리가 들어있는 리스트를 딕셔너리의 어떤 값을 이용해 정렬하고 싶다면 key 를 사용한다.&gt;&gt;&gt; users[{'age': 0}, {'age': 12}, {'age': 42}, {'age': 6}, {'age': 48}, {'age': 18}, {'age': 30}, {'age': 54}, {'age': 36}, {'age': 24}]&gt;&gt;&gt; users.sort(key=lambda x: x['age']) # age 값을 기준으로 오름차순 정렬&gt;&gt;&gt; users[{'age': 0}, {'age': 6}, {'age': 12}, {'age': 18}, {'age': 24}, {'age': 30}, {'age': 36}, {'age': 42}, {'age': 48}, {'age': 54}]&gt;&gt;&gt; users.sort(key=lambda x: x['age'], reverse=True) # age 값을 기준으로 내림차순 정렬&gt;&gt;&gt; users[{'age': 54}, {'age': 48}, {'age': 42}, {'age': 36}, {'age': 30}, {'age': 24}, {'age': 18}, {'age': 12}, {'age': 6}, {'age': 0}]만약 키 값이 있다 없다 한다면 dict.get()을 사용하자.&gt;&gt;&gt; users[{'age': 30}, {}, {'age': 6}, {'age': 24}, {'age': 48}, {}, {'age': 42}, {'age': 54}, {'age': 36}, {'age': 12}, {}, {}, {'age': 18}, {}]&gt;&gt;&gt; users.sort(key=lambda x: x.get('age', 0), reverse=True) # 키 값이 없으면 0&gt;&gt;&gt; users[{'age': 54}, {'age': 48}, {'age': 42}, {'age': 36}, {'age': 30}, {'age': 24}, {'age': 18}, {'age': 12}, {'age': 6}, {}, {}, {}, {}, {}]다중 조건으로 정렬하기만약 정렬을 하고 싶은 기준이 2개 이상이라면 아래 방법을 사용한다. (나이 오름차순 정렬 후,  점수는 내림차순으로 정렬)&gt;&gt;&gt; students[{'age': 0, 'score': 0}, {'age': 48, 'score': 1}, {'age': 40, 'score': 6}, {'age': 24, 'score': 8}, {'age': 16, 'score': 6}, {'age': 48, 'score': 2}, {'age': 64, 'score': 0}, {'age': 0, 'score': 3}, {'age': 56, 'score': 2}, {'age': 72, 'score': 6}, {'age': 72, 'score': 0}, {'age': 24, 'score': 5}, {'age': 8, 'score': 2}, {'age': 32, 'score': 1}, {'age': 16, 'score': 4}, {'age': 56, 'score': 9}, {'age': 32, 'score': 9}, {'age': 8, 'score': 1}, {'age': 40, 'score': 3}, {'age': 64, 'score': 2}]&gt;&gt;&gt; sort_students = sorted(sorted(students, key=lambda x: x['score'], reverse=True), key=lambda x: x['age'])&gt;&gt;&gt; sort_students[{'age': 0, 'score': 3}, {'age': 0, 'score': 0}, {'age': 8, 'score': 2}, {'age': 8, 'score': 1}, {'age': 16, 'score': 6}, {'age': 16, 'score': 4}, {'age': 24, 'score': 8}, {'age': 24, 'score': 5}, {'age': 32, 'score': 9}, {'age': 32, 'score': 1}, {'age': 40, 'score': 6}, {'age': 40, 'score': 3}, {'age': 48, 'score': 2}, {'age': 48, 'score': 1}, {'age': 56, 'score': 9}, {'age': 56, 'score': 2}, {'age': 64, 'score': 2}, {'age': 64, 'score': 0}, {'age': 72, 'score': 6}, {'age': 72, 'score': 0}]referhttps://stackoverflow.com/questions/4233476/sort-a-list-by-multiple-attributes]]></content>
@@ -105,7 +195,7 @@
     <entry>
       <title><![CDATA[flask SQLAlchemy ORM 사용해보기]]></title>
       <url>/til/2019/04/19/TIL-flask-sqlalchemy-orm/</url>
-      <content type="text"><![CDATA[TIL 카테고리의 글은 그날 배운 것을 정리하는 목적으로 포스팅합니다. 내용이 잘못되었다면 댓글로 피드백 부탁드립니다.ORM 사용법SELECTsession.query(Model).all() # SELECT * FROM modelsession.query(Model.id, Model.name, Model.age).all() # SELECT id, name, age FROM modelsession.query(Model).first() # SELECT * FROM model LIMIT 1from sqlalchemy import func # count 함수session.query(func.count(Model.id))# SELECT COUNT(id) FROM model# AS session.query(Model.id.label('model_id')).all()# SELECT id AS model_id FROM modelWHEREfilter를 사용한다.session.query(Model).filter(Model.name == 'lowell').all() # SELECT * FROM model WHERE name = 'lowell'session.query(Model).filter(Model.name == 'lowell', Model.age == 20).all() # SELECT * FROM model WHERE name = 'lowell' AND age = 20from sqlalchemy import or_ # OR 연산자session.query(Model).filter(or_(Model.mame == 'lowell', Model.age == 20)).all()# SELECT * FORM model WHERE name = 'lowell' OR age = 20INSERTuser = Model(name='lowell', age=20)session.add(user)session.commit() # session.rollback()# INSERT INTO model(name, age) VALUES ('lowell', 20)# COMMITUPDATEuser = session.query(Model).filter(Model.name == 'lowell').first()user.age += 1session.commit()# select 후 update 함DELETEuser = session.query(Model).filter(Model.name == 'lowell').first()session.delete(user)session.commit()ORDER BYsession.query(Model).filter(Model.name == 'lowell').order_by(Model.created_at)# SELECT * FROM model WHERE name = 'lowell' ORDER BY created_atsession.query(Model).filter(Model.name == 'lowell').order_by(Model.created_at.desc(), Model.status) # SELECT * FROM model WHERE name = 'lowell' ORDER BY created_at DESC, statusJOININNER JOINsession.query(Model1, Model2).filter(Model1.id == Model2.id).all() # SELECT * FROM model1 JOIN model2 ON model1.id = model2.idsession.query(Model1).join(Model2, Model1.id == Model2.id).all()# SELECT * FROM model1 JOIN model2 ON model1.id = model2.idOUTER JOINsession.query(Model1). \    outerjoin(Model2, Model1.id == Model2.id).\    all()    # SELECT * FROM model1 LEFT JOIN model2 ON model1.id = model2.id 여러개 조인을 하기 이해선 그냥 이어 붙이면 된다.session.query(Model1.name, Model2.student_id, Model3.account).\	outerjoin(Model2, Model1.id == Model2.id).\	outerjoin(Model3, Model1.id == Model3.id).\	all()	# SELECT model1.name, model2.student_id , model3.account # FROM model1# LEFT JOIN model2 ON model1.id = model2.id# LEFT JOIN model3 ON model1.id = model3.idSELF JOIN  하나의 테이블을 조인하는 것aliased 를 사용하면 된다.model2 = aliased(Model)self.session.query(Model).\    join(model2, model2.id == Model.id).\    all()    # SELECT model.* FROM model JOIN model model2 ON model2.id = model.id;    GROUP BYsession.query(Model).group_by(Model.id).all()# SELECT * FROM model GROUP BY idSUBQUERYfrom sqlalchemy import subquerystmt = query.session(Model2).filter(Model2.grade == 'A').subquery() # SELECT id, grade FROM model2 WHERE grade = 'A'session.query(Model1, stmt.c.id, stmt.c.grade).\	outerjoin(stmt, stmt.c.id = Model1.id)	# SELECT model1.*, model2.id, model2.grade# FROM mode1l LEFT JOIN (SELECT id, grade FROM model2 WHERE grade = 'A') model2 # ON model1.id = model2.id그 외 팁CASE 문from sqlalchemy import case	session.query(	case(        	[            	(Model.age &gt;= 20, 'adult'),                (Model.age &gt;= 10, 'teenager')        	],         	else_='not adult, not teenager'    	)    ).\    filter(Model.sex='female').\    all()# SELECT CASE WHEN age &gt;= 20 THEN 'adult' WHEN age &gt;= 10 THEN 'teenager' ELSE 'not adult, not teenager' FROM model WHERE sex = 'female';	last_row_id 얻기user = Model(name='lowell', age=20)session.add(user)session.flush() # DB connection 일어남id = user.id # auto_encrement로 생성된 idsession.commit() # session.rollback()검색 (LIKE)results = session.query(Model).\	filter(Model.name.like('김%')).all() # 성이 김씨인 사람 찾음    # 응용해보긔 keyword = kwargs.get('keyword', '')search = True if keyword:    search = Model.name.like(f'{keyword}%')    results = session.query(Model).\	filter(search).all() # 검색어가 있으면 검색, 없으면 모두 가져옴]]></content>
+      <content type="text"><![CDATA[TIL 카테고리의 글은 그날 배운 것을 정리하는 목적으로 포스팅합니다. 내용이 잘못되었다면 댓글로 피드백 부탁드립니다.ORM 사용법SELECTsession.query(Model).all() # SELECT * FROM modelsession.query(Model.id, Model.name, Model.age).all() # SELECT id, name, age FROM modelsession.query(Model).first() # SELECT * FROM model LIMIT 1from sqlalchemy import func # count 함수session.query(func.count(Model.id))# SELECT COUNT(id) FROM model# AS session.query(Model.id.label('model_id')).all()# SELECT id AS model_id FROM modelWHEREfilter를 사용한다.session.query(Model).filter(Model.name == 'lowell').all() # SELECT * FROM model WHERE name = 'lowell'session.query(Model).filter(Model.name == 'lowell', Model.age == 20).all() # SELECT * FROM model WHERE name = 'lowell' AND age = 20from sqlalchemy import or_ # OR 연산자session.query(Model).filter(or_(Model.mame == 'lowell', Model.age == 20)).all()# SELECT * FORM model WHERE name = 'lowell' OR age = 20INSERTuser = Model(name='lowell', age=20)session.add(user)session.commit() # session.rollback()# INSERT INTO model(name, age) VALUES ('lowell', 20)# COMMITUPDATE방법 1user = session.query(Model).filter(Model.name == 'lowell').first()user.age += 1session.commit()# select 후 update 함방법 2user = session.query(Model).filter(Model.name == 'lowell').update({'age': User.age + 1});session.commit()# select를 하지 않는 update 방법# UPDATE model SET age = age + 1 WHERE name = 'lowell'DELETEuser = session.query(Model).filter(Model.name == 'lowell').first()session.delete(user)session.commit()ORDER BYsession.query(Model).filter(Model.name == 'lowell').order_by(Model.created_at)# SELECT * FROM model WHERE name = 'lowell' ORDER BY created_atsession.query(Model).filter(Model.name == 'lowell').order_by(Model.created_at.desc(), Model.status) # SELECT * FROM model WHERE name = 'lowell' ORDER BY created_at DESC, statusJOININNER JOINsession.query(Model1, Model2).filter(Model1.id == Model2.id).all() # SELECT * FROM model1 JOIN model2 ON model1.id = model2.idsession.query(Model1).join(Model2, Model1.id == Model2.id).all()# SELECT * FROM model1 JOIN model2 ON model1.id = model2.idOUTER JOINsession.query(Model1). \    outerjoin(Model2, Model1.id == Model2.id).\    all()    # SELECT * FROM model1 LEFT JOIN model2 ON model1.id = model2.id 여러개 조인을 하기 이해선 그냥 이어 붙이면 된다.session.query(Model1.name, Model2.student_id, Model3.account).\	outerjoin(Model2, Model1.id == Model2.id).\	outerjoin(Model3, Model1.id == Model3.id).\	all()	# SELECT model1.name, model2.student_id , model3.account # FROM model1# LEFT JOIN model2 ON model1.id = model2.id# LEFT JOIN model3 ON model1.id = model3.idSELF JOIN  하나의 테이블을 조인하는 것aliased 를 사용하면 된다.model2 = aliased(Model)self.session.query(Model).\    join(model2, model2.id == Model.id).\    all()    # SELECT model.* FROM model JOIN model model2 ON model2.id = model.id;    GROUP BYsession.query(Model).group_by(Model.id).all()# SELECT * FROM model GROUP BY idSUBQUERYfrom sqlalchemy import subquerystmt = query.session(Model2).filter(Model2.grade == 'A').subquery() # SELECT id, grade FROM model2 WHERE grade = 'A'session.query(Model1, stmt.c.id, stmt.c.grade).\	outerjoin(stmt, stmt.c.id = Model1.id)	# SELECT model1.*, model2.id, model2.grade# FROM mode1l LEFT JOIN (SELECT id, grade FROM model2 WHERE grade = 'A') model2 # ON model1.id = model2.id그 외 팁CASE 문from sqlalchemy import case	session.query(	case(        	[            	(Model.age &gt;= 20, 'adult'),                (Model.age &gt;= 10, 'teenager')        	],         	else_='not adult, not teenager'    	)    ).\    filter(Model.sex='female').\    all()# SELECT CASE WHEN age &gt;= 20 THEN 'adult' WHEN age &gt;= 10 THEN 'teenager' ELSE 'not adult, not teenager' FROM model WHERE sex = 'female';	last_row_id 얻기user = Model(name='lowell', age=20)session.add(user)session.flush() # DB connection 일어남id = user.id # auto_encrement로 생성된 idsession.commit() # session.rollback()검색 (LIKE)results = session.query(Model).\	filter(Model.name.like('김%')).all() # 성이 김씨인 사람 찾음    # 응용해보긔 keyword = kwargs.get('keyword', '')search = True if keyword:    search = Model.name.like(f'{keyword}%')    results = session.query(Model).\	filter(search).all() # 검색어가 있으면 검색, 없으면 모두 가져옴referhttps://stackoverflow.com/questions/9667138/how-to-update-sqlalchemy-row-entry]]></content>
       <categories>
         
           <category> TIL </category>
@@ -120,6 +210,12 @@
           <tag> orm 사용법 </tag>
         
           <tag> flask self join </tag>
+        
+          <tag> sqlalchemy selfjoin </tag>
+        
+          <tag> sqlalchemy lastrowid </tag>
+        
+          <tag> sqlalchemy update </tag>
         
       </tags>
       <tags></tags>
