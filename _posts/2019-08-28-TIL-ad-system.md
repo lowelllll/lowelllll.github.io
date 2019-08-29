@@ -1,5 +1,4 @@
 ---
-​---
 title: 광고 시스템 
 description: 광고 시스템 전반적인 내용을 정리합니다.
 categories:
