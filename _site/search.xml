@@ -2,6 +2,65 @@
 <search>
   
     <entry>
+      <title><![CDATA[파이썬 사용해서 엑셀 파일 만들기]]></title>
+      <url>/til/2019/08/29/TIL-make-excel-with-python/</url>
+      <content type="text"><![CDATA[TIL 카테고리의 글은 그날 배운 것을 정리하는 목적으로 포스팅합니다. 내용이 잘못되었다면 댓글로 피드백 부탁드립니다.엑셀 파일을 만들 수 있는 파이썬 라이브러리는 대표적으로  openpyxl 과 xlsxwriter 가 있는데 저는 wlsxwriter 를 사용했다. (보통 openpyxl을 더 쓰는 것 같은데 나는 wlsxwriter 예제를 처음 접해서 사용했다. )엑셀 파일 만들기아래 코드는 간단한 엑셀 파일을 만드는 코드이다.import xlsxwriterfile_name = 'test.xlsx' # 엑셀 파일 이름workbook = xlsxwriter.Workbook(file_name)ws = workbook.add_worksheet()ws.write(0, 0, 'Hello') # A1에 값을 넣음ws.close() # 저-장 같은 디렉토리에 test.xlsx 파일이 생성된 것을 확인할 수 있다.이미지 삽입하기image url로 requests를 통해 이미지를  가져온 뒤 이미지도 삽입되어있는 파일을 만들어 보았다.from io import BytesIO  import requestsimport xlsxwriterimage_url ='https://d3mcojo3jv0dbr.cloudfront.net/2019/03/23/14/25/d88f24f059169559602c836fc35b995c.jpeg?w=128&amp;h=128&amp;q=65'workbook = xlsxwriter.Workbook('text.xlsx')ws = workbook.add_worksheet()ws.set_column(0, 0, 100) # column width 설정 ws.set_column(1, 1, 100) # column width 설정 ws.set_default_row(100) # row height 설정ws.write(0, 0, '어피치') # A1 res = requests.get(image_url) # 이미지 가져옴image_data = BytesIO(res.content) # 이미지 파일 처리image_size = len(image_data.getvalue()) # 이미지 사이즈 if image_size &gt; 0: # 이미지가 있으면     ws.insert_image('B1', image_url, {'image_data': image_data}) # 엑셀에 삽입함workbook.close() # 저장 이미지 사이즈를 체크하여 이미지가 있는지 확인한 후 엑셀에 삽입하는 이유는 이미지가 없는데 inser_image를 시도하면 오류가 나기 때문이다.struct.error: unpack requires a bytes object of length 3 image(이 오류때문에 반나절 삽질했다 ㅂㄷㅂㄷ)  해당 오류 이슈이렇게 파이썬으로 엑셀 파일 만드는 것을 자동화하여 생산성을 높일 수 있다.referxlsxwriter 사용법xlsxwriter document엑셀 이미지 삽입하기 ]]></content>
+      <categories>
+        
+          <category> TIL </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> python excel </tag>
+        
+          <tag> python make excel </tag>
+        
+          <tag> python excel insert image </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[광고 시스템]]></title>
+      <url>/til/2019/08/28/TIL-ad-system/</url>
+      <content type="text"><![CDATA[TIL 카테고리의 글은 그날 배운 것을 정리하는 목적으로 포스팅합니다. 내용이 잘못되었다면 댓글로 피드백 부탁드립니다.RTB  Real Time Bidding 자동화 거래 시스템리타겟팅 광고  유저가 봤던 상품과 같거나 비슷한 상품을 보여주는 것  효과가 제일 좋음.  유튜브에서 자신이 보던 동영상 밑에 빨간 타임라인이 보이는데 이것을 이용해 동영상 썸네일에 타임라인을 집어넣어 사용자가 자신이 봤던 동영상으로 알고 클릭하도록 유도하는 것도 비슷한듯.  페이스북 쿠팡 광고도 한번 봤던거 계속 광고함..Native Ad      유저가 지금 보고 있는 페이지에 나오는 상품과 매우 적합도가 유사한 상품을 보여주는 방식        뉴스 내용에서 에어프라이어가 나온다면 옆에 에어프라이어 배너를 보여주는 것.  CPM  Cost Per Mile1000번 노출당 광고 비용 지불.  광고가 클릭이 되지 않아도 매체는 매출이 보장됨CPC  Cost Per Click클릭당 광고 비용 지불.  사용자에게 광고가 클릭될 시 비용을 지불함.CPA  Cost per Action (Install)광고주가 원하는 액션 한번에 대한 광고비용  만약 앱을 광고한다면 한번 인스톨당 광고비용을 뜻함CTR  Click -Through Rate광고가 클릭된 횟수를 광고가 게재된(노출된) 횟수로 나눈 값  쉽게 노출 대비 클릭 량.  CTR이 높아야 광고가 잘 되고 있음을 뜻함Fill rate  광고 지면 대비 실제로 광고가 개제되는 수ROAS  Return On AD Spend광고비 지출에 대한 효과  내가 광고를 이만큼 했는데 얼만큼 효과를 봤는가?  광고비를 많이 지출할 수록 ROAS는 떨어진다.RTB 거래 입찰 모델Second Price Auction  제일 비싼 가격을 제안한 사람이 2번째로 높은 제시가로 입찰되는 것.  만약 1등이 500원, 2등이 400원을 제시했다면 1등은 400원을 내는 것. 2등은 3순위 제시가격, 3등은 4순위 제시가격..  1등이 2등의 제안가를 내는 것이 매체에겐 손해같지만 손해가 아님.Referhttp://blog.ab180.co/data-science-with-r-6-rtb/]]></content>
+      <categories>
+        
+          <category> TIL </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> ad system </tag>
+        
+          <tag> RTB </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[testing 종류]]></title>
+      <url>/til/2019/08/16/TIL-python-test/</url>
+      <content type="text"><![CDATA[TIL 카테고리의 글은 그날 배운 것을 정리하는 목적으로 포스팅합니다. 내용이 잘못되었다면 댓글로 피드백 부탁드립니다.프로그램을 개발하면서 아무생각 없이 해왔던 테스팅들의 특징을 알게되었고 정리해보았다.소프트웨어 테스팅 종류UI Test / end-to-end Test  시스템의 UI를 통해 테스트하는 것  사용자가 실제로 시스템을 사용하는 방식과 가장 동일하게 테스트함.  시간이 오래걸리고 프론트앤드-백앤드 모든 시스템을 실행하고 연결해야함.  직접 해보고 느낀 점          위에 나와있듯이 프론트-백앤드를 연결해서 직접 클릭해가며 테스트를 하니까 시간도 오래걸리고 귀찮다. 데이터 셋팅하는 것도 정말 귀찮고.. 하지만 이게 제일 정확(?)한 방법이라고 생각하기 때문에 코드를 수정하고 나서 최소한 마지막에 한번이라도 UI 테스트를 하는 것 같다.      Intergration Test  API 서버를 실행시키고 HTTP request를 실행해 Response가 올바른지 파악해 테스트하는 것  Unit Test에 비해 자동화에 걸리는 공수가 크고 실행 속도도 더 느림.  직접 해보고 느낀 점          postman으로 하는 테스트가 이 테스트에 해당하는 것 같은데 보통 이 방법을 주로 사용하는 것 같다.      ]]></content>
+      <categories>
+        
+          <category> TIL </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> testng </tag>
+        
+          <tag> test </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
       <title><![CDATA[git remote url 변경하기]]></title>
       <url>/til/2019/07/29/change-git-remote-url/</url>
       <content type="text"><![CDATA[TIL 카테고리의 글은 그날 배운 것을 정리하는 목적으로 포스팅합니다. 내용이 잘못되었다면 댓글로 피드백 부탁드립니다.상황사정이 생겨 github username을 변경하고 푸시를 하려고 했는데 authentication 오류가 나면서 푸시가 되지 않았다.fatal: Authentication failed for 'https://old-username@github.com/account/repo.git/해결usename을 바꾸면서 이전 username의 remote url을 사용할 수 없어 새로운 username이 들어간 remote url로 변경해줬다.$ git config --list # remote url 확인 remote.origin.url orgin https://old-username@github.com/account/repo.git/$ git remote set-url origin https://new-username@github.com/account/repo.git/]]></content>
@@ -36,56 +95,6 @@
           <tag> robots.txt </tag>
         
           <tag> 크롤링 불법 </tag>
-        
-      </tags>
-      <tags></tags>
-    </entry>
-  
-    <entry>
-      <title><![CDATA[Redis]]></title>
-      <url>/til/2019/07/05/TIL-Redis/</url>
-      <content type="text"><![CDATA[]]></content>
-      <categories>
-        
-          <category> TIL </category>
-        
-      </categories>
-      <tags>
-        
-          <tag> Redis </tag>
-        
-          <tag> 레디스 </tag>
-        
-          <tag> 레디스 사용법 </tag>
-        
-          <tag> 레디스 명령어 </tag>
-        
-      </tags>
-      <tags></tags>
-    </entry>
-  
-    <entry>
-      <title><![CDATA[Postman 200% 활용하기]]></title>
-      <url>/tip/2019/06/20/use-postman/</url>
-      <content type="text"><![CDATA[Postman은 API 테스트를 편하게 할 수 있는 프로그램이다. 많은 분들이 알고있는 request 기능 외에 좋은 기능들을 알게 되어서 공유하려고 한다. ㅎㅎ기본적인 사용법을 모른다면 아래 링크를 참고하자.https://meetup.toast.com/posts/107]]></content>
-      <categories>
-        
-          <category> tip </category>
-        
-      </categories>
-      <tags>
-        
-          <tag> postman share collection </tag>
-        
-          <tag> postman 사용법 </tag>
-        
-          <tag> postman </tag>
-        
-          <tag> postman share </tag>
-        
-          <tag> postman 공유 </tag>
-        
-          <tag> postman 환경 변수 </tag>
         
       </tags>
       <tags></tags>
@@ -195,7 +204,7 @@
     <entry>
       <title><![CDATA[flask SQLAlchemy ORM 사용해보기]]></title>
       <url>/til/2019/04/19/TIL-flask-sqlalchemy-orm/</url>
-      <content type="text"><![CDATA[TIL 카테고리의 글은 그날 배운 것을 정리하는 목적으로 포스팅합니다. 내용이 잘못되었다면 댓글로 피드백 부탁드립니다.ORM 사용법SELECTsession.query(Model).all() # SELECT * FROM modelsession.query(Model.id, Model.name, Model.age).all() # SELECT id, name, age FROM modelsession.query(Model).first() # SELECT * FROM model LIMIT 1from sqlalchemy import func # count 함수session.query(func.count(Model.id))# SELECT COUNT(id) FROM model# AS session.query(Model.id.label('model_id')).all()# SELECT id AS model_id FROM modelWHEREfilter를 사용한다.session.query(Model).filter(Model.name == 'lowell').all() # SELECT * FROM model WHERE name = 'lowell'session.query(Model).filter(Model.name == 'lowell', Model.age == 20).all() # SELECT * FROM model WHERE name = 'lowell' AND age = 20from sqlalchemy import or_ # OR 연산자session.query(Model).filter(or_(Model.mame == 'lowell', Model.age == 20)).all()# SELECT * FORM model WHERE name = 'lowell' OR age = 20INSERTuser = Model(name='lowell', age=20)session.add(user)session.commit() # session.rollback()# INSERT INTO model(name, age) VALUES ('lowell', 20)# COMMITUPDATE방법 1user = session.query(Model).filter(Model.name == 'lowell').first()user.age += 1session.commit()# select 후 update 함방법 2user = session.query(Model).filter(Model.name == 'lowell').update({'age': User.age + 1});session.commit()# select를 하지 않는 update 방법# UPDATE model SET age = age + 1 WHERE name = 'lowell'DELETEuser = session.query(Model).filter(Model.name == 'lowell').first()session.delete(user)session.commit()ORDER BYsession.query(Model).filter(Model.name == 'lowell').order_by(Model.created_at)# SELECT * FROM model WHERE name = 'lowell' ORDER BY created_atsession.query(Model).filter(Model.name == 'lowell').order_by(Model.created_at.desc(), Model.status) # SELECT * FROM model WHERE name = 'lowell' ORDER BY created_at DESC, statusJOININNER JOINsession.query(Model1, Model2).filter(Model1.id == Model2.id).all() # SELECT * FROM model1 JOIN model2 ON model1.id = model2.idsession.query(Model1).join(Model2, Model1.id == Model2.id).all()# SELECT * FROM model1 JOIN model2 ON model1.id = model2.idOUTER JOINsession.query(Model1). \    outerjoin(Model2, Model1.id == Model2.id).\    all()    # SELECT * FROM model1 LEFT JOIN model2 ON model1.id = model2.id 여러개 조인을 하기 이해선 그냥 이어 붙이면 된다.session.query(Model1.name, Model2.student_id, Model3.account).\	outerjoin(Model2, Model1.id == Model2.id).\	outerjoin(Model3, Model1.id == Model3.id).\	all()	# SELECT model1.name, model2.student_id , model3.account # FROM model1# LEFT JOIN model2 ON model1.id = model2.id# LEFT JOIN model3 ON model1.id = model3.idSELF JOIN  하나의 테이블을 조인하는 것aliased 를 사용하면 된다.model2 = aliased(Model)self.session.query(Model).\    join(model2, model2.id == Model.id).\    all()    # SELECT model.* FROM model JOIN model model2 ON model2.id = model.id;    GROUP BYsession.query(Model).group_by(Model.id).all()# SELECT * FROM model GROUP BY idSUBQUERYfrom sqlalchemy import subquerystmt = query.session(Model2).filter(Model2.grade == 'A').subquery() # SELECT id, grade FROM model2 WHERE grade = 'A'session.query(Model1, stmt.c.id, stmt.c.grade).\	outerjoin(stmt, stmt.c.id = Model1.id)	# SELECT model1.*, model2.id, model2.grade# FROM mode1l LEFT JOIN (SELECT id, grade FROM model2 WHERE grade = 'A') model2 # ON model1.id = model2.id그 외 팁CASE 문from sqlalchemy import case	session.query(	case(        	[            	(Model.age &gt;= 20, 'adult'),                (Model.age &gt;= 10, 'teenager')        	],         	else_='not adult, not teenager'    	)    ).\    filter(Model.sex='female').\    all()# SELECT CASE WHEN age &gt;= 20 THEN 'adult' WHEN age &gt;= 10 THEN 'teenager' ELSE 'not adult, not teenager' FROM model WHERE sex = 'female';	last_row_id 얻기user = Model(name='lowell', age=20)session.add(user)session.flush() # DB connection 일어남id = user.id # auto_encrement로 생성된 idsession.commit() # session.rollback()검색 (LIKE)results = session.query(Model).\	filter(Model.name.like('김%')).all() # 성이 김씨인 사람 찾음    # 응용해보긔 keyword = kwargs.get('keyword', '')search = True if keyword:    search = Model.name.like(f'{keyword}%')    results = session.query(Model).\	filter(search).all() # 검색어가 있으면 검색, 없으면 모두 가져옴referhttps://stackoverflow.com/questions/9667138/how-to-update-sqlalchemy-row-entry]]></content>
+      <content type="text"><![CDATA[TIL 카테고리의 글은 그날 배운 것을 정리하는 목적으로 포스팅합니다. 내용이 잘못되었다면 댓글로 피드백 부탁드립니다.ORM 사용법SELECTsession.query(Model).all() # SELECT * FROM modelsession.query(Model.id, Model.name, Model.age).all() # SELECT id, name, age FROM modelsession.query(Model).first() # SELECT * FROM model LIMIT 1from sqlalchemy import func # count 함수session.query(func.count(Model.id))# SELECT COUNT(id) FROM model# AS session.query(Model.id.label('model_id')).all()# SELECT id AS model_id FROM modelWHEREfilter를 사용한다.session.query(Model).filter(Model.name == 'lowell').all() # SELECT * FROM model WHERE name = 'lowell'session.query(Model).filter(Model.name == 'lowell', Model.age == 20).all() # SELECT * FROM model WHERE name = 'lowell' AND age = 20from sqlalchemy import or_ # OR 연산자session.query(Model).filter(or_(Model.mame == 'lowell', Model.age == 20)).all()# SELECT * FORM model WHERE name = 'lowell' OR age = 20INSERTuser = Model(name='lowell', age=20)session.add(user)session.commit() # session.rollback()# INSERT INTO model(name, age) VALUES ('lowell', 20)# COMMITUPDATE방법 1user = session.query(Model).filter(Model.name == 'lowell').first()user.age += 1session.commit()# select 후 update 함방법 2user = session.query(Model).filter(Model.name == 'lowell').update({'age': User.age + 1});session.commit()# select를 하지 않는 update 방법# UPDATE model SET age = age + 1 WHERE name = 'lowell'DELETEuser = session.query(Model).filter(Model.name == 'lowell').first()session.delete(user)session.commit()ORDER BYsession.query(Model).filter(Model.name == 'lowell').order_by(Model.created_at)# SELECT * FROM model WHERE name = 'lowell' ORDER BY created_atsession.query(Model).filter(Model.name == 'lowell').order_by(Model.created_at.desc(), Model.status) # SELECT * FROM model WHERE name = 'lowell' ORDER BY created_at DESC, statusJOININNER JOINsession.query(Model1, Model2).filter(Model1.id == Model2.id).all() # SELECT * FROM model1 JOIN model2 ON model1.id = model2.idsession.query(Model1).join(Model2, Model1.id == Model2.id).all()# SELECT * FROM model1 JOIN model2 ON model1.id = model2.idOUTER JOINsession.query(Model1). \    outerjoin(Model2, Model1.id == Model2.id).\    all()    # SELECT * FROM model1 LEFT JOIN model2 ON model1.id = model2.id 여러개 조인을 하기 이해선 그냥 이어 붙이면 된다.session.query(Model1.name, Model2.student_id, Model3.account).\	outerjoin(Model2, Model1.id == Model2.id).\	outerjoin(Model3, Model1.id == Model3.id).\	all()	# SELECT model1.name, model2.student_id , model3.account # FROM model1# LEFT JOIN model2 ON model1.id = model2.id# LEFT JOIN model3 ON model1.id = model3.idSELF JOIN  하나의 테이블을 조인하는 것aliased 를 사용하면 된다.model2 = aliased(Model)self.session.query(Model).\    join(model2, model2.id == Model.id).\    all()    # SELECT model.* FROM model JOIN model model2 ON model2.id = model.id;    GROUP BYsession.query(Model).group_by(Model.id).all()# SELECT * FROM model GROUP BY idSUBQUERYfrom sqlalchemy import subquerystmt = query.session(Model2).filter(Model2.grade == 'A').subquery() # SELECT id, grade FROM model2 WHERE grade = 'A'session.query(Model1, stmt.c.id, stmt.c.grade).\	outerjoin(stmt, stmt.c.id = Model1.id)	# SELECT model1.*, model2.id, model2.grade# FROM mode1l LEFT JOIN (SELECT id, grade FROM model2 WHERE grade = 'A') model2 # ON model1.id = model2.id그 외 팁CASE 문from sqlalchemy import case	session.query(	case(        	[            	(Model.age &gt;= 20, 'adult'),                (Model.age &gt;= 10, 'teenager')        	],         	else_='not adult, not teenager'    	)    ).\    filter(Model.sex='female').\    all()# SELECT CASE WHEN age &gt;= 20 THEN 'adult' WHEN age &gt;= 10 THEN 'teenager' ELSE 'not adult, not teenager' FROM model WHERE sex = 'female';	last_row_id 얻기user = Model(name='lowell', age=20)session.add(user)session.flush() # DB connection 일어남id = user.id # auto_encrement로 생성된 idsession.commit()검색 (LIKE)results = session.query(Model).\	filter(Model.name.like('김%')).all() # 성이 김씨인 사람 찾음    # 응용해보긔 keyword = kwargs.get('keyword', '')search = True if keyword:    search = Model.name.like(f'{keyword}%')    results = session.query(Model).\	filter(search).all() # 검색어가 있으면 검색, 없으면 모두 가져옴INsession.query(Model).filter(Model.name.in_(('lowell', 'yejin'))).all() # SELECT * FROM model WHERE name IN ('lowell', 'yejin');NOT INsession.query(Model).filter(~Model.name.in_(('lowell', 'yejin'))).all() # SELECT * FROM model WHERE name NOT IN ('lowell', 'yejin');COMMIT, ROLLBACKsession.commit() # commitsession.rollback() # rollbackDATE 계산하기 (DATE_ADD)today = datetime.datetime.now().strftime('%Y-%m-%d')session.query(Model).filter(today &gt;= func.ADDDATE(Model.created_at, 30)).all()# SELECT * FROM model WHERE NOW() &gt;= DATE_ADD(created_at, INTERVAL 30 DAY);referhttps://stackoverflow.com/questions/9667138/how-to-update-sqlalchemy-row-entry]]></content>
       <categories>
         
           <category> TIL </category>

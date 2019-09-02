@@ -616,7 +616,7 @@
 
 <span class="nb">id</span> <span class="o">=</span> <span class="n">user</span><span class="o">.</span><span class="nb">id</span> <span class="c"># auto_encrement로 생성된 id</span>
 
-<span class="n">session</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span> <span class="c"># session.rollback()</span>
+<span class="n">session</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
 </code></pre></td></tr></tbody></table></div>
 </div>
 
@@ -635,6 +635,35 @@
     
 <span class="n">results</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">Model</span><span class="p">)</span><span class="o">.</span>\
 	<span class="nb">filter</span><span class="p">(</span><span class="n">search</span><span class="p">)</span><span class="o">.</span><span class="nb">all</span><span class="p">()</span> <span class="c"># 검색어가 있으면 검색, 없으면 모두 가져옴</span>
+</code></pre></td></tr></tbody></table></div>
+</div>
+
+<h4 id="in">IN</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2</pre></td><td class="code"><pre class="highlight"><code><span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">Model</span><span class="p">)</span><span class="o">.</span><span class="nb">filter</span><span class="p">(</span><span class="n">Model</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">in_</span><span class="p">((</span><span class="s">'lowell'</span><span class="p">,</span> <span class="s">'yejin'</span><span class="p">)))</span><span class="o">.</span><span class="nb">all</span><span class="p">()</span> 
+<span class="c"># SELECT * FROM model WHERE name IN ('lowell', 'yejin');</span>
+</code></pre></td></tr></tbody></table></div>
+</div>
+
+<h4 id="not-in">NOT IN</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2</pre></td><td class="code"><pre class="highlight"><code><span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">Model</span><span class="p">)</span><span class="o">.</span><span class="nb">filter</span><span class="p">(</span><span class="o">~</span><span class="n">Model</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">in_</span><span class="p">((</span><span class="s">'lowell'</span><span class="p">,</span> <span class="s">'yejin'</span><span class="p">)))</span><span class="o">.</span><span class="nb">all</span><span class="p">()</span> 
+<span class="c"># SELECT * FROM model WHERE name NOT IN ('lowell', 'yejin');</span>
+</code></pre></td></tr></tbody></table></div>
+</div>
+
+<h4 id="commit-rollback">COMMIT, ROLLBACK</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2</pre></td><td class="code"><pre class="highlight"><code><span class="n">session</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span> <span class="c"># commit</span>
+<span class="n">session</span><span class="o">.</span><span class="n">rollback</span><span class="p">()</span> <span class="c"># rollback</span>
+</code></pre></td></tr></tbody></table></div>
+</div>
+
+<h4 id="date-계산하기-date_add">DATE 계산하기 (DATE_ADD)</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3</pre></td><td class="code"><pre class="highlight"><code><span class="n">today</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s">'</span><span class="si">%</span><span class="s">Y-</span><span class="si">%</span><span class="s">m-</span><span class="si">%</span><span class="s">d'</span><span class="p">)</span>
+<span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">Model</span><span class="p">)</span><span class="o">.</span><span class="nb">filter</span><span class="p">(</span><span class="n">today</span> <span class="o">&gt;=</span> <span class="n">func</span><span class="o">.</span><span class="n">ADDDATE</span><span class="p">(</span><span class="n">Model</span><span class="o">.</span><span class="n">created_at</span><span class="p">,</span> <span class="mi">30</span><span class="p">))</span><span class="o">.</span><span class="nb">all</span><span class="p">()</span>
+<span class="c"># SELECT * FROM model WHERE NOW() &gt;= DATE_ADD(created_at, INTERVAL 30 DAY);</span>
 </code></pre></td></tr></tbody></table></div>
 </div>
 
