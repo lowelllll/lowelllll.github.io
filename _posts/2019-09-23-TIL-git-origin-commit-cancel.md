@@ -16,7 +16,7 @@ tags: [git, git revert, git reset, git force push]
 
 예시로 아래 보이는 `comit: C` 커밋을 취소해보자.
 
-![git reset](https://postfiles.pstatic.net/MjAxOTA5MjNfNDMg/MDAxNTY5MjQ3MjAwMzU4.8qF-CdRDKwWw08MqDWyEHpYezFuiYLRmXkrN8UabU1og.dJnXjbDM4BPpYNB1V1AMfO-044j4fqYbLbWab18LIBog.PNG.leeyejin0307/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7_2019-09-23_%EC%98%A4%ED%9B%84_10.12.36.png?type=w966)
+![git reset](https://user-images.githubusercontent.com/32219612/70634564-cb8d2e00-1c75-11ea-9a08-8b04a10eeb79.png)
 
 ```
 git reset --hard HEAD~1
@@ -24,7 +24,7 @@ git reset --hard HEAD~1
 
 위 명령어는 커밋을 되돌리는데, 커밋한 코드도 다 날아가기때문에 조심해야한다.
 
-![git reset2](https://postfiles.pstatic.net/MjAxOTA5MjNfMTI1/MDAxNTY5MjQ3MjAwMzYy.V8r5A6kjrtBan6DN0bvMaoWifQGXIn2JRe_uljvVswog.vWj4zZ_KFowJKamPjgsSwEHkhktzzXNTmBlstx1qqu8g.PNG.leeyejin0307/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7_2019-09-23_%EC%98%A4%ED%9B%84_10.13.19.png?type=w966)
+![git reset2](https://user-images.githubusercontent.com/32219612/70634568-d1830f00-1c75-11ea-8142-bea0d6a13130.png)
 
 로컬 저장소에서 커밋을 취소했기 때문에 원격에도 반영을 시켜주기 위해 push를 해줘야하는데 현재 로컬 저장소의 히스토리가 원격 저장소의 커밋 히스토리보다 뒤쳐져 있기 때문에 push할 경우 에러가 발생한다. 그렇기 때문에 이러한 상황에서는 `force push`를 해줘야한다.
 
@@ -67,7 +67,7 @@ git revert 1347972
 
 위 명령어를 사용하면 `1347972` commit을 되돌리는 커밋이 찍힌다. 
 
-![git revert](https://postfiles.pstatic.net/MjAxOTA5MjNfMjMz/MDAxNTY5MjQ3MDg4NTc0._7jUEOdirIlEw3IdM-dvfHbIUQ_tG8NG1sm2sijhRQUg.L-ZRGBAO0LCenmCZNiaResVOv6Bwwi0PY5mTQOytfPgg.PNG.leeyejin0307/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7_2019-09-23_%EC%98%A4%ED%9B%84_10.27.39.png?type=w966)
+![git revert](https://user-images.githubusercontent.com/32219612/70634588-d8118680-1c75-11ea-891f-a911de73c947.png)
 
 `--no-commit` 옵션을 사용하면 자동으로 revert 커밋이 생성되는게 아닌 working tree와 index에만 변경사항이 적용된다. 이걸 사용해 여러개의 커밋을 하나의 커밋으로 revert 할 수 있다.
 
@@ -85,7 +85,7 @@ git push origin master
 
 > 나름 정리한거다 
 
-![git reset, revert](https://postfiles.pstatic.net/MjAxOTA5MjNfMTUy/MDAxNTY5MjQ3MDQyNzQy.OasmGCoSRRAc0XAePbjIqmvqTLK1MQtMI0vtmMG6aaQg.JXh0-vM8lBx7oy5wjxmXSlNKkonSK0h-lQD1drQ3Y-Ug.JPEG.leeyejin0307/IMG_6232.jpg?type=w966)
+![git reset, revert](https://user-images.githubusercontent.com/32219612/70634551-c3cd8980-1c75-11ea-870d-90404be029c4.jpg)
 
 
 
