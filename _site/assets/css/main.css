@@ -240,7 +240,7 @@ pre, code { font-family: consolas, Menlo, "PingFang SC", "Microsoft YaHei", mono
 
 code { padding: 2px 4px; word-wrap: break-word; color: #8d69ce; background: #3921ff17; border-radius: 3px; font-size: 15px; }
 
-pre code { padding: 0; color: #4d4d4c; background: none; text-shadow: none; font-size: 13px; }
+pre code { padding: 0; color: #4d4d4c; background: none; text-shadow: none; font-size: 14px; }
 
 .highlight { border-radius: 1px; }
 .highlight pre { border: none; margin: 0; padding: 10px 0; }
@@ -430,7 +430,7 @@ pre .k, pre .kd, pre .kn, pre .kp, pre .kr, pre .kt, pre .javascript .function {
 .posts-expand .post-body h2 .header-anchor:hover, .posts-expand .post-body h3 .header-anchor:hover, .posts-expand .post-body h4 .header-anchor:hover, .posts-expand .post-body h5 .header-anchor:hover, .posts-expand .post-body h6 .header-anchor:hover { color: inherit; }
 .posts-expand .post-body h2:hover .header-anchor, .posts-expand .post-body h3:hover .header-anchor, .posts-expand .post-body h4:hover .header-anchor, .posts-expand .post-body h5:hover .header-anchor, .posts-expand .post-body h6:hover .header-anchor { visibility: visible; }
 .posts-expand .post-body ul li { list-style: circle; }
-.posts-expand .post-body img { box-sizing: border-box; margin: auto; padding: 3px; border: 1px solid #ddd; }
+.posts-expand .post-body img { box-sizing: border-box; margin: auto; padding: 3px; border-radius: 5px; }
 
 .posts-expand .fancybox img { margin: 0 auto; }
 
@@ -562,7 +562,7 @@ pre .k, pre .kd, pre .kn, pre .kp, pre .kr, pre .kt, pre .javascript .function {
 .links-of-author { margin-top: 20px; }
 
 .links-of-author a { display: inline-block; vertical-align: middle; margin-right: 10px; margin-bottom: 10px; border-bottom-color: #555; font-size: 13px; }
-.links-of-author a:before { display: inline-block; vertical-align: middle; margin-right: 3px; content: " "; width: 4px; height: 4px; border-radius: 50%; background: #00821c; }
+.links-of-author a:before { display: inline-block; vertical-align: middle; margin-right: 3px; content: " "; width: 4px; height: 4px; border-radius: 50%; background: #63ff2b; }
 
 .links-of-blogroll { font-size: 13px; }
 

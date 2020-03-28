@@ -1,4 +1,161 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.5.2">Jekyll</generator><link href="http://localhost:4000/atom.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-09-02T14:30:25+09:00</updated><id>http://localhost:4000/</id><title type="html">Lowell’s Blog</title><subtitle>lowell의 기술 블로그 </subtitle><author><name>Lowell</name></author><entry><title type="html">파이썬 사용해서 엑셀 파일 만들기</title><link href="http://localhost:4000/til/2019/08/29/TIL-make-excel-with-python/" rel="alternate" type="text/html" title="파이썬 사용해서 엑셀 파일 만들기" /><published>2019-08-29T00:00:00+09:00</published><updated>2019-08-29T00:00:00+09:00</updated><id>http://localhost:4000/til/2019/08/29/TIL-make-excel-with-python</id><content type="html" xml:base="http://localhost:4000/til/2019/08/29/TIL-make-excel-with-python/">&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;TIL 카테고리의 글은 그날 배운 것을 정리하는 목적으로 포스팅합니다. 내용이 잘못되었다면 댓글로 피드백 부탁드립니다.&lt;/code&gt;&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.5.2">Jekyll</generator><link href="http://localhost:4000/atom.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-03-28T16:45:56+09:00</updated><id>http://localhost:4000/</id><title type="html">Lowell’s Blog</title><subtitle>lowell의 기술 블로그 </subtitle><author><name>Lowell</name></author><entry><title type="html">intellij에서 python interpreter 셋팅하기</title><link href="http://localhost:4000/python/2020/03/21/setting-python-interpreter-in-intellij/" rel="alternate" type="text/html" title="intellij에서 python interpreter 셋팅하기" /><published>2020-03-21T00:00:00+09:00</published><updated>2020-03-21T00:00:00+09:00</updated><id>http://localhost:4000/python/2020/03/21/setting-python-interpreter-in-intellij</id><content type="html" xml:base="http://localhost:4000/python/2020/03/21/setting-python-interpreter-in-intellij/">&lt;p&gt;인텔리제이 울티메이트(유료버전)에서 파이썬 프로젝트를 구동하기 위한 인터프리터 셋팅 방법.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/32219612/77221355-702fdd80-6b8c-11ea-8159-d7a7dde445e7.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;preferences -&amp;gt; plugins에서 python을 검색 후 install 후 intellij를 재시작한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/32219612/77221357-72923780-6b8c-11ea-9583-7684b38da7e2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;file -&amp;gt; product structure&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/32219612/77221358-73c36480-6b8c-11ea-9621-cd120fc27c58.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;platform settings -&amp;gt; SDKs 에서 + 클릭 후  Python SDK 클릭&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/32219612/77221359-745bfb00-6b8c-11ea-94f8-5d53a752b19f.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;그럼 이렇게 interpreter를 추가할 수 있다. virtualenv가 이미 있다면 &lt;code class=&quot;highlighter-rouge&quot;&gt;Existing environment&lt;/code&gt; 체크 후 만들어 놓은 virtualenv를 선택하면 되고,&lt;/p&gt;
+
+&lt;p&gt;만약 새로운 virtualenv를 생성해야한다면 &lt;code class=&quot;highlighter-rouge&quot;&gt;Location&lt;/code&gt;에서 virtualenv 파일이 생길 경로를 지정해주고 &lt;code class=&quot;highlighter-rouge&quot;&gt;Base interpreter&lt;/code&gt;에서 python 버전을 선택해준다.&lt;/p&gt;
+
+&lt;p&gt;virtualenv 설정이 끝나면 &lt;code class=&quot;highlighter-rouge&quot;&gt;OK&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/32219612/77221361-74f49180-6b8c-11ea-92cd-c6f64d8ba6b1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;그럼 SDKs에 interpreter가 추가되어있을 것이다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/32219612/77221364-758d2800-6b8c-11ea-8b49-c22e5648562e.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;SDKs에 위에 &lt;code class=&quot;highlighter-rouge&quot;&gt;packages&lt;/code&gt; 탭을 누르고 +를 눌러 패키지를 설치할 수 있다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/32219612/77221366-7625be80-6b8c-11ea-8232-f9eefbdc863e.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;검색창에 설치할 패키지를 검색 후 &lt;code class=&quot;highlighter-rouge&quot;&gt;Install package&lt;/code&gt;를 눌러 패키지를 설치한다.&lt;/p&gt;
+
+&lt;p&gt;만약 프로젝트에 requirements.txt가 있으면 terminal에서 &lt;code class=&quot;highlighter-rouge&quot;&gt;pip install -r requirements.txt&lt;/code&gt; 로 패키지를 설치한다. (새로 virtualenv를 만든 경우엔 requirement로 설치하는 방법을 못찾았다ㅠ 아시는 분 댓글 부탁드립니다)&lt;/p&gt;
+
+&lt;p&gt;그 후에 다시 패키지 목록이 보이는 곳에서 &lt;code class=&quot;highlighter-rouge&quot;&gt;apply&lt;/code&gt; 후 &lt;code class=&quot;highlighter-rouge&quot;&gt;OK&lt;/code&gt; 를 눌러주면 virtualenv 설정과 interpreter 추가 끝.&lt;/p&gt;
+
+&lt;p&gt;이제 모듈이랑 프로젝트에 interpreter를 등록해주면 된다.&lt;/p&gt;</content><author><name>Lowell</name></author><category term="intellij python project" /><category term="how to setting lntellij python interpreter" /><summary type="html">인텔리제이 울티메이트(유료버전)에서 파이썬 프로젝트를 구동하기 위한 인터프리터 셋팅 방법.</summary></entry><entry><title type="html">Expecting property name enclosed in double quotes 해결</title><link href="http://localhost:4000/python/2020/02/04/python-json-load-error-solution/" rel="alternate" type="text/html" title="Expecting property name enclosed in double quotes 해결" /><published>2020-02-04T00:00:00+09:00</published><updated>2020-02-04T00:00:00+09:00</updated><id>http://localhost:4000/python/2020/02/04/python-json-load-error-solution</id><content type="html" xml:base="http://localhost:4000/python/2020/02/04/python-json-load-error-solution/">&lt;p&gt;python에서 json으로 load시에 아래와 같은 에러가 발생하는 경우가 있다.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;JSONDecodeError: Expecting property name enclosed in double quotes
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;json 데이터는 &lt;strong&gt;더블 쿼터(double quotes)&lt;/strong&gt;만 사용할 수 있기 때문에 아래와 같이 프로퍼티를 감싼 게 싱글 쿼터(single quote)일 시 에러가 난다.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;json&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;json_data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;{'key': 'value', 'key2': 'value2'}&quot;&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# ERROR&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;//&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;json_data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'{&quot;key&quot;: &quot;value&quot;, &quot;key2&quot;: &quot;value2&quot;}'&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# OK &lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;json&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;loads&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;json_data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;data를 직접 만드는 경우라면 더블 쿼터로 바꿔주면 그만이지만 request, response 받은 데이터는 변경도 못한다.&lt;/p&gt;
+
+&lt;p&gt;그럴땐 아래와 같이 해결할 수 있다.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;ast&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ast&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;literal_eval&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;ast.literal_eval()&lt;/code&gt;을 사용하면 위 에러를 해결하고 json -&amp;gt; dict 타입으로 변환할 수 있다.&lt;/p&gt;
+
+&lt;h2 id=&quot;refer&quot;&gt;refer&lt;/h2&gt;
+
+&lt;p&gt;https://stackoverflow.com/questions/25707558/json-valueerror-expecting-property-name-line-1-column-2-char-1&lt;/p&gt;</content><author><name>Lowell</name></author><category term="Expecting property name enclosed in double quotes" /><summary type="html">python에서 json으로 load시에 아래와 같은 에러가 발생하는 경우가 있다.</summary></entry><entry><title type="html">git reset과 revert</title><link href="http://localhost:4000/til/2019/09/23/TIL-git-origin-commit-cancel/" rel="alternate" type="text/html" title="git reset과 revert" /><published>2019-09-23T00:00:00+09:00</published><updated>2019-09-23T00:00:00+09:00</updated><id>http://localhost:4000/til/2019/09/23/TIL-git-origin-commit-cancel</id><content type="html" xml:base="http://localhost:4000/til/2019/09/23/TIL-git-origin-commit-cancel/">&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;TIL 카테고리의 글은 그날 배운 것을 정리하는 목적으로 포스팅합니다. 내용이 잘못되었다면 댓글로 피드백 부탁드립니다.&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;원격 저장소에 올라간 커밋을 되돌리는 방법은 2가지가 있다.&lt;/p&gt;
+
+&lt;h2 id=&quot;로컬에서-커밋을-되돌린-후-강제로-force-push-하는-방법&quot;&gt;로컬에서 커밋을 되돌린 후 강제로 force push 하는 방법&lt;/h2&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;git reset&lt;/code&gt; 명령어를 사용해서 커밋을 되돌린다.&lt;/p&gt;
+
+&lt;p&gt;예시로 아래 보이는 &lt;code class=&quot;highlighter-rouge&quot;&gt;comit: C&lt;/code&gt; 커밋을 취소해보자.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/32219612/70634564-cb8d2e00-1c75-11ea-9a08-8b04a10eeb79.png&quot; alt=&quot;git reset&quot; /&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git reset --hard HEAD~1
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;위 명령어는 커밋을 되돌리는데, 커밋한 코드도 다 날아가기때문에 조심해야한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/32219612/70634568-d1830f00-1c75-11ea-8142-bea0d6a13130.png&quot; alt=&quot;git reset2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;로컬 저장소에서 커밋을 취소했기 때문에 원격에도 반영을 시켜주기 위해 push를 해줘야하는데 현재 로컬 저장소의 히스토리가 원격 저장소의 커밋 히스토리보다 뒤쳐져 있기 때문에 push할 경우 에러가 발생한다. 그렇기 때문에 이러한 상황에서는 &lt;code class=&quot;highlighter-rouge&quot;&gt;force push&lt;/code&gt;를 해줘야한다.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git push -f origin &amp;lt;branch-name&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;주의 사항&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;이 방법은 내 로컬 저장소의 히스토리를 원격 저장소 히스토리로 강제 덮어쓰기 하는 것이므로 원격 저장소에 &lt;strong&gt;흔적도 없이&lt;/strong&gt; 내가 만들었던 커밋을 제거한다.&lt;/li&gt;
+  &lt;li&gt;만약 해당 브랜치가 혼자 사용하는 브랜치가 아닌 팀원들과 공유하는 브랜치이고 커밋을 되돌리기 전, 원격에 올라간 내 커밋을 다른 팀원이 pull 땡겼을 경우 원격 저장소에서 커밋을 되돌려도 다른 팀원의 로컬 저장소에는 커밋이 남아있게 된다. (이 상황에서 내가 원격 저장소에 force push 한 것을 팀원이 pull을 해도 &lt;code class=&quot;highlighter-rouge&quot;&gt;origin/master&lt;/code&gt;의 커밋으로 돌아가지 않는다. &lt;code class=&quot;highlighter-rouge&quot;&gt;origin/master&lt;/code&gt;보다 새로운 커밋을 가지고 있는 것으로 인식하기 때문)&lt;/li&gt;
+  &lt;li&gt;커밋을 되돌려진 것을 모르고 팀원은 자신이 작업한 커밋과 되돌린 커밋을 push하게 되면 되돌렸던 커밋들이 다시 원격 저장소에 추가됨. 🤦‍♀&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;따라서 &lt;code class=&quot;highlighter-rouge&quot;&gt;reset + force push&lt;/code&gt; 방법은&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;나혼자만 사용하는 브랜치에 커밋을 push 했고, 이를 되돌리고 싶은 경우&lt;/li&gt;
+  &lt;li&gt;팀원들과 커뮤니케이션을 통해 내가 되돌린 커밋을 pull로 땡겨간 팀원이 없다고 확인된 경우&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;에만 사용해야한다. (왠만하면 공용 브랜치에는 사용하지 않는다)&lt;/p&gt;
+
+&lt;h2 id=&quot;revert를-통해-커밋-되돌리는-방법&quot;&gt;Revert를 통해 커밋 되돌리는 방법&lt;/h2&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;git revert&lt;/code&gt; 명령어는 revert 커밋을 히스토리에 쌓는 방식이다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;reset&lt;/code&gt;과의 차이점은 reset은 커밋을 되돌리면서 &lt;strong&gt;해당 커밋 이력은 사라진다&lt;/strong&gt;, revert는 커밋을 되돌리는 커밋을 찍어&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;커밋과 커밋을 되돌린 이력이 모두 남는다.&lt;/strong&gt; 특정 커밋을 되돌리는 작업도 하나의 커밋으로 간주하는 것이다.&lt;/p&gt;
+
+&lt;p&gt;reset을 사용하면 커밋을 되돌려서 push 했기 때문에 원격-로컬간의 히스토리가 맞지 않아 에러가 나고 팀원들의 커밋과 꼬일 가능성이 큰데 이건 되돌리는 커밋을 하나 더 생성하기 때문에 에러도 나지 않고 커밋이 꼬일 확률이 적다.&lt;/p&gt;
+
+&lt;p&gt;revert를 할 때에는 커밋을 한 순서 거꾸로 revert를 해야한다. (가장 나중에 한 커밋을 제일 먼저 revert 해야함)&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# git revert &amp;lt;commit hash&amp;gt;
+# 여러개의 커밋을 한꺼번에 revert할 경우 : git revert HEAD~3
+git revert 1347972
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;위 명령어를 사용하면 &lt;code class=&quot;highlighter-rouge&quot;&gt;1347972&lt;/code&gt; commit을 되돌리는 커밋이 찍힌다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/32219612/70634588-d8118680-1c75-11ea-891f-a911de73c947.png&quot; alt=&quot;git revert&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;--no-commit&lt;/code&gt; 옵션을 사용하면 자동으로 revert 커밋이 생성되는게 아닌 working tree와 index에만 변경사항이 적용된다. 이걸 사용해 여러개의 커밋을 하나의 커밋으로 revert 할 수 있다.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git revert --no-commit HEAD~3 # revert 커밋이 자동으로 생성되지 않음.
+git commit -m &quot;Revert Commit C, B, A
+git push origin master
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;나는 실제로 팀원들과 협업하여 개발할 때에는 안전한 Revert를 이용한 되돌리기를 사용한다.&lt;/p&gt;
+
+&lt;h3 id=&quot;정리&quot;&gt;정리&lt;/h3&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;나름 정리한거다&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/32219612/70634551-c3cd8980-1c75-11ea-870d-90404be029c4.jpg&quot; alt=&quot;git reset, revert&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;refer&quot;&gt;refer&lt;/h3&gt;
+
+&lt;p&gt;https://behonestar.tistory.com/200&lt;/p&gt;
+
+&lt;p&gt;https://jupiny.com/2019/03/19/revert-commits-in-remote-repository/&lt;/p&gt;</content><author><name>Lowell</name></author><category term="git" /><category term="git revert" /><category term="git reset" /><category term="git force push" /><summary type="html">TIL 카테고리의 글은 그날 배운 것을 정리하는 목적으로 포스팅합니다. 내용이 잘못되었다면 댓글로 피드백 부탁드립니다.</summary></entry><entry><title type="html">파이썬 사용해서 엑셀 파일 만들기</title><link href="http://localhost:4000/python/2019/09/04/the-meaning-of-underscores-in-python/" rel="alternate" type="text/html" title="파이썬 사용해서 엑셀 파일 만들기" /><published>2019-09-04T00:00:00+09:00</published><updated>2019-09-04T00:00:00+09:00</updated><id>http://localhost:4000/python/2019/09/04/the-meaning-of-underscores-in-python</id><content type="html" xml:base="http://localhost:4000/python/2019/09/04/the-meaning-of-underscores-in-python/">&lt;p&gt;이 글은 &lt;a href=&quot;https://dbader.org/blog/meaning-of-underscores-in-python&quot;&gt;The Meaning of Underscores in Python&lt;/a&gt; 번역한 글입니다. 오역 발견시 댓글 남겨주시면 정정하겠습니다. 🙇‍♀️&lt;/p&gt;
+
+&lt;p&gt;파이썬의 단일 밑줄(_)과 이중 밑줄(__)에 대한 다양한 의미와 네이밍 컨벤션을 알아보고 이것이 파이썬 클래스에서 어떻게 동작하고 어떤 영향을 주는지 알아봅시다.&lt;/p&gt;
+
+&lt;p&gt;단일 또는 이중 밑줄 이름의 파이썬 변수와 메소드에는 의미가 있습니다.&lt;/p&gt;</content><author><name>Lowell</name></author><summary type="html">이 글은 The Meaning of Underscores in Python 번역한 글입니다. 오역 발견시 댓글 남겨주시면 정정하겠습니다. 🙇‍♀️</summary></entry><entry><title type="html">파이썬 사용해서 엑셀 파일 만들기</title><link href="http://localhost:4000/til/2019/08/29/TIL-make-excel-with-python/" rel="alternate" type="text/html" title="파이썬 사용해서 엑셀 파일 만들기" /><published>2019-08-29T00:00:00+09:00</published><updated>2019-08-29T00:00:00+09:00</updated><id>http://localhost:4000/til/2019/08/29/TIL-make-excel-with-python</id><content type="html" xml:base="http://localhost:4000/til/2019/08/29/TIL-make-excel-with-python/">&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;TIL 카테고리의 글은 그날 배운 것을 정리하는 목적으로 포스팅합니다. 내용이 잘못되었다면 댓글로 피드백 부탁드립니다.&lt;/code&gt;&lt;/p&gt;
 
 &lt;p&gt;엑셀 파일을 만들 수 있는 파이썬 라이브러리는 대표적으로  &lt;code class=&quot;highlighter-rouge&quot;&gt;openpyxl&lt;/code&gt; 과 &lt;code class=&quot;highlighter-rouge&quot;&gt;xlsxwriter&lt;/code&gt; 가 있는데 저는 &lt;code class=&quot;highlighter-rouge&quot;&gt;wlsxwriter&lt;/code&gt; 를 사용했다. (보통 &lt;code class=&quot;highlighter-rouge&quot;&gt;openpyxl&lt;/code&gt;을 더 쓰는 것 같은데 나는&lt;code class=&quot;highlighter-rouge&quot;&gt; wlsxwriter&lt;/code&gt; 예제를 처음 접해서 사용했다. )&lt;/p&gt;
 
@@ -177,36 +334,7 @@
 
 &lt;h3 id=&quot;refer&quot;&gt;Refer&lt;/h3&gt;
 
-&lt;p&gt;&lt;a href=&quot;http://blog.ab180.co/data-science-with-r-6-rtb/&quot;&gt;http://blog.ab180.co/data-science-with-r-6-rtb/&lt;/a&gt;&lt;/p&gt;</content><author><name>Lowell</name></author><category term="ad system" /><category term="RTB" /><summary type="html">TIL 카테고리의 글은 그날 배운 것을 정리하는 목적으로 포스팅합니다. 내용이 잘못되었다면 댓글로 피드백 부탁드립니다.</summary></entry><entry><title type="html">testing 종류</title><link href="http://localhost:4000/til/2019/08/16/TIL-python-test/" rel="alternate" type="text/html" title="testing 종류" /><published>2019-08-16T00:00:00+09:00</published><updated>2019-08-16T00:00:00+09:00</updated><id>http://localhost:4000/til/2019/08/16/TIL-python-test</id><content type="html" xml:base="http://localhost:4000/til/2019/08/16/TIL-python-test/">&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;TIL 카테고리의 글은 그날 배운 것을 정리하는 목적으로 포스팅합니다. 내용이 잘못되었다면 댓글로 피드백 부탁드립니다.&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;프로그램을 개발하면서 아무생각 없이 해왔던 테스팅들의 특징을 알게되었고 정리해보았다.&lt;/p&gt;
-
-&lt;h2 id=&quot;소프트웨어-테스팅-종류&quot;&gt;소프트웨어 테스팅 종류&lt;/h2&gt;
-
-&lt;h3 id=&quot;ui-test--end-to-end-test&quot;&gt;UI Test / end-to-end Test&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;시스템의 UI를 통해 테스트하는 것&lt;/li&gt;
-  &lt;li&gt;사용자가 실제로 시스템을 사용하는 방식과 가장 동일하게 테스트함.&lt;/li&gt;
-  &lt;li&gt;시간이 오래걸리고 프론트앤드-백앤드 모든 시스템을 실행하고 연결해야함.&lt;/li&gt;
-  &lt;li&gt;직접 해보고 느낀 점
-    &lt;ul&gt;
-      &lt;li&gt;위에 나와있듯이 프론트-백앤드를 연결해서 직접 클릭해가며 테스트를 하니까 시간도 오래걸리고 귀찮다. 데이터 셋팅하는 것도 정말 귀찮고.. 하지만 이게 제일 정확(?)한 방법이라고 생각하기 때문에 코드를 수정하고 나서 최소한 마지막에 한번이라도 UI 테스트를 하는 것 같다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;intergration-test&quot;&gt;Intergration Test&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;API 서버를 실행시키고 HTTP request를 실행해 Response가 올바른지 파악해 테스트하는 것&lt;/li&gt;
-  &lt;li&gt;Unit Test에 비해 자동화에 걸리는 공수가 크고 실행 속도도 더 느림.&lt;/li&gt;
-  &lt;li&gt;직접 해보고 느낀 점
-    &lt;ul&gt;
-      &lt;li&gt;postman으로 하는 테스트가 이 테스트에 해당하는 것 같은데 보통 이 방법을 주로 사용하는 것 같다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Lowell</name></author><category term="testng" /><category term="test" /><summary type="html">TIL 카테고리의 글은 그날 배운 것을 정리하는 목적으로 포스팅합니다. 내용이 잘못되었다면 댓글로 피드백 부탁드립니다.</summary></entry><entry><title type="html">git remote url 변경하기</title><link href="http://localhost:4000/til/2019/07/29/change-git-remote-url/" rel="alternate" type="text/html" title="git remote url 변경하기" /><published>2019-07-29T00:00:00+09:00</published><updated>2019-07-29T00:00:00+09:00</updated><id>http://localhost:4000/til/2019/07/29/change-git-remote-url</id><content type="html" xml:base="http://localhost:4000/til/2019/07/29/change-git-remote-url/">&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;TIL 카테고리의 글은 그날 배운 것을 정리하는 목적으로 포스팅합니다. 내용이 잘못되었다면 댓글로 피드백 부탁드립니다.&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://blog.ab180.co/data-science-with-r-6-rtb/&quot;&gt;http://blog.ab180.co/data-science-with-r-6-rtb/&lt;/a&gt;&lt;/p&gt;</content><author><name>Lowell</name></author><category term="ad system" /><category term="RTB" /><summary type="html">TIL 카테고리의 글은 그날 배운 것을 정리하는 목적으로 포스팅합니다. 내용이 잘못되었다면 댓글로 피드백 부탁드립니다.</summary></entry><entry><title type="html">git remote url 변경하기</title><link href="http://localhost:4000/til/2019/07/29/change-git-remote-url/" rel="alternate" type="text/html" title="git remote url 변경하기" /><published>2019-07-29T00:00:00+09:00</published><updated>2019-07-29T00:00:00+09:00</updated><id>http://localhost:4000/til/2019/07/29/change-git-remote-url</id><content type="html" xml:base="http://localhost:4000/til/2019/07/29/change-git-remote-url/">&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;TIL 카테고리의 글은 그날 배운 것을 정리하는 목적으로 포스팅합니다. 내용이 잘못되었다면 댓글로 피드백 부탁드립니다.&lt;/code&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;상황&quot;&gt;상황&lt;/h3&gt;
 
@@ -348,195 +476,4 @@ Allow : /$
 &amp;gt;&amp;gt;&amp;gt; type(text)
 &amp;gt;&amp;gt;&amp;gt; &amp;lt;class 'str'&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;</content><author><name>Lowell</name></author><category term="python byte to string" /><category term="파이썬 바이트 문자열" /><summary type="html">파이썬 Bytes 타입을 str 타입으로 바꾸는 방법</summary></entry><entry><title type="html">가비지 컬렉터</title><link href="http://localhost:4000/til/2019/06/06/TIL-garbage-collector/" rel="alternate" type="text/html" title="가비지 컬렉터" /><published>2019-06-06T00:00:00+09:00</published><updated>2019-06-06T00:00:00+09:00</updated><id>http://localhost:4000/til/2019/06/06/TIL-garbage-collector</id><content type="html" xml:base="http://localhost:4000/til/2019/06/06/TIL-garbage-collector/">&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;TIL 카테고리의 글은 그날 배운 것을 정리하는 목적으로 포스팅합니다. 내용이 잘못되었다면 댓글로 피드백 부탁드립니다.&lt;/code&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;가비지-컬렉터&quot;&gt;가비지 컬렉터&lt;/h2&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt; &lt;a href=&quot;https://ko.wikipedia.org/wiki/%EB%A9%94%EB%AA%A8%EB%A6%AC_%EA%B4%80%EB%A6%AC&quot;&gt;메모리 관리&lt;/a&gt; 기법 중의 하나로, 프로그램이 동적으로 할당했던 메모리 영역 중에서 필요없게 된 영역을 해제하는 기능&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;C와 같은 언어들은 프로그램을 짤 때 메모리를 직접 관리해주어야 함. 변수나 함수를 사용할 때 더이상 사용하지 않는 변수나 함수의 메모리를 직접 해제해주는 등..&lt;/p&gt;
-
-&lt;p&gt;만약 메모리를 비우지 않고 남긴 채로 계속 사용하다 보면 메모리 누수(memory leak)이 발생하게되고, 메모리가 꽉차게 되면 컴퓨터는터짐.&lt;/p&gt;
-
-&lt;p&gt;이렇게 직접 메모리를 관리하지 않고 &lt;code class=&quot;highlighter-rouge&quot;&gt;가비지 컬렉터&lt;/code&gt;가 메모리를 직접 관리해주는 언어들이 생김.  이렇게 메모리를 직접 관리해주는 언어를 &lt;strong&gt;managed language&lt;/strong&gt; 라고하고 그렇지 않은 언어를&lt;strong&gt;unmanaged language&lt;/strong&gt;라고함.&lt;/p&gt;
-
-&lt;p&gt;가비지컬렉터는 특정 때에 필요없는 정보(garbage)를 버림.&lt;/p&gt;
-
-&lt;h3 id=&quot;가비지-컬렉터-동작-방식&quot;&gt;가비지 컬렉터 동작 방식&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;mark-and-sweep&lt;/strong&gt;
-    &lt;ul&gt;
-      &lt;li&gt;메모리를 훑으면서 필요한 것들을 마크 후 마크되지 않은 것들을 버린다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;reference counting&lt;/strong&gt;
-    &lt;ul&gt;
-      &lt;li&gt;한 요소가 다른 요소에게 몇번 참조되는 지 센 후 참조 번수가 0인 요소를 삭제하는 것.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;메모리-누수를-방지하는-법&quot;&gt;메모리 누수를 방지하는 법&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;순환 참조를 하지 말자.&lt;/p&gt;
-
-    &lt;ul&gt;
-      &lt;li&gt;
-        &lt;p&gt;변수끼리 서로 참조하는 것. 이렇게 되면 둘 다 참조 카운트가 0이 되지 않으므로 누수가 생김.&lt;/p&gt;
-
-        &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;
-    
-&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'b'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'a'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; 
-    
-&lt;span class=&quot;c&quot;&gt;# NO! &lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-        &lt;/div&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;refer&quot;&gt;refer&lt;/h3&gt;
-
-&lt;p&gt;[얄팍한 코딩사전](&lt;a href=&quot;https://www.youtube.com/watch?v=24f2-eJAeII&quot;&gt;https://www.youtube.com/watch?v=24f2-eJAeII&lt;/a&gt; )&lt;/p&gt;</content><author><name>Lowell</name></author><category term="가비지 컬렉터" /><category term="garbage collector" /><summary type="html">TIL 카테고리의 글은 그날 배운 것을 정리하는 목적으로 포스팅합니다. 내용이 잘못되었다면 댓글로 피드백 부탁드립니다.</summary></entry><entry><title type="html">DB - 인덱스</title><link href="http://localhost:4000/til/2019/05/18/TIL-DB-index/" rel="alternate" type="text/html" title="DB - 인덱스" /><published>2019-05-18T00:00:00+09:00</published><updated>2019-05-18T00:00:00+09:00</updated><id>http://localhost:4000/til/2019/05/18/TIL-DB-index</id><content type="html" xml:base="http://localhost:4000/til/2019/05/18/TIL-DB-index/">&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;TIL 카테고리의 글은 그날 배운 것을 정리하는 목적으로 포스팅합니다. 내용이 잘못되었다면 댓글로 피드백 부탁드립니다.&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;대용량 데이터에서 사용자 ID 1,234,567번의 데이터를 어떻게 빠르게 얻을 수 있을까?&lt;/p&gt;
-
-&lt;h2 id=&quot;인덱스란&quot;&gt;인덱스란&lt;/h2&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;대용량 데이터에서 쉽게 원하는 데이터를 찾기위한 방법&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h3 id=&quot;원하는-위치까지-빠르게-도달하는-방법&quot;&gt;원하는 위치까지 빠르게 도달하는 방법&lt;/h3&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;사용자 정보를 고정 길이로 관리함&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;사용자 정보가 무조건 100바이트로 관리된다고 하면 사용자 ID * 100바이트 가 해당 사용자의 정보가 들어가있는 시작 위치가 됨. 1,234,567 사용자를 찾기 위해서도 1,234,567 * 100 을 하면 원하는 데이터를 빠르게 얻을 수 있음.&lt;/p&gt;
-
-&lt;p&gt;단 무조건 100바이트 값이기 때문에 100바이트 이상이 되는 데이터를 저장하지 못함. 그렇다고 넉넉하게 10000바이트로 한다고 하면 낭비가 너무 심함.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;따라서 고정 길이 파일로 관리하는 방식은 좋지않음.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;인덱스 구조 도입&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;고정 길이 방식이 아닌 가변 길이 방식으로 데이터를 관리함. 예를 들어 책의 색인처럼 키워드와 기재된페이지로 구성되어있도록.&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;소프트웨어 139쪽&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;이것을 응용하여 사용자 정보 데이터가 저장되는 곳가 별도로 사용자 ID(키워드)와 사용자 정보가 저장된 위치를 저장하는 파일을 만들어 사용자 정보를 빠르게 얻을 수 있음.  사용자 ID와 저장된 위치(주소)는 숫자로 관리하면 고정 길이로 취급할 수 있기 때문에 빠름.&lt;/p&gt;
-
-&lt;p&gt;이렇게 인덱스 구조를 도입하면 사용자 정보 데이터가 저장될 때 인덱스에도 새로운 데이터의 위치를 업데이트 해야하기 때문에 SELECT(검색)의 속도는 빨라지나 그 외 INSERT, UPDATE, DELETE 작업은 느려짐.&lt;/p&gt;
-
-&lt;h3 id=&quot;해시-인덱스&quot;&gt;해시 인덱스&lt;/h3&gt;
-
-&lt;p&gt;데이터의 키 값은 숫자가 아닌 문자열, 날짜가 될 수 도 있으므로 앞서 말했듯이 고정 길이로 취급하는게 어려울 때가 있음. 그래서 실제로는 키 값을 해시 함수에 대입해서 해시 값으로 저장하는 구조가 많이 사용됨. 해시는 문자열 길이에 상관 없이 동일한 크기이기때문에 고정 길이 포맷으로 대응할 수 있음. 해시 계산 비용도 O(1) 이므로 엄청 빠름!&lt;/p&gt;
-
-&lt;p&gt;하지만 해시 인덱스는 범위 검색에서는 뛰어나지 못함. &lt;code class=&quot;highlighter-rouge&quot;&gt;id =  1&lt;/code&gt;인 데이터를 가져오는 것은 빠를 지 몰라도 &lt;code class=&quot;highlighter-rouge&quot;&gt;created_at &amp;gt; 2019-01-02&lt;/code&gt;와 같은 범위 검색에선 사용할 수 없음.  &lt;/p&gt;
-
-&lt;p&gt;아래 목적에서는 사용 불가능&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;price &amp;lt; 10000&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;title LIKE 'FIMAL%'&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;ORDER BY created_at DESC&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;**해시 인덱스는 많은 검색 작업에서 단지 일부 용도에서만 빠르게 처리할 수 있음. **&lt;/p&gt;
-
-&lt;h3 id=&quot;btree-인덱스&quot;&gt;B+Tree 인덱스&lt;/h3&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://blog.ordinarysimple.com/img/programming/btree.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;나무 구조로 되어있는 인덱스. 정상에 있는 블록이 &lt;code class=&quot;highlighter-rouge&quot;&gt;ROOT 블록&lt;/code&gt; , 최하층이 &lt;code class=&quot;highlighter-rouge&quot;&gt;Leaf 블록&lt;/code&gt;, 중간에 있는 &lt;code class=&quot;highlighter-rouge&quot;&gt;Branch&lt;/code&gt; 블록.&lt;/p&gt;
-
-&lt;p&gt;루트 블록과 브랜치 블록은 검색의 키인 사용자 ID에 대해 해당 블록이 어디에 있는지 정보를 가지고 있음. 최하층의 리프 블록에는 실제 데이터의 저장 위치의 정보를 가지고 있음.&lt;/p&gt;
-
-&lt;p&gt;인덱스 검색 시 루트 -&amp;gt; 브랜치 -&amp;gt; 리프 순으로 도달해 원하는 데이터를 얻을 수 있음.&lt;/p&gt;
-
-&lt;p&gt;레코드 수가 적으면 루트와 리프만 있는 패턴도 존재함. 레코드수가 많으면 브랜치 아래에 브랜치가 들어가있는 4계층 이상의 구성이 될 수 도 있음.&lt;/p&gt;
-
-&lt;h3 id=&quot;최적화&quot;&gt;최적화&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;고유성 보장하기
-    &lt;ul&gt;
-      &lt;li&gt;인덱스는 고유성을 보증하기 위한 목적으로 사용가능함. 해시 인덱스는 동일한 ID의 경우 동일한 해시 값이 되고 B+Tree 인덱스에선 동일 리프에 도달하기 때문에 적은 코스트로 쉽게 중복체크가 가능함. &lt;strong&gt;따라서 고유성을 보장하려는 열(PK, Unique key)에 인덱스를 지정하는 것이 좋음. (필수로 되어있기도 함)&lt;/strong&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;멀티 칼럼 인덱스
-    &lt;ul&gt;
-      &lt;li&gt;여러개의 조건을 지정해 검색하고 싶은 경우를 위해 여러 조건의 인덱스를 걸어 검색을 가속화 할 수 있는데 이것을 멀티 칼럼 인덱스라고 함.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Index only read
-    &lt;ul&gt;
-      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;COUNT()&lt;/code&gt; 함수와 같이 레코드의 값이 아닌 레코드 개수를 구하고 싶은 경우에는 인덱스만 읽어서 결과를 구할 수 있음. 데이터 영역을 읽지 않고 인덱스 영역만 읽어 처리를 빠르게 할 수 있음.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;refer&quot;&gt;refer&lt;/h3&gt;
-
-&lt;p&gt;웹 프로그래머를 위한 데이터베이스를 지탱하는 기술&lt;/p&gt;</content><author><name>Lowell</name></author><category term="db index" /><category term="index" /><summary type="html">TIL 카테고리의 글은 그날 배운 것을 정리하는 목적으로 포스팅합니다. 내용이 잘못되었다면 댓글로 피드백 부탁드립니다.</summary></entry><entry><title type="html">트랜잭션</title><link href="http://localhost:4000/db/2019/05/05/DB-transaction/" rel="alternate" type="text/html" title="트랜잭션" /><published>2019-05-05T00:00:00+09:00</published><updated>2019-05-05T00:00:00+09:00</updated><id>http://localhost:4000/db/2019/05/05/DB-transaction</id><content type="html" xml:base="http://localhost:4000/db/2019/05/05/DB-transaction/">&lt;p&gt;트랜잭션은 데이터베이스에서 중요한 개념이다. 나 또한 공부하면서 많이 접했지만 도통 이해하기가 힘들었다. 실무를 시작하고 나서 왜 트랜잭션이 중요한지 깨닫게 되었고, 예전의 나처럼 실무를 접해보지 않아 트랜잭션이 무엇이고 왜 중요한지 이해가 되지 않는 사람들을 위해 이 글을 작성해보려고 한다.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;strong&gt;트랜잭션(Transaction)&lt;/strong&gt;은 데이터베이스의 상태를 변환시키는 하나의 논리적 기능을 수행하기 위한 작업의 단위 또는 한꺼번에 모두 수행되어야 할 일련의 연산들을 의미한다.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;위의 정의를 좀 쉽게 풀어보자면  **데이터베이스의 상태를 변환시키는 하나의 논리적 기능을 수행하기 위한 작업의 단위 **는 DML 즉 &lt;code class=&quot;highlighter-rouge&quot;&gt;INSERT&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;UPDATE&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;DELETE&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;SELECT&lt;/code&gt;  들을 알맞게 사용해서 하나의 작업을 구현하는 것이라고 생각하면 된다. 또한 이 쿼리를 실행할 때 모두 성공(수행)해야 작업이 정상적으로 처리됨 뜻한다.&lt;/p&gt;
-
-&lt;p&gt;어떤 하나의 기능을 구현하게 해주는 쿼리들 중에서 한개의 쿼리가 실패했다면 이 전의 쿼리들은 &lt;code class=&quot;highlighter-rouge&quot;&gt;rollback&lt;/code&gt; 되어야 하고, 모든 쿼리가 성공했다면  &lt;code class=&quot;highlighter-rouge&quot;&gt;commit&lt;/code&gt; 을 해줘야한다.  &lt;a href=&quot;http://www.gurubee.net/lecture/1022&quot;&gt;Commit과 Rollback &lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;본인이 어떤 은행의  &lt;strong&gt;계좌이체&lt;/strong&gt; 서비스를 직접 개발한다고 생각해보자. 상황은 A가 친구 B에게 5만원을 이체하려고 한다.&lt;/p&gt;
-
-&lt;p&gt;현재 A 계좌에는 10만원이 있고 B는 3만원이 있다. 만약 이체가 성공적으로 끝나게 되면 A 계좌에는 5만원, B 계좌에는 8만원이 남아야한다.&lt;/p&gt;
-
-&lt;p&gt;위의 로직을 짜보면 먼저 A  잔액을 &lt;code class=&quot;highlighter-rouge&quot;&gt;SELECT&lt;/code&gt; 한 후 이체하려는 금액  5만원이  잔액보다 적은지, 큰지 확인 후 잔액이 크다면 이체를 할 수 있을 것이다. 그러면 &lt;code class=&quot;highlighter-rouge&quot;&gt;A 계좌 잔액 - price&lt;/code&gt; 해서 나온 금액 을 &lt;code class=&quot;highlighter-rouge&quot;&gt;UPDATE&lt;/code&gt; 한다&lt;/p&gt;
-
-&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;money&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;account&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'A'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;UPDATE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;account&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;SET&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;money&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;money&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;50000&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'A'&lt;/span&gt; 
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/32219612/57629839-756ce500-75d7-11e9-96bc-b50fa96c6d68.png&quot; alt=&quot;SELECT&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/32219612/57629791-5cfcca80-75d7-11e9-8fe5-9ee9adc7f930.png&quot; alt=&quot;UPDATE&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;이후  &lt;code class=&quot;highlighter-rouge&quot;&gt;B 의 통장 잔고 잔액 + price&lt;/code&gt; 를 &lt;code class=&quot;highlighter-rouge&quot;&gt;UPDATE&lt;/code&gt; 한다.&lt;/p&gt;
-
-&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;UPDATE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;account&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;SET&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;money&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;money&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;50000&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'B'&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/32219612/57629691-2c1c9580-75d7-11e9-936c-416dd618fbf5.png&quot; alt=&quot;UPDATE&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;위 시트를 보면 계좌이체가 성공했음을 볼 수 있다. 트랜잭션의 모든 쿼리가 성공했으니 &lt;code class=&quot;highlighter-rouge&quot;&gt;commit&lt;/code&gt;을 하면 된다.&lt;/p&gt;
-
-&lt;p&gt;여기서 &lt;strong&gt;계좌이체&lt;/strong&gt; 트랜잭션을 A 계좌  &lt;code class=&quot;highlighter-rouge&quot;&gt;SELECT&lt;/code&gt; 부터 B 통장 잔고 &lt;code class=&quot;highlighter-rouge&quot;&gt;UPDATE&lt;/code&gt; 까지 잡는다는 것을 알 수 있다.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;A 계좌 SELECT&lt;/li&gt;
-  &lt;li&gt;A 계좌 UPDATE&lt;/li&gt;
-  &lt;li&gt;B 계좌 UPDATE&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;이렇게 트랜잭션을 잡은 이유는 이 쿼리들이 모두 성공해야 계좌이체가 성공하게 되기 때문이다. 이 트랜잭션에서 하나의 쿼리가 실패하게 된다면 작업은 아예 실패가 되어야 한다.&lt;/p&gt;
-
-&lt;p&gt;만약에 A 계좌 UPDATE는 &lt;strong&gt;성공&lt;/strong&gt;하고 B 계좌 UPDATE는 &lt;strong&gt;실패&lt;/strong&gt;했는데 작업이 정상적으로 처리된다면 A는 돈을 입금했음에도 불구하고 B 계좌에는 돈이 들어오지 않아 B가 A에게 왜 돈을 안보내냐고 짜증을 내며 전화를 할 것이다. 그리고 A 와 B는 은행 서비스에 신뢰가 떨어지게 되고 결국 해당 은행은 망하게 될 것이다.&lt;/p&gt;
-
-&lt;p&gt;UPDATE 부분은 이해가 가는데 왜 SELECT 부분도 같이 잡아야 할까? 이유는 &lt;strong&gt;A가 계좌이체 할 동안 다른 사람이 A 계좌에 접근하는 것을 막아야 하기 때문이다.&lt;/strong&gt; A 계좌 SELECT 해서 10만원이 남아있다는 것을 확인하고 5만원을 빼려고 하는데 UPDATE 하기 전, 즉 SELECT와 UPDATE 사이에 C가 A 계좌에 2만원을 이체한다면 어떻게 될까? 현재 프로그램은 A의 계좌 잔액을 &lt;code class=&quot;highlighter-rouge&quot;&gt;10 - 5&lt;/code&gt; 인 5만원으로 UPDATE 할 것이다. 하지만 이것은 잘못되었다. C가 2만원을 입금했으니 남은 잔액은 7만원이 되어야 한다. 이러한 문제를 막기 위해서 SELECT 까지 한꺼번에 트랜잭션으로 잡아 다른 사람이 A의 계좌에 접근하지 못하게 막아놔야 한다.&lt;/p&gt;
-
-&lt;p&gt;이렇게 트랜잭션은 중요하다. 이제부터 기능을 만들 때 어떻게 트랜잭션을 잡아야 잘했다고 소문이 날 지 고민해보자!&lt;/p&gt;</content><author><name>Lowell</name></author><category term="DB 트랜잭션" /><category term="db transaction" /><summary type="html">트랜잭션은 데이터베이스에서 중요한 개념이다. 나 또한 공부하면서 많이 접했지만 도통 이해하기가 힘들었다. 실무를 시작하고 나서 왜 트랜잭션이 중요한지 깨닫게 되었고, 예전의 나처럼 실무를 접해보지 않아 트랜잭션이 무엇이고 왜 중요한지 이해가 되지 않는 사람들을 위해 이 글을 작성해보려고 한다.</summary></entry></feed>
+&lt;/div&gt;</content><author><name>Lowell</name></author><category term="python byte to string" /><category term="파이썬 바이트 문자열" /><summary type="html">파이썬 Bytes 타입을 str 타입으로 바꾸는 방법</summary></entry></feed>

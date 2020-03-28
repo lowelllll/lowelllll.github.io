@@ -82,7 +82,7 @@
 <link href="/assets/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="ValueError Expecting property name line 1 column 2 (char 1)," />
+  <meta name="keywords" content="ValueError Expecting property name line 1 column 2 (char 1),Expecting property name enclosed in double quotes," />
 
 
 
@@ -111,7 +111,7 @@
 
 
 <meta name="description" content="python json valueError를 해결해보자">
-<meta name="keywords" content="ValueError Expecting property name line 1 column 2 (char 1)">
+<meta name="keywords" content="ValueError Expecting property name line 1 column 2 (char 1), Expecting property name enclosed in double quotes">
 <meta property="og:type" content="article">
 <meta property="og:title" content="json ValueError Expecting property name.. error">
 <meta property="og:url" content="http://localhost:4000/python/2019/02/28/json-value-error/">
@@ -387,7 +387,12 @@
 
   <p>python에서 dictionary 데이터를 json 형태로 dumps하거나 반대로 json 데이터를 dictionary 형태로 loads할 때 발생하는</p>
 
-<p><strong>ValueError: Expecting property name: line 1 column 2 (char 1)</strong> 에러는 dumps, loads 하려는 데이터가 double quote(쌍 따옴표) 로 감싸지지 않고 single quote(따옴표)로 감싸져 있을 경우 발생한다.</p>
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2</pre></td><td class="code"><pre class="highlight"><code>ValueError: Expecting property name: line 1 column 2 (char 1)
+Expecting property name enclosed in double quotes
+</code></pre></td></tr></tbody></table></div>
+</div>
+
+<p>에러는 dumps, loads 하려는 데이터가 double quote(쌍 따옴표) 로 감싸지지 않고 single quote(따옴표)로 감싸져 있을 경우 발생한다.</p>
 
 <div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2</pre></td><td class="code"><pre class="highlight"><code>"{"property": "1"}" # 허용 O
 "{'property': '1'}" # 허용 X
@@ -404,13 +409,15 @@
 <span class="c"># dumps </span>
 <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">ast</span><span class="o">.</span><span class="n">literal_eval</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
 <span class="c"># loads</span>
-<span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">ast</span><span class="o">.</span><span class="n">literal_eval</span><span class="p">(</span><span class="n">data</span><span class="p">)))</span>
+<span class="n">ast</span><span class="o">.</span><span class="n">literal_eval</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="c"># return type: dict</span>
 </code></pre></td></tr></tbody></table></div>
 </div>
 
 <h2 id="refer">refer</h2>
 
 <p><a href="https://code.i-harness.com/en/q/1884426">https://code.i-harness.com/en/q/1884426</a></p>
+
+<p><a href="https://stackoverflow.com/questions/25707558/json-valueerror-expecting-property-name-line-1-column-2-char-1">https://stackoverflow.com/questions/25707558/json-valueerror-expecting-property-name-line-1-column-2-char-1</a></p>
 
 
 
@@ -444,6 +451,9 @@
           
             
             <a href="/tag/#/ValueError%20Expecting%20property%20name%20line%201%20column%202%20%28char%201%29" rel="tag"># ValueError Expecting property name line 1 column 2 (char 1)</a>
+          
+            
+            <a href="/tag/#/Expecting%20property%20name%20enclosed%20in%20double%20quotes" rel="tag"># Expecting property name enclosed in double quotes</a>
           
         </div>
       
@@ -518,7 +528,7 @@
   
   
   &copy; 
-  <span itemprop="copyrightYear">2019</span>
+  <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

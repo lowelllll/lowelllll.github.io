@@ -2,6 +2,80 @@
 <search>
   
     <entry>
+      <title><![CDATA[intellij에서 python interpreter 셋팅하기]]></title>
+      <url>/python/2020/03/21/setting-python-interpreter-in-intellij/</url>
+      <content type="text"><![CDATA[인텔리제이 울티메이트(유료버전)에서 파이썬 프로젝트를 구동하기 위한 인터프리터 셋팅 방법.preferences -&gt; plugins에서 python을 검색 후 install 후 intellij를 재시작한다.file -&gt; product structureplatform settings -&gt; SDKs 에서 + 클릭 후  Python SDK 클릭그럼 이렇게 interpreter를 추가할 수 있다. virtualenv가 이미 있다면 Existing environment 체크 후 만들어 놓은 virtualenv를 선택하면 되고,만약 새로운 virtualenv를 생성해야한다면 Location에서 virtualenv 파일이 생길 경로를 지정해주고 Base interpreter에서 python 버전을 선택해준다.virtualenv 설정이 끝나면 OK그럼 SDKs에 interpreter가 추가되어있을 것이다.SDKs에 위에 packages 탭을 누르고 +를 눌러 패키지를 설치할 수 있다.검색창에 설치할 패키지를 검색 후 Install package를 눌러 패키지를 설치한다.만약 프로젝트에 requirements.txt가 있으면 terminal에서 pip install -r requirements.txt 로 패키지를 설치한다. (새로 virtualenv를 만든 경우엔 requirement로 설치하는 방법을 못찾았다ㅠ 아시는 분 댓글 부탁드립니다)그 후에 다시 패키지 목록이 보이는 곳에서 apply 후 OK 를 눌러주면 virtualenv 설정과 interpreter 추가 끝.이제 모듈이랑 프로젝트에 interpreter를 등록해주면 된다.]]></content>
+      <categories>
+        
+          <category> python </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> intellij python project </tag>
+        
+          <tag> how to setting lntellij python interpreter </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[Expecting property name enclosed in double quotes 해결]]></title>
+      <url>/python/2020/02/04/python-json-load-error-solution/</url>
+      <content type="text"><![CDATA[python에서 json으로 load시에 아래와 같은 에러가 발생하는 경우가 있다.JSONDecodeError: Expecting property name enclosed in double quotesjson 데이터는 더블 쿼터(double quotes)만 사용할 수 있기 때문에 아래와 같이 프로퍼티를 감싼 게 싱글 쿼터(single quote)일 시 에러가 난다.import jsonjson_data = "{'key': 'value', 'key2': 'value2'}" # ERROR// json_data = '{"key": "value", "key2": "value2"}' # OK json.loads(json_data)data를 직접 만드는 경우라면 더블 쿼터로 바꿔주면 그만이지만 request, response 받은 데이터는 변경도 못한다.그럴땐 아래와 같이 해결할 수 있다.import astdata = ast.literal_eval(data)ast.literal_eval()을 사용하면 위 에러를 해결하고 json -&gt; dict 타입으로 변환할 수 있다.referhttps://stackoverflow.com/questions/25707558/json-valueerror-expecting-property-name-line-1-column-2-char-1]]></content>
+      <categories>
+        
+          <category> python </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> Expecting property name enclosed in double quotes </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[git reset과 revert]]></title>
+      <url>/til/2019/09/23/TIL-git-origin-commit-cancel/</url>
+      <content type="text"><![CDATA[TIL 카테고리의 글은 그날 배운 것을 정리하는 목적으로 포스팅합니다. 내용이 잘못되었다면 댓글로 피드백 부탁드립니다.원격 저장소에 올라간 커밋을 되돌리는 방법은 2가지가 있다.로컬에서 커밋을 되돌린 후 강제로 force push 하는 방법git reset 명령어를 사용해서 커밋을 되돌린다.예시로 아래 보이는 comit: C 커밋을 취소해보자.git reset --hard HEAD~1위 명령어는 커밋을 되돌리는데, 커밋한 코드도 다 날아가기때문에 조심해야한다.로컬 저장소에서 커밋을 취소했기 때문에 원격에도 반영을 시켜주기 위해 push를 해줘야하는데 현재 로컬 저장소의 히스토리가 원격 저장소의 커밋 히스토리보다 뒤쳐져 있기 때문에 push할 경우 에러가 발생한다. 그렇기 때문에 이러한 상황에서는 force push를 해줘야한다.git push -f origin &lt;branch-name&gt;주의 사항  이 방법은 내 로컬 저장소의 히스토리를 원격 저장소 히스토리로 강제 덮어쓰기 하는 것이므로 원격 저장소에 흔적도 없이 내가 만들었던 커밋을 제거한다.  만약 해당 브랜치가 혼자 사용하는 브랜치가 아닌 팀원들과 공유하는 브랜치이고 커밋을 되돌리기 전, 원격에 올라간 내 커밋을 다른 팀원이 pull 땡겼을 경우 원격 저장소에서 커밋을 되돌려도 다른 팀원의 로컬 저장소에는 커밋이 남아있게 된다. (이 상황에서 내가 원격 저장소에 force push 한 것을 팀원이 pull을 해도 origin/master의 커밋으로 돌아가지 않는다. origin/master보다 새로운 커밋을 가지고 있는 것으로 인식하기 때문)  커밋을 되돌려진 것을 모르고 팀원은 자신이 작업한 커밋과 되돌린 커밋을 push하게 되면 되돌렸던 커밋들이 다시 원격 저장소에 추가됨. 🤦‍♀따라서 reset + force push 방법은  나혼자만 사용하는 브랜치에 커밋을 push 했고, 이를 되돌리고 싶은 경우  팀원들과 커뮤니케이션을 통해 내가 되돌린 커밋을 pull로 땡겨간 팀원이 없다고 확인된 경우에만 사용해야한다. (왠만하면 공용 브랜치에는 사용하지 않는다)Revert를 통해 커밋 되돌리는 방법git revert 명령어는 revert 커밋을 히스토리에 쌓는 방식이다.reset과의 차이점은 reset은 커밋을 되돌리면서 해당 커밋 이력은 사라진다, revert는 커밋을 되돌리는 커밋을 찍어커밋과 커밋을 되돌린 이력이 모두 남는다. 특정 커밋을 되돌리는 작업도 하나의 커밋으로 간주하는 것이다.reset을 사용하면 커밋을 되돌려서 push 했기 때문에 원격-로컬간의 히스토리가 맞지 않아 에러가 나고 팀원들의 커밋과 꼬일 가능성이 큰데 이건 되돌리는 커밋을 하나 더 생성하기 때문에 에러도 나지 않고 커밋이 꼬일 확률이 적다.revert를 할 때에는 커밋을 한 순서 거꾸로 revert를 해야한다. (가장 나중에 한 커밋을 제일 먼저 revert 해야함)# git revert &lt;commit hash&gt;# 여러개의 커밋을 한꺼번에 revert할 경우 : git revert HEAD~3git revert 1347972위 명령어를 사용하면 1347972 commit을 되돌리는 커밋이 찍힌다.--no-commit 옵션을 사용하면 자동으로 revert 커밋이 생성되는게 아닌 working tree와 index에만 변경사항이 적용된다. 이걸 사용해 여러개의 커밋을 하나의 커밋으로 revert 할 수 있다.git revert --no-commit HEAD~3 # revert 커밋이 자동으로 생성되지 않음.git commit -m "Revert Commit C, B, Agit push origin master나는 실제로 팀원들과 협업하여 개발할 때에는 안전한 Revert를 이용한 되돌리기를 사용한다.정리  나름 정리한거다referhttps://behonestar.tistory.com/200https://jupiny.com/2019/03/19/revert-commits-in-remote-repository/]]></content>
+      <categories>
+        
+          <category> TIL </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> git </tag>
+        
+          <tag> git revert </tag>
+        
+          <tag> git reset </tag>
+        
+          <tag> git force push </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[파이썬 사용해서 엑셀 파일 만들기]]></title>
+      <url>/python/2019/09/04/the-meaning-of-underscores-in-python/</url>
+      <content type="text"><![CDATA[이 글은 The Meaning of Underscores in Python 번역한 글입니다. 오역 발견시 댓글 남겨주시면 정정하겠습니다. 🙇‍♀️파이썬의 단일 밑줄(_)과 이중 밑줄(__)에 대한 다양한 의미와 네이밍 컨벤션을 알아보고 이것이 파이썬 클래스에서 어떻게 동작하고 어떤 영향을 주는지 알아봅시다.단일 또는 이중 밑줄 이름의 파이썬 변수와 메소드에는 의미가 있습니다.]]></content>
+      <categories>
+        
+          <category> python </category>
+        
+      </categories>
+      <tags>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
       <title><![CDATA[파이썬 사용해서 엑셀 파일 만들기]]></title>
       <url>/til/2019/08/29/TIL-make-excel-with-python/</url>
       <content type="text"><![CDATA[TIL 카테고리의 글은 그날 배운 것을 정리하는 목적으로 포스팅합니다. 내용이 잘못되었다면 댓글로 피드백 부탁드립니다.엑셀 파일을 만들 수 있는 파이썬 라이브러리는 대표적으로  openpyxl 과 xlsxwriter 가 있는데 저는 wlsxwriter 를 사용했다. (보통 openpyxl을 더 쓰는 것 같은데 나는 wlsxwriter 예제를 처음 접해서 사용했다. )엑셀 파일 만들기아래 코드는 간단한 엑셀 파일을 만드는 코드이다.import xlsxwriterfile_name = 'test.xlsx' # 엑셀 파일 이름workbook = xlsxwriter.Workbook(file_name)ws = workbook.add_worksheet()ws.write(0, 0, 'Hello') # A1에 값을 넣음ws.close() # 저-장 같은 디렉토리에 test.xlsx 파일이 생성된 것을 확인할 수 있다.이미지 삽입하기image url로 requests를 통해 이미지를  가져온 뒤 이미지도 삽입되어있는 파일을 만들어 보았다.from io import BytesIO  import requestsimport xlsxwriterimage_url ='https://d3mcojo3jv0dbr.cloudfront.net/2019/03/23/14/25/d88f24f059169559602c836fc35b995c.jpeg?w=128&amp;h=128&amp;q=65'workbook = xlsxwriter.Workbook('text.xlsx')ws = workbook.add_worksheet()ws.set_column(0, 0, 100) # column width 설정 ws.set_column(1, 1, 100) # column width 설정 ws.set_default_row(100) # row height 설정ws.write(0, 0, '어피치') # A1 res = requests.get(image_url) # 이미지 가져옴image_data = BytesIO(res.content) # 이미지 파일 처리image_size = len(image_data.getvalue()) # 이미지 사이즈 if image_size &gt; 0: # 이미지가 있으면     ws.insert_image('B1', image_url, {'image_data': image_data}) # 엑셀에 삽입함workbook.close() # 저장 이미지 사이즈를 체크하여 이미지가 있는지 확인한 후 엑셀에 삽입하는 이유는 이미지가 없는데 inser_image를 시도하면 오류가 나기 때문이다.struct.error: unpack requires a bytes object of length 3 image(이 오류때문에 반나절 삽질했다 ㅂㄷㅂㄷ)  해당 오류 이슈이렇게 파이썬으로 엑셀 파일 만드는 것을 자동화하여 생산성을 높일 수 있다.referxlsxwriter 사용법xlsxwriter document엑셀 이미지 삽입하기 ]]></content>
@@ -36,25 +110,6 @@
           <tag> ad system </tag>
         
           <tag> RTB </tag>
-        
-      </tags>
-      <tags></tags>
-    </entry>
-  
-    <entry>
-      <title><![CDATA[testing 종류]]></title>
-      <url>/til/2019/08/16/TIL-python-test/</url>
-      <content type="text"><![CDATA[TIL 카테고리의 글은 그날 배운 것을 정리하는 목적으로 포스팅합니다. 내용이 잘못되었다면 댓글로 피드백 부탁드립니다.프로그램을 개발하면서 아무생각 없이 해왔던 테스팅들의 특징을 알게되었고 정리해보았다.소프트웨어 테스팅 종류UI Test / end-to-end Test  시스템의 UI를 통해 테스트하는 것  사용자가 실제로 시스템을 사용하는 방식과 가장 동일하게 테스트함.  시간이 오래걸리고 프론트앤드-백앤드 모든 시스템을 실행하고 연결해야함.  직접 해보고 느낀 점          위에 나와있듯이 프론트-백앤드를 연결해서 직접 클릭해가며 테스트를 하니까 시간도 오래걸리고 귀찮다. 데이터 셋팅하는 것도 정말 귀찮고.. 하지만 이게 제일 정확(?)한 방법이라고 생각하기 때문에 코드를 수정하고 나서 최소한 마지막에 한번이라도 UI 테스트를 하는 것 같다.      Intergration Test  API 서버를 실행시키고 HTTP request를 실행해 Response가 올바른지 파악해 테스트하는 것  Unit Test에 비해 자동화에 걸리는 공수가 크고 실행 속도도 더 느림.  직접 해보고 느낀 점          postman으로 하는 테스트가 이 테스트에 해당하는 것 같은데 보통 이 방법을 주로 사용하는 것 같다.      ]]></content>
-      <categories>
-        
-          <category> TIL </category>
-        
-      </categories>
-      <tags>
-        
-          <tag> testng </tag>
-        
-          <tag> test </tag>
         
       </tags>
       <tags></tags>
@@ -315,7 +370,7 @@
     <entry>
       <title><![CDATA[json ValueError Expecting property name.. error]]></title>
       <url>/python/2019/02/28/json-value-error/</url>
-      <content type="text"><![CDATA[python에서 dictionary 데이터를 json 형태로 dumps하거나 반대로 json 데이터를 dictionary 형태로 loads할 때 발생하는ValueError: Expecting property name: line 1 column 2 (char 1) 에러는 dumps, loads 하려는 데이터가 double quote(쌍 따옴표) 로 감싸지지 않고 single quote(따옴표)로 감싸져 있을 경우 발생한다."{"property": "1"}" # 허용 O"{'property': '1'}" # 허용 X만약에 single quote로 된 데이터를 변경하지 못한다면 모듈 ast를 사용해서 해결 할 수 있다.import astimport jsondata = "{'property': '1'}"# dumps json.dumps(ast.literal_eval(data))# loadsjson.loads(json.dumps(ast.literal_eval(data)))referhttps://code.i-harness.com/en/q/1884426]]></content>
+      <content type="text"><![CDATA[python에서 dictionary 데이터를 json 형태로 dumps하거나 반대로 json 데이터를 dictionary 형태로 loads할 때 발생하는ValueError: Expecting property name: line 1 column 2 (char 1)Expecting property name enclosed in double quotes에러는 dumps, loads 하려는 데이터가 double quote(쌍 따옴표) 로 감싸지지 않고 single quote(따옴표)로 감싸져 있을 경우 발생한다."{"property": "1"}" # 허용 O"{'property': '1'}" # 허용 X만약에 single quote로 된 데이터를 변경하지 못한다면 모듈 ast를 사용해서 해결 할 수 있다.import astimport jsondata = "{'property': '1'}"# dumps json.dumps(ast.literal_eval(data))# loadsast.literal_eval(data) # return type: dictreferhttps://code.i-harness.com/en/q/1884426https://stackoverflow.com/questions/25707558/json-valueerror-expecting-property-name-line-1-column-2-char-1]]></content>
       <categories>
         
           <category> python </category>
@@ -324,6 +379,8 @@
       <tags>
         
           <tag> ValueError Expecting property name line 1 column 2 (char 1) </tag>
+        
+          <tag> Expecting property name enclosed in double quotes </tag>
         
       </tags>
       <tags></tags>
