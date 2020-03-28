@@ -121,10 +121,11 @@
 <meta property="og:image" content="https://user-images.githubusercontent.com/32219612/77221355-702fdd80-6b8c-11ea-8159-d7a7dde445e7.png">
 <meta property="og:image" content="https://user-images.githubusercontent.com/32219612/77221357-72923780-6b8c-11ea-9583-7684b38da7e2.png">
 <meta property="og:image" content="https://user-images.githubusercontent.com/32219612/77221358-73c36480-6b8c-11ea-9621-cd120fc27c58.png">
-<meta property="og:image" content="https://user-images.githubusercontent.com/32219612/77221359-745bfb00-6b8c-11ea-94f8-5d53a752b19f.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/32219612/77825571-75bd9280-714d-11ea-9cbd-7dfbcf9945e0.png">
 <meta property="og:image" content="https://user-images.githubusercontent.com/32219612/77221361-74f49180-6b8c-11ea-92cd-c6f64d8ba6b1.png">
 <meta property="og:image" content="https://user-images.githubusercontent.com/32219612/77221364-758d2800-6b8c-11ea-8b49-c22e5648562e.png">
 <meta property="og:image" content="https://user-images.githubusercontent.com/32219612/77221366-7625be80-6b8c-11ea-8232-f9eefbdc863e.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/32219612/77825468-e2845d00-714c-11ea-91dc-c1ab8ba7c64c.png">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="intellij에서 python interpreter 셋팅하기">
 <meta name="twitter:description" content="intelij ultimate에서 python interpreter 셋팅하는 방법">
@@ -393,7 +394,7 @@
 
 
 
-  <p>인텔리제이 울티메이트(유료버전)에서 파이썬 프로젝트를 구동하기 위한 인터프리터 셋팅 방법.</p>
+  <p>인텔리제이 울티메이트(유료버전)에서 파이썬 프로젝트를 구동하기 위한 인터프리터 셋팅 방법</p>
 
 <p><img src="https://user-images.githubusercontent.com/32219612/77221355-702fdd80-6b8c-11ea-8159-d7a7dde445e7.png" alt="" /></p>
 
@@ -407,11 +408,11 @@
 
 <p>platform settings -&gt; SDKs 에서 + 클릭 후  Python SDK 클릭</p>
 
-<p><img src="https://user-images.githubusercontent.com/32219612/77221359-745bfb00-6b8c-11ea-94f8-5d53a752b19f.png" alt="" /></p>
+<p><img src="https://user-images.githubusercontent.com/32219612/77825571-75bd9280-714d-11ea-9cbd-7dfbcf9945e0.png" alt="" /></p>
 
 <p>그럼 이렇게 interpreter를 추가할 수 있다. virtualenv가 이미 있다면 <code class="highlighter-rouge">Existing environment</code> 체크 후 만들어 놓은 virtualenv를 선택하면 되고,</p>
 
-<p>만약 새로운 virtualenv를 생성해야한다면 <code class="highlighter-rouge">Location</code>에서 virtualenv 파일이 생길 경로를 지정해주고 <code class="highlighter-rouge">Base interpreter</code>에서 python 버전을 선택해준다.</p>
+<p>만약 새로운 virtualenv를 생성해야한다면 <code class="highlighter-rouge">New environment</code> 체크 후 <code class="highlighter-rouge">Location</code>에서 virtualenv 파일이 생길 경로를 지정해주고 <code class="highlighter-rouge">Base interpreter</code>에서 python 버전을 선택해준다.</p>
 
 <p>virtualenv 설정이 끝나면 <code class="highlighter-rouge">OK</code></p>
 
@@ -431,7 +432,15 @@
 
 <p>그 후에 다시 패키지 목록이 보이는 곳에서 <code class="highlighter-rouge">apply</code> 후 <code class="highlighter-rouge">OK</code> 를 눌러주면 virtualenv 설정과 interpreter 추가 끝.</p>
 
-<p>이제 모듈이랑 프로젝트에 interpreter를 등록해주면 된다.</p>
+<p>이제 프로젝트에 interpreter를 등록해주면 된다.</p>
+
+<p><img src="https://user-images.githubusercontent.com/32219612/77825468-e2845d00-714c-11ea-91dc-c1ab8ba7c64c.png" alt="" /></p>
+
+<p>project -&gt; project sdk에서 추가한 interpreter를 등록해준다.</p>
+
+<p>추가로 필요에 따라 실행 시킬 파일에 인터프리터를 셋팅하고 싶으면 Run -&gt; Edit configuration에서 인터프리터를 등록해주면 된다.</p>
+
+<p>그럼 끗 😜</p>
 
 
       

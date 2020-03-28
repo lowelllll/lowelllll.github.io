@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.5.2">Jekyll</generator><link href="http://localhost:4000/atom.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-03-28T16:45:56+09:00</updated><id>http://localhost:4000/</id><title type="html">Lowell’s Blog</title><subtitle>lowell의 기술 블로그 </subtitle><author><name>Lowell</name></author><entry><title type="html">intellij에서 python interpreter 셋팅하기</title><link href="http://localhost:4000/python/2020/03/21/setting-python-interpreter-in-intellij/" rel="alternate" type="text/html" title="intellij에서 python interpreter 셋팅하기" /><published>2020-03-21T00:00:00+09:00</published><updated>2020-03-21T00:00:00+09:00</updated><id>http://localhost:4000/python/2020/03/21/setting-python-interpreter-in-intellij</id><content type="html" xml:base="http://localhost:4000/python/2020/03/21/setting-python-interpreter-in-intellij/">&lt;p&gt;인텔리제이 울티메이트(유료버전)에서 파이썬 프로젝트를 구동하기 위한 인터프리터 셋팅 방법.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.5.2">Jekyll</generator><link href="http://localhost:4000/atom.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-03-28T23:44:21+09:00</updated><id>http://localhost:4000/</id><title type="html">Lowell’s Blog</title><subtitle>lowell의 기술 블로그 </subtitle><author><name>Lowell</name></author><entry><title type="html">intellij에서 python interpreter 셋팅하기</title><link href="http://localhost:4000/python/2020/03/21/setting-python-interpreter-in-intellij/" rel="alternate" type="text/html" title="intellij에서 python interpreter 셋팅하기" /><published>2020-03-21T00:00:00+09:00</published><updated>2020-03-21T00:00:00+09:00</updated><id>http://localhost:4000/python/2020/03/21/setting-python-interpreter-in-intellij</id><content type="html" xml:base="http://localhost:4000/python/2020/03/21/setting-python-interpreter-in-intellij/">&lt;p&gt;인텔리제이 울티메이트(유료버전)에서 파이썬 프로젝트를 구동하기 위한 인터프리터 셋팅 방법&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/32219612/77221355-702fdd80-6b8c-11ea-8159-d7a7dde445e7.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
@@ -12,11 +12,11 @@
 
 &lt;p&gt;platform settings -&amp;gt; SDKs 에서 + 클릭 후  Python SDK 클릭&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/32219612/77221359-745bfb00-6b8c-11ea-94f8-5d53a752b19f.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/32219612/77825571-75bd9280-714d-11ea-9cbd-7dfbcf9945e0.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;그럼 이렇게 interpreter를 추가할 수 있다. virtualenv가 이미 있다면 &lt;code class=&quot;highlighter-rouge&quot;&gt;Existing environment&lt;/code&gt; 체크 후 만들어 놓은 virtualenv를 선택하면 되고,&lt;/p&gt;
 
-&lt;p&gt;만약 새로운 virtualenv를 생성해야한다면 &lt;code class=&quot;highlighter-rouge&quot;&gt;Location&lt;/code&gt;에서 virtualenv 파일이 생길 경로를 지정해주고 &lt;code class=&quot;highlighter-rouge&quot;&gt;Base interpreter&lt;/code&gt;에서 python 버전을 선택해준다.&lt;/p&gt;
+&lt;p&gt;만약 새로운 virtualenv를 생성해야한다면 &lt;code class=&quot;highlighter-rouge&quot;&gt;New environment&lt;/code&gt; 체크 후 &lt;code class=&quot;highlighter-rouge&quot;&gt;Location&lt;/code&gt;에서 virtualenv 파일이 생길 경로를 지정해주고 &lt;code class=&quot;highlighter-rouge&quot;&gt;Base interpreter&lt;/code&gt;에서 python 버전을 선택해준다.&lt;/p&gt;
 
 &lt;p&gt;virtualenv 설정이 끝나면 &lt;code class=&quot;highlighter-rouge&quot;&gt;OK&lt;/code&gt;&lt;/p&gt;
 
@@ -36,7 +36,15 @@
 
 &lt;p&gt;그 후에 다시 패키지 목록이 보이는 곳에서 &lt;code class=&quot;highlighter-rouge&quot;&gt;apply&lt;/code&gt; 후 &lt;code class=&quot;highlighter-rouge&quot;&gt;OK&lt;/code&gt; 를 눌러주면 virtualenv 설정과 interpreter 추가 끝.&lt;/p&gt;
 
-&lt;p&gt;이제 모듈이랑 프로젝트에 interpreter를 등록해주면 된다.&lt;/p&gt;</content><author><name>Lowell</name></author><category term="intellij python project" /><category term="how to setting lntellij python interpreter" /><summary type="html">인텔리제이 울티메이트(유료버전)에서 파이썬 프로젝트를 구동하기 위한 인터프리터 셋팅 방법.</summary></entry><entry><title type="html">Expecting property name enclosed in double quotes 해결</title><link href="http://localhost:4000/python/2020/02/04/python-json-load-error-solution/" rel="alternate" type="text/html" title="Expecting property name enclosed in double quotes 해결" /><published>2020-02-04T00:00:00+09:00</published><updated>2020-02-04T00:00:00+09:00</updated><id>http://localhost:4000/python/2020/02/04/python-json-load-error-solution</id><content type="html" xml:base="http://localhost:4000/python/2020/02/04/python-json-load-error-solution/">&lt;p&gt;python에서 json으로 load시에 아래와 같은 에러가 발생하는 경우가 있다.&lt;/p&gt;
+&lt;p&gt;이제 프로젝트에 interpreter를 등록해주면 된다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/32219612/77825468-e2845d00-714c-11ea-91dc-c1ab8ba7c64c.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;project -&amp;gt; project sdk에서 추가한 interpreter를 등록해준다.&lt;/p&gt;
+
+&lt;p&gt;추가로 필요에 따라 실행 시킬 파일에 인터프리터를 셋팅하고 싶으면 Run -&amp;gt; Edit configuration에서 인터프리터를 등록해주면 된다.&lt;/p&gt;
+
+&lt;p&gt;그럼 끗 😜&lt;/p&gt;</content><author><name>Lowell</name></author><category term="intellij python project" /><category term="how to setting lntellij python interpreter" /><summary type="html">인텔리제이 울티메이트(유료버전)에서 파이썬 프로젝트를 구동하기 위한 인터프리터 셋팅 방법</summary></entry><entry><title type="html">Expecting property name enclosed in double quotes 해결</title><link href="http://localhost:4000/python/2020/02/04/python-json-load-error-solution/" rel="alternate" type="text/html" title="Expecting property name enclosed in double quotes 해결" /><published>2020-02-04T00:00:00+09:00</published><updated>2020-02-04T00:00:00+09:00</updated><id>http://localhost:4000/python/2020/02/04/python-json-load-error-solution</id><content type="html" xml:base="http://localhost:4000/python/2020/02/04/python-json-load-error-solution/">&lt;p&gt;python에서 json으로 load시에 아래와 같은 에러가 발생하는 경우가 있다.&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;JSONDecodeError: Expecting property name enclosed in double quotes
 &lt;/code&gt;&lt;/pre&gt;
