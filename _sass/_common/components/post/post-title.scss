@@ -6,6 +6,7 @@
   @include mobile() {
     font-size: 22px;
   }
+  
 }
 .posts-expand .post-title-link {
   display: inline-block;
@@ -44,3 +45,8 @@
     color:#8565fc;
   }
  }
+
+ .post-title-custom {
+  font-size: 30px !important; 
+    font-weight: bold !important;
+}
