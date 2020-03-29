@@ -1,0 +1,1425 @@
+
+<!doctype html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html class="theme-next muse use-motion" lang="ko">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/assets/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/assets/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/assets/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="kotlin,kotlin class," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Lowell's Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/assets/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="코틀린 클래스와 객체">
+<meta name="keywords" content="kotlin, kotlin class">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kotlin Class">
+<meta property="og:url" content="http://localhost:4000/til/2020/03/29/TIL-kotlin-class/">
+<meta property="og:site_name" content="Lowell's Blog">
+<meta property="og:description" content="코틀린 클래스와 객체">
+<meta property="og:locale" content="ko">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Kotlin Class">
+<meta name="twitter:description" content="코틀린 클래스와 객체">
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":5,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '작성자'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://localhost:4000/"/>
+
+
+
+
+
+  <title>Kotlin Class | Lowell's Blog</title>
+  
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '',
+      xfbml      : true,
+      version    : 'v2.6'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/ko/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <meta name="google-site-verification" content="N5TPtD4W-NtIxmLpJRA6uSzKZTgB-wc6D_AeS2BSFkw" />
+  <meta name="google-site-verification" content="0nDH-74euRy51Hs3tt8Ixeui9iAtzJgVYpsZl-B2vJ8" />
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="ko">
+
+  
+
+
+  <div class="container  page-post-detail ">
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            홈
+          </a>
+        </li>
+      
+        
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            카테고리
+          </a>
+        </li>
+      
+        
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            아카이브
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+<div id="posts" class="posts-expand">
+  
+  
+
+  
+
+  
+  
+  
+
+  <article class="post post-type- " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://localhost:4000/til/2020/03/29/TIL-kotlin-class/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Lowell">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="assets/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lowell's Blog">
+    </span>
+
+    
+    
+      
+            <span class="post-category">
+               
+              <!-- 카테고리 -->
+                
+                  <a href="/category/#/TIL" itemprop="url" rel="index">
+                    <h3 itemprop="name">TIL</h3>
+                  </a>
+                
+                
+              
+            </span>
+        
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title post-title-custom" itemprop="name headline">
+          
+          
+            Kotlin Class
+          
+        </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              
+                <span class="post-meta-item-text">작성일</span>
+              
+              <time title="" itemprop="dateCreated datePublished" datetime="2020-03-29T00:00:00+09:00">
+                2020-03-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/til/2020/03/29/TIL-kotlin-class/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count fb-comments-count" data-href="http://localhost:4000/til/2020/03/29/TIL-kotlin-class/" itemprop="commentCount">0</span> comments
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+            
+                <div class="post-description">
+                    코틀린 클래스와 객체
+                </div>
+            
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+        
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <p><code class="highlighter-rouge">TIL 카테고리의 글은 그날 배운 것을 정리하는 목적으로 포스팅합니다. 내용이 잘못되었다면 댓글로 피드백 부탁드립니다.</code></p>
+
+<h2 id="클래스">클래스</h2>
+
+<p>기본적인 클래스 구조</p>
+
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1</pre></td><td class="code"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Base</span> <span class="p">{}</span>
+</code></pre></td></tr></tbody></table></div>
+</div>
+
+<h3 id="생성자">생성자</h3>
+
+<blockquote>
+  <p>constructor. 클래스를 통해 객체가 만들어질 때 기본적으로 호출되는 함수</p>
+</blockquote>
+
+<p>생성자를 선언하는 위치</p>
+
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6</pre></td><td class="code"><pre class="highlight"><code><span class="kd">class</span> <span class="err">클래스명 </span><span class="nc">constructor</span><span class="p">(</span><span class="err">매개변수</span><span class="o">..</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// 주 생성자
+</span>    <span class="k">constructor</span><span class="p">(</span><span class="err">매개변수</span><span class="o">..</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// 부 생성자
+</span>        <span class="c1">// 프로퍼티 초기화
+</span>    <span class="p">}</span>
+<span class="na">    [constructor(매개변수..){..}]</span> <span class="c1">// 추가 부 생성자
+</span><span class="p">}</span>
+</code></pre></td></tr></tbody></table></div>
+</div>
+
+<h3 id="부-생성자">부 생성자</h3>
+
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12<br/>13<br/>14<br/>15<br/>16<br/>17<br/>18</pre></td><td class="code"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Bird</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="py">name</span><span class="p">:</span> <span class="n">String</span>
+    <span class="kd">var</span> <span class="py">wing</span><span class="p">:</span> <span class="n">Int</span>
+    <span class="kd">var</span> <span class="py">beak</span><span class="p">:</span> <span class="n">String</span>
+    <span class="kd">var</span> <span class="py">color</span><span class="p">:</span> <span class="n">String</span>
+   
+   <span class="c1">// 부 생성자 - 매개변수를 통해 프로퍼티 초기화
+</span>   <span class="k">constructor</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span> <span class="n">wing</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">beak</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span> <span class="n">color</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span> <span class="p">{</span>
+       <span class="k">this</span><span class="p">.</span><span class="n">name</span> <span class="p">=</span> <span class="n">name</span>
+       <span class="k">this</span><span class="p">.</span><span class="n">wing</span> <span class="p">=</span> <span class="n">wing</span>
+       <span class="k">this</span><span class="p">.</span><span class="n">beak</span> <span class="p">=</span> <span class="n">beak</span>
+       <span class="k">this</span><span class="p">.</span><span class="n">color</span> <span class="p">=</span> <span class="n">color</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">val</span> <span class="py">bird</span> <span class="p">=</span> <span class="n">Bird</span><span class="p">(</span><span class="s">"coco"</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="s">"short"</span><span class="p">,</span> <span class="s">"blue"</span><span class="p">)</span> <span class="c1">// 생성자의 인자로 객체 생성과 동시에 초기화
+</span><span class="p">}</span>
+</code></pre></td></tr></tbody></table></div>
+</div>
+
+<p>코틀린에선 클래스에 부 생성자를 하나 이상 포함할 수 있음. 이때 클래스 내부에서 <code class="highlighter-rouge">constructor()</code> 함수 형태로 매개변수가 다르게 정의하면 여러번 선언할 수 있음.</p>
+
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12<br/>13<br/>14<br/>15<br/>16<br/>17<br/>18<br/>19<br/>20<br/>21<br/>22<br/>23<br/>24<br/>25<br/>26<br/>27</pre></td><td class="code"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Bird</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="py">name</span><span class="p">:</span> <span class="n">String</span>
+    <span class="kd">var</span> <span class="py">wing</span><span class="p">:</span> <span class="n">Int</span>
+    <span class="kd">var</span> <span class="py">beak</span><span class="p">:</span> <span class="n">String</span>
+    <span class="kd">var</span> <span class="py">color</span><span class="p">:</span> <span class="n">String</span>
+   
+   <span class="c1">// 첫 번째 부 생성자
+</span>   <span class="k">constructor</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span> <span class="n">wing</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">beak</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span> <span class="n">color</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span> <span class="p">{</span>
+       <span class="k">this</span><span class="p">.</span><span class="n">name</span> <span class="p">=</span> <span class="n">name</span>
+       <span class="k">this</span><span class="p">.</span><span class="n">wing</span> <span class="p">=</span> <span class="n">wing</span>
+       <span class="k">this</span><span class="p">.</span><span class="n">beak</span> <span class="p">=</span> <span class="n">beak</span>
+       <span class="k">this</span><span class="p">.</span><span class="n">color</span> <span class="p">=</span> <span class="n">color</span>
+   <span class="p">}</span>
+    
+    <span class="c1">// 두번째 부 생성자
+</span>    <span class="k">constructor</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span> <span class="n">beak</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="n">name</span> <span class="p">=</span> <span class="n">name</span>
+        <span class="k">this</span><span class="p">.</span><span class="n">wing</span> <span class="p">=</span> <span class="m">2</span>
+  		<span class="k">this</span><span class="p">.</span><span class="n">beak</span> <span class="p">=</span> <span class="n">beak</span>
+        <span class="k">this</span><span class="p">.</span><span class="n">color</span> <span class="p">=</span> <span class="s">"grey"</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">val</span> <span class="py">bird1</span> <span class="p">=</span> <span class="n">Bird</span><span class="p">(</span><span class="s">"coco"</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="s">"short"</span><span class="p">,</span> <span class="s">"blue"</span><span class="p">)</span> <span class="c1">// 첫 번째 부 생성자 호출
+</span>    <span class="kd">val</span> <span class="py">bird2</span> <span class="p">=</span> <span class="n">Bird</span><span class="p">(</span><span class="s">"choco"</span><span class="p">,</span> <span class="s">"short"</span><span class="p">)</span> <span class="c1">// 두 번째 부 생성자 호출
+</span><span class="p">}</span>
+</code></pre></td></tr></tbody></table></div>
+</div>
+
+<h3 id="주-생성자">주 생성자</h3>
+
+<p>클래스 이름과 함께 생성자 정의를 이용할 수 있는 기법</p>
+
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12<br/>13</pre></td><td class="code"><pre class="highlight"><code><span class="c1">// 기본
+</span><span class="kd">class</span> <span class="nc">Bird</span> <span class="k">constructor</span><span class="p">(</span><span class="n">_name</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span> <span class="n">_wing</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">_beak</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span> <span class="n">_color</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span> <span class="p">{</span>
+	<span class="c1">// 프로퍼티
+</span>	<span class="kd">var</span> <span class="py">name</span><span class="p">:</span> <span class="n">String</span> <span class="p">=</span> <span class="n">_name</span>
+	<span class="kd">var</span> <span class="py">wing</span><span class="p">:</span> <span class="n">Int</span> <span class="p">=</span> <span class="n">_wing</span>
+	<span class="kd">var</span> <span class="py">beak</span><span class="p">:</span> <span class="n">String</span> <span class="p">=</span> <span class="n">_beak</span>
+	<span class="kd">var</span> <span class="py">color</span><span class="p">:</span> <span class="n">Stirng</span> <span class="p">=</span> <span class="n">_color</span>
+<span class="p">}</span>
+
+<span class="c1">// constructor 생략 가능
+</span><span class="kd">class</span> <span class="nc">Bird</span><span class="p">(</span><span class="n">_name</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span> <span class="n">_wing</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">_beak</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span> <span class="n">_color</span><span class="p">:</span> <span class="n">Stirng</span><span class="p">)</span> <span class="p">{</span>
+    <span class="o">....</span>
+<span class="p">}</span>
+</code></pre></td></tr></tbody></table></div>
+</div>
+
+<p>만약 가시성 지시자난 어노테이션 표기가 클래스 선언에 있으면 constructor를 생략할 수 없음.</p>
+
+<h4 id="프로퍼티를-포함한-주-생성자">프로퍼티를 포함한 주 생성자</h4>
+
+<p>내부에 프로퍼티를 생략하고 생성자의 매개변수에  <code class="highlighter-rouge">var</code>, <code class="highlighter-rouge">val</code>를 추가해 프로퍼티 표현을 함께 넣으면 따로 인자를 할당할 필요가 없어짐.</p>
+
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7</pre></td><td class="code"><pre class="highlight"><code><span class="c1">// constructor 생략
+</span><span class="kd">class</span> <span class="nc">Bird</span><span class="p">(</span><span class="kd">val</span> <span class="py">name</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span> <span class="kd">val</span> <span class="py">wing</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="kd">val</span> <span class="py">beak</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span> <span class="kd">val</span> <span class="py">color</span><span class="p">:</span> <span class="n">Stirng</span><span class="p">)</span> <span class="p">{}</span>
+
+<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">val</span> <span class="py">bird</span> <span class="p">=</span> <span class="n">Bird</span><span class="p">(</span><span class="s">"coco"</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="s">"short"</span><span class="p">,</span> <span class="s">"blue"</span><span class="p">)</span>
+<span class="p">}</span>
+
+</code></pre></td></tr></tbody></table></div>
+</div>
+
+<p>이렇게 하면 클래스 내부에서 프로퍼티 선언 및 할당하는 부분을 없앨 수 있음</p>
+
+<h4 id="초기화-블록을-가진-생성자">초기화 블록을 가진 생성자</h4>
+
+<p>생성자는 기본적으로 함수를 표현하는 기능이기 때문에 변수를 초기화하는 것 말고도 특정한 작업을 하도록 코드를 작성할 수 있음. 단 <strong>프로퍼티를 포함한 주 생성자</strong>를 사용할 경우 초기화에 사용해야할 코드가 있다면 <code class="highlighter-rouge">init{} </code> 초기화 블록을 클래스 선언부에 넣어줘야함.</p>
+
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11</pre></td><td class="code"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Bird</span><span class="p">(</span><span class="kd">val</span> <span class="py">name</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span> <span class="kd">val</span> <span class="py">wing</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="kd">val</span> <span class="py">beak</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span> <span class="kd">val</span> <span class="py">color</span><span class="p">:</span> <span class="n">Stirng</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">init</span> <span class="p">{</span> <span class="c1">// 초기화 블록
+</span>        <span class="n">println</span><span class="p">(</span><span class="s">"초기화 블록 시작"</span><span class="p">)</span>
+        <span class="n">println</span><span class="p">(</span><span class="s">"이름은 $name, 날개는 $wing개"</span><span class="p">)</span>
+        <span class="n">println</span><span class="p">(</span><span class="s">"초기화 블록 끝"</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">val</span> <span class="py">bird</span> <span class="p">=</span> <span class="n">Bird</span><span class="p">(</span><span class="s">"coco"</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="s">"short"</span><span class="p">,</span> <span class="s">"blue"</span><span class="p">)</span> <span class="c1">// 객체 생성과 동시에 초기화 블록 수행
+</span><span class="p">}</span>
+</code></pre></td></tr></tbody></table></div>
+</div>
+
+<p>result</p>
+
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3</pre></td><td class="code"><pre class="highlight"><code>초기화블록 시작
+이름은 coco, 날개는 2개
+초기화블록 끝
+</code></pre></td></tr></tbody></table></div>
+</div>
+
+<h4 id="프로퍼티-기본값-지정">프로퍼티 기본값 지정</h4>
+
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5</pre></td><td class="code"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Bird</span><span class="p">(</span><span class="kd">val</span> <span class="py">name</span><span class="p">:</span> <span class="n">String</span> <span class="p">=</span> <span class="s">"noname"</span><span class="p">,</span> <span class="kd">val</span> <span class="py">wing</span><span class="p">:</span> <span class="n">Int</span> <span class="p">=</span> <span class="m">2</span><span class="p">,</span> <span class="kd">val</span> <span class="py">beak</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span> <span class="kd">val</span> <span class="py">color</span><span class="p">:</span> <span class="n">Stirng</span><span class="p">)</span> <span class="c1">// 기본 값을 지정
+</span>
+<span class="k">fun</span> <span class="nf">main</span> <span class="p">{</span>
+	<span class="kd">val</span> <span class="py">bird</span> <span class="p">=</span> <span class="n">Bird</span><span class="p">(</span><span class="n">beak</span> <span class="p">=</span> <span class="s">"short"</span><span class="p">,</span> <span class="n">color</span> <span class="p">=</span> <span class="s">"blue"</span><span class="p">)</span> <span class="c1">// 기본 값이 있는건 생략할 수 있음
+</span><span class="p">}</span>
+</code></pre></td></tr></tbody></table></div>
+</div>
+
+<h2 id="상속">상속</h2>
+
+<blockquote>
+  <p>자식 클래스를 만들 때 부모 클래스의 속성과 기능을 물려받아 계승을 할 수 있음</p>
+</blockquote>
+
+<p>코틀린의 모든 클래스는 묵시적으로 Any 클래스로부터 상속을 받음</p>
+
+<p>기본적으로 선언하는 클래스가 파생 가능한 클래스인 자바와는 달리 코틀린은 기본적으로 선언하는 클래스가 파생이 불가능한 클래스여서 상속을 못해줌. 따라서 하위 클래스에 상속을 해주려면 클래스선언시  <code class="highlighter-rouge">open</code> 키워드를 붙여야함.</p>
+
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7</pre></td><td class="code"><pre class="highlight"><code><span class="k">open</span> <span class="kd">class</span> <span class="err">부모클래스 { // </span><span class="nc">Any</span> <span class="err">상속</span><span class="p">,</span> <span class="err">파생</span> <span class="err">가능한</span> <span class="err">클래스</span>
+    
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="err">자식클래스 : 부모클래스() { // 부모클래스 상속받음, 파생 불가능한 클래스
+    
+}
+</span></code></pre></td></tr></tbody></table></div>
+</div>
+
+<p>상속 예제</p>
+
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12<br/>13<br/>14<br/>15<br/>16<br/>17<br/>18<br/>19<br/>20</pre></td><td class="code"><pre class="highlight"><code><span class="c1">// 파생 가능한 클래스
+</span><span class="k">open</span> <span class="kd">class</span>  <span class="nc">Bird</span><span class="p">(</span><span class="kd">val</span> <span class="py">name</span><span class="p">:</span> <span class="n">String</span> <span class="p">=</span> <span class="s">"noname"</span><span class="p">,</span> <span class="kd">val</span> <span class="py">wing</span><span class="p">:</span> <span class="n">Int</span> <span class="p">=</span> <span class="m">2</span><span class="p">,</span> <span class="kd">val</span> <span class="py">beak</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span> <span class="kd">val</span> <span class="py">color</span><span class="p">:</span> <span class="n">Stirng</span><span class="p">)</span> <span class="p">{}</span>
+
+<span class="c1">// 주 생성자를 사용해 상속
+</span><span class="kd">class</span> <span class="nc">Lark</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span> <span class="n">wing</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">beak</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span> <span class="n">color</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span> <span class="p">:</span> <span class="n">Bird</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">wing</span><span class="p">,</span> <span class="n">beak</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span> <span class="p">{}</span>
+
+<span class="c1">// 부 생성자를 사용해 상속
+</span><span class="kd">class</span> <span class="nc">Parrot</span> <span class="p">:</span> <span class="n">Bird</span> <span class="p">{</span>
+    <span class="kd">val</span> <span class="py">language</span><span class="p">:</span> <span class="n">String</span>
+    
+    <span class="k">constructor</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span> <span class="n">wing</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">beak</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span> <span class="n">color</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span> <span class="n">language</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span> <span class="p">:</span> <span class="k">super</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">wing</span><span class="p">,</span> <span class="n">beak</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="n">language</span> <span class="p">=</span> <span class="n">lanauge</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">val</span> <span class="py">coco</span> <span class="p">=</span> <span class="n">Bird</span><span class="p">(</span><span class="s">"coco"</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="s">"short"</span><span class="p">,</span> <span class="s">"blue"</span><span class="p">)</span>
+    <span class="kd">val</span> <span class="py">lark</span> <span class="p">=</span> <span class="n">Lark</span><span class="p">(</span><span class="s">"lark"</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="s">"long"</span><span class="p">,</span> <span class="s">"brown"</span><span class="p">)</span>
+    <span class="kd">val</span> <span class="py">parrot</span> <span class="p">=</span> <span class="n">Parrot</span><span class="p">(</span><span class="s">"parrot"</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="s">"short"</span><span class="p">,</span> <span class="s">"multiple"</span><span class="p">,</span> <span class="s">"korean"</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></td></tr></tbody></table></div>
+</div>
+
+<p>하위 클래스는 상위 클래스의 메서드나 프로퍼티를 그대로 상속하면서 상위 클래스에는 없는 자신의 프로퍼티나 메서드를 확장할 수 있음.</p>
+
+<h2 id="다형성">다형성</h2>
+
+<blockquote>
+  <p>이름이 동일하지만 매개변수가 서로 다른 형태를 취하거나 실행 결과를 다르게 가질 수 있는 것</p>
+</blockquote>
+
+<h3 id="오버로딩">오버로딩</h3>
+
+<p>동일한 클래스 안에서 같은 이름의 메서드가 매개변수만 달리해서 여러번 정의될 수 있는 개념</p>
+
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6</pre></td><td class="code"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Calc</span> <span class="p">{</span>
+ 	<span class="k">fun</span> <span class="nf">add</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span> <span class="n">Int</span> <span class="p">=</span> <span class="n">x</span> <span class="p">+</span> <span class="n">y</span>
+ 	<span class="k">fun</span> <span class="nf">add</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Double</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span><span class="n">Double</span><span class="p">):</span> <span class="n">Double</span> <span class="p">=</span> <span class="n">x</span> <span class="p">+</span> <span class="n">y</span>
+    <span class="k">fun</span> <span class="nf">add</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">String</span><span class="p">):</span> <span class="n">String</span> <span class="p">=</span> <span class="n">x</span> <span class="p">+</span> <span class="n">y</span>
+    <span class="k">fun</span> <span class="nf">add</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span> <span class="n">Int</span> <span class="p">=</span> <span class="n">x</span> <span class="p">+</span> <span class="n">y</span> <span class="p">+</span> <span class="n">z</span>
+<span class="p">}</span>
+</code></pre></td></tr></tbody></table></div>
+</div>
+
+<h3 id="오버라이딩">오버라이딩</h3>
+
+<p>하위 클래스에서 상위 클래스의 메서드를 재정의 하는 것</p>
+
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8</pre></td><td class="code"><pre class="highlight"><code><span class="k">open</span> <span class="kd">class</span> <span class="nc">Bird</span> <span class="p">{</span>
+    <span class="k">open</span> <span class="k">fun</span> <span class="nf">sing</span><span class="p">()</span> <span class="p">{}</span> <span class="c1">// 오버라이딩 가능
+</span>    <span class="k">fun</span> <span class="nf">fly</span><span class="p">()</span> <span class="p">{}</span> <span class="c1">// 오버라이딩 불가능
+</span><span class="p">}</span>
+
+<span class="kd">class</span> <span class="nc">Lark</span> <span class="p">:</span> <span class="n">Bird</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">override</span> <span class="k">fun</span> <span class="nf">sing</span><span class="p">()</span> <span class="p">{</span> <span class="cm">/* 재정의 */</span> <span class="p">}</span> <span class="c1">// 오버라이딩
+</span><span class="p">}</span>
+</code></pre></td></tr></tbody></table></div>
+</div>
+
+<p><code class="highlighter-rouge">open</code> 키워드가 붙은 메서드는 오버라이딩이 가능하고 없으면 오버라이딩이 불가능함. 상위 클래스를 상속받은 하위 클래스에서 <code class="highlighter-rouge">open</code> 키워드가 붙은 메서드를 오버라이딩해서 함수를 재구현할 수 있음.</p>
+
+<h2 id="super와-this">super와 this</h2>
+
+<p>클래스를 상위, 하위 클래스로 설계를 하다보면 상위와 현재 클래스의 특정 메서드나 프로퍼티, 생성자를 참조해야하는 경우가 생기는데 상위 클래스는 <code class="highlighter-rouge">super</code> 키워드로 하위 클래스는 <code class="highlighter-rouge">this</code> 키워드로 참조가 가능함.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th>super (상위 클래스 참조)</th>
+      <th>this (현재 클래스 참조)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>프토퍼티 참조</td>
+      <td>super.프로퍼티명</td>
+      <td>this.프로퍼티명</td>
+    </tr>
+    <tr>
+      <td>메서드 참조</td>
+      <td>super.메서드명()</td>
+      <td>this.메서드명()</td>
+    </tr>
+    <tr>
+      <td>생성자 참조</td>
+      <td>super()</td>
+      <td>this()</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="super로-상위-객체-참조">super로 상위 객체 참조</h3>
+
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12<br/>13<br/>14<br/>15<br/>16<br/>17<br/>18</pre></td><td class="code"><pre class="highlight"><code><span class="k">open</span> <span class="kd">class</span> <span class="nc">Bird</span> <span class="p">(</span><span class="kd">val</span> <span class="py">name</span><span class="p">:</span> <span class="n">String</span> <span class="p">=</span> <span class="s">"noname"</span><span class="p">,</span> <span class="kd">val</span> <span class="py">wing</span><span class="p">:</span> <span class="n">Int</span> <span class="p">=</span> <span class="m">2</span><span class="p">,</span> <span class="kd">val</span> <span class="py">beak</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span> <span class="kd">val</span> <span class="py">color</span><span class="p">:</span> <span class="n">Stirng</span><span class="p">){</span>
+    <span class="k">open</span> <span class="k">fun</span> <span class="nf">sing</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">println</span><span class="p">(</span><span class="s">"Bird sing"</span><span class="p">)</span>
+    <span class="p">}</span> 
+    <span class="k">fun</span> <span class="nf">fly</span><span class="p">()</span> <span class="p">{}</span> 
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="nc">Lark</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span> <span class="n">wing</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">beak</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span> <span class="n">color</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span> <span class="p">:</span> <span class="n">Bird</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">wing</span><span class="p">,</span> <span class="n">beak</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">override</span> <span class="k">fun</span> <span class="nf">sing</span><span class="p">()</span> <span class="p">{</span>
+    	<span class="k">super</span><span class="p">.</span><span class="n">sing</span><span class="p">()</span> <span class="c1">// 상위 클래스의 sing() 호출
+</span>        <span class="n">println</span><span class="p">(</span><span class="s">"Lark sing"</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="kd">val</span> <span class="py">lark</span> <span class="p">=</span> <span class="n">Lark</span><span class="p">(</span><span class="s">"lark"</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="s">"long"</span><span class="p">,</span> <span class="s">"brawon"</span><span class="p">)</span>
+    <span class="n">lark</span><span class="p">.</span><span class="n">sing</span><span class="p">()</span>
+<span class="p">}</span>
+</code></pre></td></tr></tbody></table></div>
+</div>
+
+<p>result</p>
+
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2</pre></td><td class="code"><pre class="highlight"><code>Bird sing
+Lark sing
+</code></pre></td></tr></tbody></table></div>
+</div>
+
+<h3 id="this로-현재-객체-참조">this로 현재 객체 참조</h3>
+
+<p><strong>여러 개의 부 생성자에서 참조하기</strong></p>
+
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12<br/>13<br/>14<br/>15<br/>16<br/>17<br/>18<br/>19<br/>20<br/>21<br/>22<br/>23<br/>24<br/>25</pre></td><td class="code"><pre class="highlight"><code><span class="k">open</span> <span class="kd">class</span> <span class="nc">Person</span> <span class="p">{</span>
+    <span class="k">constructor</span><span class="p">(</span><span class="n">firstName</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">println</span><span class="p">(</span><span class="s">"[Person] firstName: $firstName"</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="k">constructor</span><span class="p">(</span><span class="n">firstName</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span> <span class="n">age</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="p">{</span> 
+        <span class="n">println</span><span class="p">(</span><span class="s">"[Person] firstName: $firstName age: $age"</span><span class="p">)</span> <span class="c1">// 4
+</span>    <span class="p">}</span>
+<span class="p">}</span>
+
+
+<span class="kd">class</span> <span class="nc">Developer</span> <span class="p">:</span> <span class="n">Person</span> <span class="p">{</span>
+
+    <span class="k">constructor</span><span class="p">(</span><span class="n">firstName</span><span class="p">:</span> <span class="n">String</span><span class="p">):</span> <span class="k">this</span><span class="p">(</span><span class="n">firstName</span><span class="p">,</span> <span class="m">21</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// 2
+</span>        <span class="n">println</span><span class="p">(</span><span class="s">"[Developer] firstName: $firstName"</span><span class="p">)</span> <span class="c1">// 6
+</span>    <span class="p">}</span>
+
+    <span class="k">constructor</span><span class="p">(</span><span class="n">firstName</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span> <span class="n">age</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span> <span class="k">super</span><span class="p">(</span><span class="n">firstName</span><span class="p">,</span> <span class="n">age</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// 3
+</span>        <span class="n">println</span><span class="p">(</span><span class="s">"[Developer] firstName: $firstName, age: $age"</span><span class="p">)</span> <span class="c1">// 4
+</span>    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">val</span> <span class="py">lowell</span> <span class="p">=</span> <span class="n">Developer</span><span class="p">(</span><span class="s">"Lowell"</span><span class="p">)</span> <span class="c1">// 1
+</span><span class="p">}</span>
+</code></pre></td></tr></tbody></table></div>
+</div>
+
+<p>result</p>
+
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3</pre></td><td class="code"><pre class="highlight"><code>[Person] firstName: Lowell age: 21
+[Developer] firstName: Lowell, age: 21
+[Developer] firstName: Lowell
+</code></pre></td></tr></tbody></table></div>
+</div>
+
+<p>객체 생성 흐름</p>
+
+<ol>
+  <li>Developer <code class="highlighter-rouge">constructor(firstName: String)</code> 호출</li>
+  <li>Developer <code class="highlighter-rouge">constructor(firstName: String, age: Int)</code> 호출</li>
+  <li>Person <code class="highlighter-rouge">constructor(firstName: String)</code> 호출</li>
+  <li><code class="highlighter-rouge">println("[Person] firstName: $firstName")</code></li>
+  <li><code class="highlighter-rouge">println("[Developer] firstName: $firstName, age: $age")</code></li>
+  <li><code class="highlighter-rouge">println("[Developer] firstName: $firstName")</code></li>
+</ol>
+
+<p><strong>주 생성자와 부 생성자 함께 사용하기</strong></p>
+
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12<br/>13<br/>14<br/>15<br/>16<br/>17<br/>18</pre></td><td class="code"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Animal</span><span class="p">(</span>
+    <span class="n">name</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span>
+    <span class="k">out</span><span class="p">:</span> <span class="n">Unit</span> <span class="p">=</span> <span class="n">println</span><span class="p">(</span><span class="s">"[Primary Constructor] Parameter"</span><span class="p">)</span> <span class="c1">// 2
+</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">val</span> <span class="py">animalName</span> <span class="p">=</span> <span class="n">println</span><span class="p">(</span><span class="s">"[Property] Animal name: $name"</span><span class="p">)</span> <span class="c1">// 3
+</span>
+    <span class="n">init</span><span class="p">{</span>
+        <span class="n">println</span><span class="p">(</span><span class="s">"[init] Animal init block"</span><span class="p">)</span> <span class="c1">// 4
+</span>    <span class="p">}</span>
+
+    <span class="k">constructor</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span> <span class="n">age</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="k">out</span><span class="p">:</span> <span class="n">Unit</span> <span class="p">=</span> <span class="n">println</span><span class="p">(</span><span class="s">"[Secondary Constructor] Parameter"</span><span class="p">)):</span> <span class="k">this</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// 1 ~ 2
+</span>        <span class="n">println</span><span class="p">(</span><span class="s">"[Secondary Constructor] Body: $name, $age"</span><span class="p">)</span><span class="c1">// 5
+</span>    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">val</span> <span class="py">a1</span> <span class="p">=</span> <span class="n">Animal</span><span class="p">(</span><span class="s">"rabbit"</span><span class="p">,</span> <span class="m">10</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></td></tr></tbody></table></div>
+</div>
+
+<p>result</p>
+
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5</pre></td><td class="code"><pre class="highlight"><code>[Secondary Constructor] Parameter
+[Primary Constructor] Parameter
+[Property] Animal name: rabbit
+[init] Animal init block
+[Secondary Constructor] Body: rabbit, 10
+</code></pre></td></tr></tbody></table></div>
+</div>
+
+<p>객체 생성 흐름</p>
+
+<ol>
+  <li><code class="highlighter-rouge">constructor(name: String, age: Int, out: Unit = println("[Secondary Constructor] Parameter"))</code> 호출 및 출력</li>
+  <li><code class="highlighter-rouge">Animal(name: String, out: Unit = println("[Primary Constructor] Parameter"))</code> 호출 및 출력</li>
+  <li><code class="highlighter-rouge">val animalName = println("[Property] Animal name: $name")</code> 프로퍼티 할당 및 출력</li>
+  <li><code class="highlighter-rouge">init{  println("[init] Animal init block") }</code> 초기화 및 출력</li>
+  <li><code class="highlighter-rouge">println("[Secondary Constructor] Body: $name, $age")</code></li>
+</ol>
+
+<h2 id="가시성-지시자">가시성 지시자</h2>
+
+<p>가시성: 각 클래스나 메서드, 프로퍼티의 접근 범위</p>
+
+<p>가시정 지시자를 통해 공개할 부분과 숨길 부분을 정할 수 있음</p>
+
+<ul>
+  <li><code class="highlighter-rouge">private</code>
+    <ul>
+      <li>외부에서 접근할 수 없음</li>
+    </ul>
+  </li>
+  <li><code class="highlighter-rouge">public</code>
+    <ul>
+      <li>어디서든 접근 가능 (default)</li>
+    </ul>
+  </li>
+  <li><code class="highlighter-rouge">protected</code>
+    <ul>
+      <li>외부에서 접근할 수 없으나 하위 상속 요소에선 가능함</li>
+    </ul>
+  </li>
+  <li><code class="highlighter-rouge">internal </code>
+    <ul>
+      <li>같은 정의의 모듈 내부에서는 접근 가능</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="refer">Refer</h3>
+
+<p><a href="http://www.yes24.com/Product/Goods/74035266">Do it! 코틀린 프로그래밍-05 클래스와 객체</a></p>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            
+            <a href="/tag/#/kotlin" rel="tag"># kotlin</a>
+          
+            
+            <a href="/tag/#/kotlin%20class" rel="tag"># kotlin class</a>
+          
+        </div>
+      
+
+      
+      
+      
+      
+      
+
+      
+      
+        <div class="post-nav" id="post-nav-id">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/python/2020/03/21/setting-python-interpreter-in-intellij/" rel="prev" title="intellij에서 python interpreter 셋팅하기">
+                intellij에서 python interpreter 셋팅하기 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+      
+
+      
+    </footer>
+  </article>
+
+  <div class="post-spread">
+    
+  </div>
+</div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="fb-comments"
+           data-href="http://localhost:4000/til/2020/03/29/TIL-kotlin-class/"
+           data-numposts="10"
+           data-width="100%"
+           data-colorscheme="light">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lowell</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://jekyllrb.com">Jekyll</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/simpleyyt/jekyll-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+   
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/assets/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/assets/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  <script type="text/javascript" src="/assets/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/assets/js/src/post-details.js?v=5.1.1"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/assets/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+    
+
+  
+
+
+
+
+
+  
+
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
+
