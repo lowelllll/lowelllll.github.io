@@ -71,7 +71,16 @@
           {% endif %}
         </{% if site.seo %}h2{% else %}h1{% endif %}>
         {% endunless %}
-
+        {% unless is_index %}
+        <span>
+          <a href="http://hits.dwyl.com/{{ site.url | remove_first: 'https://' | remove_first: 'http://' }}{{ page.url }}"
+            target="_blank" style="border-bottom: none">
+            <img
+              src="http://hits.dwyl.com/{{ site.url | remove_first: 'https://' | remove_first: 'http://' }}{{ page.url }}.svg" 
+              style="display:inherit"/>
+          </a>
+        </span>
+        {% endunless %}
         <div class="post-meta">
           <span class="post-time">
             {% if site.post_meta.created_at %}
@@ -226,6 +235,7 @@
               {% endif %}
             </div>
           {% endif %}
+          
 
           {% unless site.excerpt_description and is_index %}
             {% if site.description %}
@@ -238,7 +248,7 @@
         </div>
       </header>
     {% endunless %}
-
+    
     <div class="post-body{% if site.han %} han-init-context{% endif %}" itemprop="articleBody">
 
       {% if is_index %}
@@ -249,6 +259,7 @@
           <!--/noindex-->
           {% endif %}
       {% else %}
+      
         {% include _macro/post-content.html %}
       {% endif  %}
     </div>
