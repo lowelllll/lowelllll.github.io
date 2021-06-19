@@ -73,11 +73,8 @@
         {% endunless %}
         {% unless is_index %}
         <span>
-          <a href="http://hits.dwyl.com/{{ site.url | remove_first: 'https://' | remove_first: 'http://' }}{{ page.url }}"
-            target="_blank" style="border-bottom: none">
-            <img
-              src="http://hits.dwyl.com/{{ site.url | remove_first: 'https://' | remove_first: 'http://' }}{{ page.url }}.svg" 
-              style="display:inherit"/>
+          <a href="https://hits.seeyoufarm.com">
+            <img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url={{site.url}}{{page.url}}&count_bg=%23FFD32A&title_bg=%23AF91E7&icon=&icon_color=%23FFFEFE&title=hits&edge_flat=true" style="margin:inherit"/>
           </a>
         </span>
         {% endunless %}
